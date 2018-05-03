@@ -19,8 +19,10 @@ public class CadastroUsuarioBean implements Serializable {
 	private static final long serialVersionUID = -8696022544177517987L;
 	private UsuarioService usuarioService;
 	private String nome;
+	private Usuario usuario;
 
 	public CadastroUsuarioBean() {
+		usuario = new Usuario();
 	}
 
 	@PostConstruct
@@ -32,7 +34,8 @@ public class CadastroUsuarioBean implements Serializable {
 	public void cadastrar() {
 		Usuario usuario = new Usuario();
 		usuario.setNome(nome);
-		usuarioService.cadastrarUsuario(usuario);
+		usuario.setIdusuario(1);
+		usuarioService.save(usuario);
 	}
 
 	public UsuarioService getUsuarioService() {

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.edu.uniopet.util;
+package util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -54,6 +54,10 @@ public class HibernateUtil {
 		return sessionFactory;
 	}
 	
+	  public static void shutdown() {
+	        // Close caches and connection pools
+	        getSessionFactory().close();
+	    }
 	/**
 	 * @param args
 	 */
