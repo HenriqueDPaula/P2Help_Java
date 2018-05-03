@@ -22,16 +22,17 @@ public class CadastroUsuarioBean implements Serializable {
 	private Usuario usuario;
 
 	public CadastroUsuarioBean() {
-		usuario = new Usuario();
+		this.usuario = new Usuario();
+		this.usuarioService = new UsuarioService();
 	}
 
 	@PostConstruct
 	public void init() {
 		usuarioService = new UsuarioService();
 	}
-	
-	
+
 	public void cadastrar() {
+
 		Usuario usuario = new Usuario();
 		usuario.setNome(nome);
 		usuario.setIdusuario(1);
@@ -57,22 +58,5 @@ public class CadastroUsuarioBean implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }
