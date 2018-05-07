@@ -8,9 +8,8 @@ import util.HibernateUtil;
 import vo.Usuario;
 
 public class UsuarioDAO {
-
+	
 	private Session session;
-	private Transaction transation;
 
 	public UsuarioDAO() {
 		this.session = HibernateUtil.getSessionFactory().openSession();
@@ -22,11 +21,10 @@ public class UsuarioDAO {
 
 	public void save(Usuario usuario) throws HibernateException {
 
-		this.transation = this.session.beginTransaction();
-
-		this.session.save(usuario);
-		
-		this.transation.commit();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction t = session.beginTransaction();
+		session.save(usuario);
+		t.commit();
 
 	}
 }

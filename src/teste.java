@@ -9,7 +9,8 @@ public class teste {
 		// TODO Auto-generated method stub
 
 		usuario.setNome("roberci");
-		usuario.setIdusuario(1);
+		usuario.setLogin("loginTesww");
+		usuario.setSenha("senhaTestdd");
 		usuarioService.save(usuario);
 	
 	}

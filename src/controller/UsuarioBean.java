@@ -10,8 +10,8 @@ import service.UsuarioService;
 import vo.Usuario;
 
 @ViewScoped
-@ManagedBean(name = "cadastroUsuarioBean")
-public class CadastroUsuarioBean implements Serializable {
+@ManagedBean(name = "usuarioBean")
+public class UsuarioBean implements Serializable {
 
 	/**
 	 * 
@@ -21,7 +21,7 @@ public class CadastroUsuarioBean implements Serializable {
 	private String nome;
 	private Usuario usuario;
 
-	public CadastroUsuarioBean() {
+	public UsuarioBean() {
 		this.usuario = new Usuario();
 		this.usuarioService = new UsuarioService();
 	}
@@ -33,9 +33,8 @@ public class CadastroUsuarioBean implements Serializable {
 
 	public void cadastrar() {
 
-		Usuario usuario = new Usuario();
-		usuario.setNome(nome);
-		usuario.setIdusuario(1);
+		this.usuario = new Usuario();
+		this.usuarioService = new UsuarioService();
 		usuarioService.save(usuario);
 	}
 
