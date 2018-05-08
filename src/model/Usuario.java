@@ -32,6 +32,10 @@ public class Usuario implements Serializable {
 	@Column(name = "IDUSUARIO", nullable = false)
 	private Integer idusuario;
 
+	/*
+	 * Atributos a seres settados:
+	 * Nome, CPF, Rg, Rg Emissor, Endereço, numero, bairro, complemento, e o id do municipio(fk)
+	 */
 	@Column(name = "NOME", length = 200, nullable = false)
 	private String nome;
 
@@ -66,6 +70,7 @@ public class Usuario implements Serializable {
 	public Usuario() {
 
 	}
+	
 
 	/*
 	 * Getters and Setters

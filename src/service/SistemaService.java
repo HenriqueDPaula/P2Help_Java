@@ -1,0 +1,35 @@
+package service;
+
+import javax.inject.Named;
+
+import DAO.SistemaDAO;
+import model.Sistema;
+
+@Named
+public class SistemaService {
+
+	private SistemaDAO sistemaDAO;
+
+	/*
+	 * Construtor instanciando a ClasseDAO
+	 */
+	public SistemaService() {
+
+		this.sistemaDAO = new SistemaDAO();
+	}
+
+	/*
+	 * Método para cadastrar Sistema
+	 */
+	public void save(Sistema sistema) {
+		// TODO Auto-generated method stub
+		this.sistemaDAO.save(sistema);
+	}
+	
+	/*
+	 * Método para encontrar Sistema pelo ID
+	 */
+	public Sistema FindById(int idsistema) {
+		return this.sistemaDAO.findById(idsistema);
+	}
+}
