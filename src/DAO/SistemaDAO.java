@@ -1,9 +1,14 @@
 package DAO;
 
+import java.util.List;
+
+import javax.persistence.Query;
+
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import model.Sistema;
 import util.HibernateUtil;
@@ -32,15 +37,30 @@ public class SistemaDAO {
 	public Sistema findById(int idsistema) {
 
 		Sistema sistema = null;
-		
+
 		criteria = session.createCriteria(Sistema.class);
 
 		criteria.add(Restrictions.eq("idsistema", idsistema));
 
 		sistema = (Sistema) criteria.uniqueResult();
 
-
 		return sistema;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Sistema> Listar() {
+
+		List<Sistema> sistemas = null;
+
+		// Processamento dos dados
+
+		criteria = session.createCriteria(Sistema.class);
+
+		criteria.addOrder(Order.asc("nome"));
+
+		sistemas = criteria.list();
+
+		return sistemas;
 	}
 
 }

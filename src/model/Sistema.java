@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,6 +43,7 @@ public class Sistema {
 	
 	@Column(name = "NOME", nullable = false)
 	private String nome;
+	
 
 	/*
 	 * Getters and Setters
@@ -68,5 +71,6 @@ public class Sistema {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 	
 }
