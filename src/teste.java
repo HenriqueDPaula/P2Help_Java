@@ -1,3 +1,4 @@
+import DAO.MunicipiosDAO;
 import model.Municipios;
 import model.Usuario;
 import service.MunicipioService;
@@ -9,10 +10,15 @@ public class teste {
 	static UsuarioService usuarioService = new UsuarioService();
 	static Municipios municipio = new Municipios();
 	static MunicipioService municipioService = new MunicipioService();
+	static MunicipiosDAO municipioDAO = new MunicipiosDAO();
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
-		municipioService.FindById(4105805);
+		
+		Municipios muni = municipioService.FindById(4106902);
+		System.out.println(muni.getNome());
+//municipioDAO.findById(4105805);
+//System.out.println(municipio.getNome());
+//		//municipioService.FindById(4105805);
 //		municipio.setNome("paranagua");
 //		municipio.setUf("PR");
 //		municipio.setIdmunicipio(4);

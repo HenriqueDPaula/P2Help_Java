@@ -1,5 +1,6 @@
 package DAO;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -11,6 +12,7 @@ import util.HibernateUtil;
 public class MunicipiosDAO {
 
 	private Session session;
+	private Criteria criteria;
 
 	public MunicipiosDAO() {
 		this.session = HibernateUtil.getSessionFactory().openSession();
@@ -29,11 +31,17 @@ public class MunicipiosDAO {
 	}
 
 	public Municipios findById(int idmunicipio) {
-		Municipios municipio;
-		this.session = HibernateUtil.getSessionFactory().openSession();
-		Transaction tx = session.beginTransaction();
-		return (Municipios) session.createCriteria(Municipios.class).add(Restrictions.eq("idmunicipio", idmunicipio))
-				.uniqueResult();
+
+		Municipios municipio = null;
+		
+		criteria = session.createCriteria(Municipios.class);
+
+		criteria.add(Restrictions.eq("idmunicipio", idmunicipio));
+
+		municipio = (Municipios) criteria.uniqueResult();
+
+
+		return municipio;
 	}
 
 }
