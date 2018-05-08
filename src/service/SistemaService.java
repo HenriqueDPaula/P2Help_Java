@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import javax.inject.Named;
 
 import DAO.SistemaDAO;
@@ -25,11 +27,18 @@ public class SistemaService {
 		// TODO Auto-generated method stub
 		this.sistemaDAO.save(sistema);
 	}
-	
+
 	/*
 	 * Método para encontrar Sistema pelo ID
 	 */
 	public Sistema FindById(int idsistema) {
 		return this.sistemaDAO.findById(idsistema);
+	}
+
+	/*
+	 * Método para listar ordenando por nome
+	 */
+	public List<Sistema> listar() {
+		return this.sistemaDAO.listar();
 	}
 }

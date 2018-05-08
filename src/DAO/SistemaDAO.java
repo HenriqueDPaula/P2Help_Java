@@ -2,8 +2,6 @@ package DAO;
 
 import java.util.List;
 
-import javax.persistence.Query;
-
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -13,7 +11,7 @@ import org.hibernate.criterion.Restrictions;
 import model.Sistema;
 import util.HibernateUtil;
 
-public class SistemaDAO {
+public class SistemaDAO implements ISistemaDAO{
 
 	private Session session;
 	private Criteria criteria;
@@ -48,7 +46,7 @@ public class SistemaDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Sistema> Listar() {
+	public List<Sistema> listar() {
 
 		List<Sistema> sistemas = null;
 

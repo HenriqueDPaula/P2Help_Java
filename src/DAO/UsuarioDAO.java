@@ -7,8 +7,8 @@ import org.hibernate.Transaction;
 import model.Usuario;
 import util.HibernateUtil;
 
-public class UsuarioDAO {
-	
+public class UsuarioDAO implements IUsuarioDAO {
+
 	private Session session;
 
 	public UsuarioDAO() {

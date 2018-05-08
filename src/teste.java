@@ -19,38 +19,39 @@ public class teste {
 	static MunicipiosDAO municipioDAO = new MunicipiosDAO();
 	static SistemaService sistemaService = new SistemaService();
 	static SistemaDAO sis = new SistemaDAO();
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-//		List<Sistema> sist = new ArrayList<Sistema>();
-//		sist = sis.Listar();
-//		for (Sistema sistema : sist) {
-//			System.out.println(sistema.getNome());
-//		}
-//		
-//		Sistema sistema = sistemaService.FindById(6);
-//		sistema.setFabricante("hp");
-//		sistema.setNome("notebook");
-//		sistemaService.save(sistema);
-//		System.out.println(sistema.getNome());
-//		Municipios muni = municipioService.FindById(4106902);
-//		System.out.println(muni.getNome());
-		//municipioDAO.findById(4105805);
-//System.out.println(municipio.getNome());
-//		//municipioService.FindById(4105805);
-//		municipio.setNome("india");
-//		municipio.setUf("PR");
-////	municipio.setIdmunicipio(4);
-//		municipioService.save(municipio);
-//	usuario.setNome("carlosAlberto");
-//		usuario.setCpf("01223929938");
-//		usuario.setBairro("xaxim");
-//		usuario.setComplemento("casa");
-//		usuario.setEndereco("Gerhdar Heinrichs");
-//		usuario.setRg("12131133");
-//		usuario.setRgEmissor("PR");
-//		usuario.setMunicipio(muni);
-//		usuarioService.save(usuario);
-//	
+		List<Municipios> muni = new ArrayList<Municipios>();
+		muni = municipioService.listar();
+		for (Municipios municipio : muni) {
+			System.out.println(municipio.getNome());
+		}
+		//
+		// Sistema sistema = sistemaService.FindById(6);
+		// sistema.setFabricante("hp");
+		// sistema.setNome("notebook");
+		// sistemaService.save(sistema);
+		// System.out.println(sistema.getNome());
+		// Municipios muni = municipioService.FindById(4106902);
+		// System.out.println(muni.getNome());
+		// municipioDAO.findById(4105805);
+		// System.out.println(municipio.getNome());
+		// //municipioService.FindById(4105805);
+		// municipio.setNome("india");
+		// municipio.setUf("PR");
+		//// municipio.setIdmunicipio(4);
+		// municipioService.save(municipio);
+		// usuario.setNome("carlosAlberto");
+		// usuario.setCpf("01223929938");
+		// usuario.setBairro("xaxim");
+		// usuario.setComplemento("casa");
+		// usuario.setEndereco("Gerhdar Heinrichs");
+		// usuario.setRg("12131133");
+		// usuario.setRgEmissor("PR");
+		// usuario.setMunicipio(muni);
+		// usuarioService.save(usuario);
+		//
 	}
 
 }

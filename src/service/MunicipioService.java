@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import javax.inject.Named;
 
 import DAO.MunicipiosDAO;
@@ -25,11 +27,18 @@ public class MunicipioService {
 		// TODO Auto-generated method stub
 		this.municipioDAO.save(municipio);
 	}
-	
+
 	/*
-	 * Método para encontrar municipio pelo ID
+	 * Encontrar municipio pelo ID
 	 */
 	public Municipios FindById(int idmunicipio) {
 		return this.municipioDAO.findById(idmunicipio);
+	}
+
+	/*
+	 * Retorno de uma lista de Municipios
+	 */
+	public List<Municipios> listar() {
+		return this.municipioDAO.listar();
 	}
 }
