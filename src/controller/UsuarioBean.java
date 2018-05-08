@@ -6,8 +6,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import model.Usuario;
 import service.UsuarioService;
-import vo.Usuario;
 
 @ViewScoped
 @ManagedBean(name = "usuarioBean")

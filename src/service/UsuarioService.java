@@ -3,7 +3,7 @@ package service;
 import javax.inject.Named;
 
 import DAO.UsuarioDAO;
-import vo.Usuario;
+import model.Usuario;
 
 @Named
 public class UsuarioService {

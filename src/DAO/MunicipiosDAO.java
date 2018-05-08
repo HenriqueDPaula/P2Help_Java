@@ -4,14 +4,14 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import model.Usuario;
+import model.Municipios;
 import util.HibernateUtil;
 
-public class UsuarioDAO {
+public class MunicipiosDAO {
 	
 	private Session session;
 
-	public UsuarioDAO() {
+	public MunicipiosDAO() {
 		this.session = HibernateUtil.getSessionFactory().openSession();
 	}
 
@@ -19,11 +19,11 @@ public class UsuarioDAO {
 		this.session = session;
 	}
 
-	public void save(Usuario usuario) throws HibernateException {
+	public void save(Municipios municipio) throws HibernateException {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction t = session.beginTransaction();
-		session.save(usuario);
+		session.save(municipio);
 		t.commit();
 
 	}
