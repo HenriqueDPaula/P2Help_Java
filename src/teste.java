@@ -12,13 +12,19 @@ public class teste {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		municipio.setNome("Curitiba");
-		municipio.setUf("PR");
-		municipioService.save(municipio);
-		
+		municipioService.FindById(4105805);
+//		municipio.setNome("paranagua");
+//		municipio.setUf("PR");
+//		municipio.setIdmunicipio(4);
+//		municipioService.save(municipio);
 //		usuario.setNome("roberci");
-//		usuario.setLogin("loginTesww");
-//		usuario.setSenha("senhaTestdd");
+//		usuario.setCpf("01222929938");
+//		usuario.setBairro("xaxim");
+//		usuario.setComplemento("casa");
+//		usuario.setEndereco("Gerhdar Heinrichs");
+//		usuario.setRg("12131133");
+//		usuario.setRgEmissor("PR");
+//		usuario.setMunicipio(municipio);
 //		usuarioService.save(usuario);
 	
 	}
