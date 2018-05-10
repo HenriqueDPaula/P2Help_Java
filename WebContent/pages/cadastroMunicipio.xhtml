@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://java.sun.com/jsf/composite/primefaces">
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
@@ -14,6 +14,12 @@
 		<h:outputLabel value="Municipio" />
 		<h:inputText value="#{municipioBean.nome}" />
 
+		<p:selectOneMenu id="nomeMunicipio"
+			value="#{municipioBean.municipio.nome}"
+			converter="municipioConverter">
+			<f:selectItem itemLabel="Selecione" />
+			<f:selectItems value="#{municipioBean.selectOne()}" var="set" />
+		</p:selectOneMenu>
 
 		<h:outputLabel value="Municipio/uf" />
 		<h:inputText value="#{municipioBean.uf}" />

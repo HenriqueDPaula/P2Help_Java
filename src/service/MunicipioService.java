@@ -2,12 +2,13 @@ package service;
 
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 
 import DAO.MunicipiosDAO;
 import model.Municipios;
 
-@Named
+@ManagedBean(name = "municipioService")
 public class MunicipioService {
 
 	private MunicipiosDAO municipioDAO;
