@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -31,6 +34,23 @@ public class MunicipioBean {
 		return "/pages/municipioTeste";
 	}
 
+	public void selectOne() {
+		List <Municipios> mun = new ArrayList();
+		Municipios muni = new Municipios();
+		muni.setNome("Paraiba");
+		muni.setUf("CE");
+		mun.add(muni); 
+		Municipios muni2 = new Municipios();
+		muni2.setNome("rio de Janeiro");
+		muni2.setUf("RJ");
+		mun.add(muni2);
+		
+		for (Municipios municipios : mun) {
+			municipios.getNome();
+		}
+	
+		
+	}
 	public MunicipioService getMunicipioService() {
 		return municipioService;
 	}

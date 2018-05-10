@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://java.sun.com/jsf/composite/primefaces">
+
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>Insert title here</title>
@@ -13,11 +14,14 @@
 		<h:outputLabel value="Municipio" />
 		<h:inputText value="#{municipioBean.nome}" />
 
+
 		<h:outputLabel value="Municipio/uf" />
 		<h:inputText value="#{municipioBean.uf}" />
 
 		<h:commandButton value="Enviar"
 			action="#{municipioBean.CadastrarMunicipio()}" />
+
+		<h:selectOneMenu value="#{municipioBean.selectOne()}"></h:selectOneMenu>
 
 	</h:form>
 </h:body>
