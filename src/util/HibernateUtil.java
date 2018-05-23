@@ -7,63 +7,47 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
-import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
- * Classe para realizar a ponte entre o arquivo de conexão e o banco de dados.
+ * Classe para criar uma a conexão entre o arquivo de configuração e a conexão
+ * com o Banco de dados.
  * 
  * @author Baracho
  * 
- * @since 26/05/2013
+ * @since 01/02/2012
  * 
  * @version 1.0
  * 
  */
 
 public class HibernateUtil {
-	// declare um objeto do tipo SessionFactory
-	/*
-	 * Mas pq o atributo é static? declare como static para que vc possa chamar esse
-	 * método mesmo sem ter uma instância da classe HibernateUtil, conceito básico
-	 * de encapsulamento.
-	 */
-	// ops não esqueça de importar do pacote correto heim
-	// deve ser o pacote org.hibernate
 
-	public static SessionFactory sessionFactory;
+	private static final SessionFactory sessionFactory = buildSessionFactory();
 
-	public HibernateUtil() {
-	}
+	private static SessionFactory buildSessionFactory() {
 
-	/*
-	 * vamos criar um método que retorne a nossa sessionFactory aberta esse método
-	 * tb deve ser static, pois um atributo static só pode ser visto por um método
-	 * tb static
-	 */
-	public static SessionFactory getSessionFactory() {
-		// verificar se nossa session é null, se for passar a configuração e abrir
-		if (sessionFactory == null) {
-			// por favor dentro de try e catch para tratarmos o erro se ocorrer
-			try {
-				// instanciar o objeto para receber a configuração
-				AnnotationConfiguration annotation = new AnnotationConfiguration();
-				// vamos pedir para ler a configuração e abrir a sessão
-				sessionFactory = annotation.configure().buildSessionFactory();
+		ServiceRegistry serviceRegistry = null;
 
-			} catch (Throwable ex) {
-				/*
-				 * Throwable é o pai de todas as excessões então qualquer excessão que ocorrer
-				 * será tratada
-				 */
-				System.out.println("Erro ao inicar o Hibernte " + ex);
-				throw new ExceptionInInitializerError(ex);
-			}
-			// se td der certo retorna a sessao aberta
-			return sessionFactory;
+		try {
 
-		} else {
-			return sessionFactory;
+			Configuration configuration = new Configuration();
+
+			configuration.configure("hibernate.cfg.xml");
+
+			serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties())
+					.buildServiceRegistry();
+
+			return configuration.buildSessionFactory(serviceRegistry);
+
+		} catch (Throwable e) {
+			// TODO: handle exception
+			System.out.println("Criação inicial do objeto sessionfactory falhou. Erro: " + e);
+			throw new ExceptionInInitializerError(e);
 		}
 	}
 
+	public static SessionFactory getSessionFactory() {
+
+		return sessionFactory;
+	}
 }
