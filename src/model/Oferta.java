@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -41,17 +44,20 @@ public class Oferta implements Serializable {
 	@Column(name = "DESCRICAO", length = 400, nullable = true)
 	private String descricao;
 
-	@Column(name = "IDUSUARIO", nullable = false)
-	private Integer idusuario;
+	@ManyToOne
+	@JoinColumn(name = "IDUSUARIO")
+	private Usuario idusuario;
 
-	@Column(name = "IDCATEGORIA", nullable = false)
-	private Integer idcategoria;
+	@ManyToOne
+	@JoinColumn(name = "IDCATEGORIA")
+	private Categoria idcategoria;
 
-	@Column(name = "STATUS", length = 1, nullable = false)
+	@Column(name = "STATUS", length = 20, nullable = false)
 	private char status;
 
-	@Column(name = "IDSISTEMA", nullable = false)
-	private Integer idsistema;
+	@ManyToOne
+	@JoinColumn(name = "IDSISTEMA")
+	private Sistema idsistema;
 
 	public Oferta() {
 
@@ -97,21 +103,6 @@ public class Oferta implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Integer getIdusuario() {
-		return idusuario;
-	}
-
-	public void setIdusuario(Integer idusuario) {
-		this.idusuario = idusuario;
-	}
-
-	public Integer getIdcategoria() {
-		return idcategoria;
-	}
-
-	public void setIdcategoria(Integer idcategoria) {
-		this.idcategoria = idcategoria;
-	}
 
 	public char getStatus() {
 		return status;
@@ -121,16 +112,34 @@ public class Oferta implements Serializable {
 		this.status = status;
 	}
 
-	public Integer getIdsistema() {
-		return idsistema;
-	}
 
-	public void setIdsistema(Integer idsistema) {
-		this.idsistema = idsistema;
-	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Usuario getIdusuario() {
+		return idusuario;
+	}
+
+	public void setIdusuario(Usuario idusuario) {
+		this.idusuario = idusuario;
+	}
+
+	public Categoria getIdcategoria() {
+		return idcategoria;
+	}
+
+	public void setIdcategoria(Categoria idcategoria) {
+		this.idcategoria = idcategoria;
+	}
+
+	public Sistema getIdsistema() {
+		return idsistema;
+	}
+
+	public void setIdsistema(Sistema idsistema) {
+		this.idsistema = idsistema;
 	}
 
 }
