@@ -20,5 +20,7 @@
   <mapping class="model.Usuario"/>
   <mapping class="model.Municipios"/>
   <mapping class="model.Sistema"/>
+  <mapping class="model.Categoria"/>
+  <mapping class="model.Oferta"/>
  </session-factory>
 </hibernate-configuration>
