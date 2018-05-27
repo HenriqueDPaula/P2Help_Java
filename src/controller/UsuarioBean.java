@@ -3,8 +3,10 @@ package controller;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import model.Usuario;
 import service.UsuarioService;
@@ -29,6 +31,19 @@ public class UsuarioBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		usuarioService = new UsuarioService();
+	}
+
+	public String validateLogin() {
+		usuario = usuarioService.validateLogin(usuario.getEmail(), usuario.getSenha());
+		if (usuario == null) {
+			usuario = new Usuario();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário não encontrado!", "Erro no Login!"));
+			return null;
+		} else {
+			return "/main";
+		}
+
 	}
 
 	public void cadastrar() {

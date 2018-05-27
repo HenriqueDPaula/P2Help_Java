@@ -12,8 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 /*
@@ -98,11 +101,12 @@ public class Usuario implements Serializable {
 	 * @return the senha
 	 */
 	public String getSenha() {
-		return senha;
+		return senha.trim();
 	}
 
 	/**
-	 * @param senha the senha to set
+	 * @param senha
+	 *            the senha to set
 	 */
 	public void setSenha(String senha) {
 		this.senha = senha;
@@ -116,7 +120,8 @@ public class Usuario implements Serializable {
 	}
 
 	/**
-	 * @param email the email to set
+	 * @param email
+	 *            the email to set
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -130,7 +135,8 @@ public class Usuario implements Serializable {
 	}
 
 	/**
-	 * @param permissao the permissao to set
+	 * @param permissao
+	 *            the permissao to set
 	 */
 	public void setPermissao(Set<String> permissao) {
 		this.permissao = permissao;
@@ -218,6 +224,14 @@ public class Usuario implements Serializable {
 
 	public void setMunicipio(Municipios municipio) {
 		this.municipio = municipio;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idusuario == null) ? 0 : idusuario.hashCode());
+		return result;
 	}
 
 }

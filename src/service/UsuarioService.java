@@ -11,7 +11,7 @@ public class UsuarioService {
 	private UsuarioDAO usuarioDAO;
 
 	public UsuarioService() {
-		
+
 		this.usuarioDAO = new UsuarioDAO();
 	}
 
@@ -19,5 +19,9 @@ public class UsuarioService {
 		// TODO Auto-generated method stub
 		this.usuarioDAO.save(usuario);
 
+	}
+
+	public Usuario validateLogin(String email, String senha) {
+		return this.usuarioDAO.validateLogin(email, senha);
 	}
 }

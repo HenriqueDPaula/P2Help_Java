@@ -11,7 +11,7 @@ import org.hibernate.criterion.Restrictions;
 import model.Sistema;
 import util.HibernateUtil;
 
-public class SistemaDAO implements ISistemaDAO{
+public class SistemaDAO implements ISistemaDAO {
 
 	private Session session;
 	private Criteria criteria;
@@ -59,6 +59,13 @@ public class SistemaDAO implements ISistemaDAO{
 		sistemas = criteria.list();
 
 		return sistemas;
+	}
+
+	@Override
+	public List<Sistema> findByName(String sistema) {
+		String hql = "SELECT nome FROM Curso curso " + "INNER JOIN curso.disciplina AS disciplina";
+		return (List<Sistema>) session.createQuery(hql).list();
+
 	}
 
 }

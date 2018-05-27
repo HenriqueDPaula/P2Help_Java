@@ -1,8 +1,6 @@
-import java.util.ArrayList;
-import java.util.List;
-
 import DAO.MunicipiosDAO;
 import DAO.SistemaDAO;
+import controller.SistemaBean;
 import model.Municipios;
 import model.Sistema;
 import model.Usuario;
@@ -21,12 +19,18 @@ public class teste {
 	static SistemaDAO sis = new SistemaDAO();
 
 	public static void main(String[] args) {
+		
+//		SistemaService sis = new SistemaService();
+//		Sistema sistema = new Sistema();
+//		sistema.setNome("carreira");
+//		sistema.setFabricante("Carlos");
+//		sis.save(sistema);
 		// TODO Auto-generated method stub
-		List<Municipios> muni = new ArrayList<Municipios>();
-		muni = municipioService.listar();
-		for (Municipios municipio : muni) {
-			System.out.println(municipio.getNome());
-		}
+//		List<Municipios> muni = new ArrayList<Municipios>();
+//		muni = municipioService.listar();
+//		for (Municipios municipio : muni) {
+//			System.out.println(municipio.getNome());
+//		}
 		//
 		// Sistema sistema = sistemaService.FindById(6);
 		// sistema.setFabricante("hp");
@@ -38,10 +42,10 @@ public class teste {
 		// municipioDAO.findById(4105805);
 		// System.out.println(municipio.getNome());
 		// //municipioService.FindById(4105805);
-		// municipio.setNome("india");
-		// municipio.setUf("PR");
-		//// municipio.setIdmunicipio(4);
-		// municipioService.save(municipio);
+		 municipio.setNome("indiassss");
+		 municipio.setUf("PR");
+		 municipio.setIdmunicipio(4);
+		 municipioService.save(municipio);
 		// usuario.setNome("carlosAlberto");
 		// usuario.setCpf("01223929938");
 		// usuario.setBairro("xaxim");

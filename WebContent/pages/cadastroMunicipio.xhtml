@@ -14,12 +14,12 @@
 		<h:outputLabel value="Municipio" />
 		<h:inputText value="#{municipioBean.nome}" />
 
-		<p:selectOneMenu id="nomeMunicipio"
-			value="#{municipioBean.municipio.nome}"
-			converter="municipioConverter">
-			<f:selectItem itemLabel="Selecione" />
-			<f:selectItems value="#{municipioBean.selectOne()}" var="set" />
-		</p:selectOneMenu>
+		<!-- 		<p:selectOneMenu id="nomeMunicipio" -->
+		<!-- 			value="#{municipioBean.municipio.nome}" -->
+		<!-- 			converter="municipioConverter"> -->
+		<!-- 			<f:selectItem itemLabel="Selecione" /> -->
+		<!-- 			<f:selectItems value="#{municipioBean.selectOne()}" var="set" /> -->
+		<!-- 		</p:selectOneMenu> -->
 
 		<h:outputLabel value="Municipio/uf" />
 		<h:inputText value="#{municipioBean.uf}" />
@@ -27,7 +27,6 @@
 		<h:commandButton value="Enviar"
 			action="#{municipioBean.CadastrarMunicipio()}" />
 
-		<h:selectOneMenu value="#{municipioBean.selectOne()}"></h:selectOneMenu>
 
 	</h:form>
 </h:body>
