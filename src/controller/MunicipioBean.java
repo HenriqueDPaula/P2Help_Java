@@ -1,16 +1,13 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 
 import model.Municipios;
 import service.MunicipioService;
 
 @Named("municipioBean")
-@RequestScoped
+@ViewScoped
 public class MunicipioBean {
 
 	private String nome;
@@ -27,23 +24,23 @@ public class MunicipioBean {
 	 */
 	public String CadastrarMunicipio() {
 		this.municipio = new Municipios();
-		// this.municipioService = new MunicipioService();
+		this.municipioService = new MunicipioService();
 		municipio.setNome(nome);
 		municipio.setUf(uf);
 		this.municipioService.save(municipio);
-		return "/pages/municipioTeste";
+		return "municipioTeste";
 	}
 
-	public List<Municipios> selectOne() {
-		MunicipioService muniS = new MunicipioService();
-		List<Municipios> muniL = new ArrayList();
-		muniL = muniS.listar();
-		for (Municipios municipios : muniL) {
-			muniL.add(new Municipios());
-		}
-
-		return muniL;
-	}
+	// public List<Municipios> selectOne() {
+	// MunicipioService muniS = new MunicipioService();
+	// List<Municipios> muniL = new ArrayList();
+	// muniL = muniS.listar();
+	// for (Municipios municipios : muniL) {
+	// muniL.add(new Municipios());
+	// }
+	//
+	// return muniL;
+	// }
 
 	public MunicipioService getMunicipioService() {
 		return municipioService;

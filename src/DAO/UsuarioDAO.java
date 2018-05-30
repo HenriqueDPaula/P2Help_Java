@@ -3,9 +3,11 @@ package DAO;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import com.sun.media.jfxmedia.logging.Logger;
 
@@ -15,6 +17,7 @@ import util.HibernateUtil;
 public class UsuarioDAO implements IUsuarioDAO {
 
 	private Session session;
+	private Criteria criteria;
 	private String email;
 	private String senha;
 	private EntityManager em;
@@ -35,16 +38,33 @@ public class UsuarioDAO implements IUsuarioDAO {
 		t.commit();
 	}
 
-	public Usuario validateLogin(String email, String senha) {
-		try {
-			Usuario usuario = (Usuario) em
-					.createQuery("SELECT u from Usuario u where u.email = :email and u.senha = :senha")
-					.setParameter("name", email).setParameter("senha", senha).getSingleResult();
+	public Boolean login(String email, String senha) {
+		Usuario usuario = null;
 
-			return usuario;
-		} catch (NoResultException e) {
-			return null;
+		Boolean flag = null;
+
+		// Processamento dos dados
+
+		criteria = session.createCriteria(Usuario.class);
+
+		criteria.add(Restrictions.eq("email", email));
+
+		criteria.add(Restrictions.ne("senha", senha));
+
+		usuario = (Usuario) criteria.uniqueResult();
+
+		if (usuario != null) {
+
+			flag = true;
+
+		} else {
+
+			flag = false;
 		}
 
+		// Saída da informação
+
+		return flag;
 	}
+
 }

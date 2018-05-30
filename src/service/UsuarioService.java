@@ -21,7 +21,7 @@ public class UsuarioService {
 
 	}
 
-	public Usuario validateLogin(String email, String senha) {
-		return this.usuarioDAO.validateLogin(email, senha);
+	public Boolean login(String email, String senha) {
+		return this.usuarioDAO.login(email, senha);
 	}
 }

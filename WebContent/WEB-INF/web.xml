@@ -3,6 +3,7 @@
   <display-name>P2Help</display-name>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
+    <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
   <context-param>
     <param-name>javax.faces.PROJECT_STAGE</param-name>
