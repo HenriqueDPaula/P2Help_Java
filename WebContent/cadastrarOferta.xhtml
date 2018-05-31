@@ -14,29 +14,19 @@
 		<h:outputLabel value="Titulo" />
 		<h:inputText value="#{ofertaBean.titulo}" />
 		<br />
+		<h:panelGrid columns="2">
+		<h:outputLabel value="Sistema: " />
 		<h:selectOneMenu value="#{ofertaBean.idsistema}">
 			<f:selectItems value="#{ofertaBean.selectSistema()}">
 			</f:selectItems>
 		</h:selectOneMenu><br />
+		</h:panelGrid>
 		<h:outputLabel value="Valor hora: "/>
 		<h:inputText value="#{ofertaBean.valorHora}"/>
+		<f:convertNumber currencyCode="R$" type="currency" />
 		<br />
 
-		<h:panelGrid columns="2">
-			<h:outputLabel value="Municipio: " />
-			<h:selectOneMenu value="#{municipioBean.municipio}">
-				<f:selectItems value="#{municipioBean.selectMunicipios()}">
-				</f:selectItems>
-
-			</h:selectOneMenu>
-
-
-
-		</h:panelGrid>
-
-		<h:commandButton value="Enviar"
-			action="#{municipioBean.CadastrarMunicipio()}" />
-
+		
 
 	</h:form>
 </h:body>
