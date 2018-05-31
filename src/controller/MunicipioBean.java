@@ -1,19 +1,24 @@
 package controller;
 
-import javax.faces.bean.ViewScoped;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.enterprise.context.RequestScoped;
+import javax.faces.model.SelectItem;
 import javax.inject.Named;
 
 import model.Municipios;
 import service.MunicipioService;
 
 @Named("municipioBean")
-@ViewScoped
+@RequestScoped
 public class MunicipioBean {
 
 	private String nome;
 	private String uf;
 	private MunicipioService municipioService;
 	private Municipios municipio;
+	private List<SelectItem> MunicipioSelect;
 
 	public MunicipioBean() {
 		this.municipioService = new MunicipioService();
@@ -31,16 +36,22 @@ public class MunicipioBean {
 		return "municipioTeste";
 	}
 
-	// public List<Municipios> selectOne() {
-	// MunicipioService muniS = new MunicipioService();
-	// List<Municipios> muniL = new ArrayList();
-	// muniL = muniS.listar();
-	// for (Municipios municipios : muniL) {
-	// muniL.add(new Municipios());
-	// }
-	//
-	// return muniL;
-	// }
+	public List<SelectItem> selectMunicipios() {
+		if (MunicipioSelect == null) {
+			MunicipioSelect = new ArrayList<SelectItem>();
+			List<Municipios> listaMunicipios = new ArrayList<Municipios>();
+			listaMunicipios = municipioService.listar();
+			if (listaMunicipios != null && !listaMunicipios.isEmpty()) {
+				SelectItem item;
+				for (Municipios municipios : listaMunicipios) {
+					item = new SelectItem(municipios, municipios.getNome());
+					MunicipioSelect.add(item);
+				}
+			}
+
+		}
+		return MunicipioSelect;
+	}
 
 	public MunicipioService getMunicipioService() {
 		return municipioService;
@@ -72,6 +83,14 @@ public class MunicipioBean {
 
 	public void setUf(String uf) {
 		this.uf = uf;
+	}
+
+	public List<SelectItem> getMunicipioSelect() {
+		return MunicipioSelect;
+	}
+
+	public void setMunicipioSelect(List<SelectItem> municipioSelect) {
+		MunicipioSelect = municipioSelect;
 	}
 
 }

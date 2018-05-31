@@ -1,33 +1,22 @@
 package controller;
 
-import java.io.IOException;
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
+import DAO.UsuarioDAO;
 import model.Usuario;
 import service.UsuarioService;
 
-@ViewScoped
 @ManagedBean(name = "usuarioBean")
-public class UsuarioBean extends HttpServlet {
+public class UsuarioBean implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8696022544177517987L;
 	private UsuarioService usuarioService;
-	private String nome;
-	private String email;
-	private String senha;
+	private UsuarioDAO usuarioDAO;
 	private Usuario usuario;
 
 	public UsuarioBean() {
@@ -39,13 +28,14 @@ public class UsuarioBean extends HttpServlet {
 	// usuarioService = new UsuarioService();
 	// }
 
-	public String login(String email, String senha) {
+	public String login() {
 		String page = "/municipioTeste";
 		String pageDown = "/cadastroMunicipio";
 
-		Boolean sucess = usuarioService.login(email, senha);
-		if (sucess) {
+		usuario = usuarioDAO.login();
+		if (usuario != null) {
 			return page;
+
 		} else {
 			return pageDown;
 		}
@@ -67,14 +57,6 @@ public class UsuarioBean extends HttpServlet {
 		this.usuarioService = usuarioService;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -85,22 +67,6 @@ public class UsuarioBean extends HttpServlet {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
 	}
 
 }

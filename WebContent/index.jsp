@@ -9,7 +9,7 @@
 <body>
 
 	<%
-		response.sendRedirect("login.jsf");
+		response.sendRedirect("pages/cadastroMunicipio.jsf");
 	%>
 
 </body>

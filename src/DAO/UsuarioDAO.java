@@ -38,10 +38,8 @@ public class UsuarioDAO implements IUsuarioDAO {
 		t.commit();
 	}
 
-	public Boolean login(String email, String senha) {
+	public Usuario login() {
 		Usuario usuario = null;
-
-		Boolean flag = null;
 
 		// Processamento dos dados
 
@@ -53,18 +51,9 @@ public class UsuarioDAO implements IUsuarioDAO {
 
 		usuario = (Usuario) criteria.uniqueResult();
 
-		if (usuario != null) {
-
-			flag = true;
-
-		} else {
-
-			flag = false;
-		}
-
 		// Saída da informação
 
-		return flag;
+		return usuario;
 	}
 
 }

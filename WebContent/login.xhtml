@@ -12,13 +12,15 @@
 <h:body>
 	<h:form>
 
-		<h:outputLabel value="Email" />
-		<h:inputText value="#{usuarioBean.email}" /><br></br>
-		<h:outputLabel value="Senha" />
-		<h:inputSecret id="senha" size="25" value="#{usuarioBean.senha}">
+		<h:outputLabel value="Email" for="email" />
+		<h:inputText id="email" value="#{usuarioBean.email}" />
+		<br></br>
+		<h:outputLabel value="Senha" for="senha" />
+		<h:inputSecret id="senha" value="#{usuarioBean.senha}" required="true"
+			requiredMessage="Senha é obrigatório">
 		</h:inputSecret>
-		<h:commandButton action="#{usuarioBean.login()}"  
-						 value="Entrar" type="submit">
+		<h:commandButton action="#{usuarioBean.login()}" value="Entrar"
+			type="submit">
 		</h:commandButton>
 	</h:form>
 </h:body>

@@ -13,8 +13,22 @@
 	<h:form>
 		<h:outputLabel value="Municipio" />
 		<h:inputText value="#{municipioBean.nome}" />
+		<br />
 		<h:outputLabel value="Municipio/uf" />
 		<h:inputText value="#{municipioBean.uf}" />
+		<br />
+
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Municipio: " />
+			<h:selectOneMenu value="#{municipioBean.municipio}">
+				<f:selectItems value="#{municipioBean.selectMunicipios()}">
+				</f:selectItems>
+
+			</h:selectOneMenu>
+
+
+
+		</h:panelGrid>
 
 		<h:commandButton value="Enviar"
 			action="#{municipioBean.CadastrarMunicipio()}" />
