@@ -50,7 +50,7 @@ public class Oferta implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "IDCATEGORIA")
-	private Categoria idcategoria;
+	private Categoria categoria;
 
 	@Column(name = "STATUS", length = 20, nullable = false)
 	private char status;
@@ -103,7 +103,6 @@ public class Oferta implements Serializable {
 		this.descricao = descricao;
 	}
 
-
 	public char getStatus() {
 		return status;
 	}
@@ -111,8 +110,6 @@ public class Oferta implements Serializable {
 	public void setStatus(char status) {
 		this.status = status;
 	}
-
-
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -126,20 +123,20 @@ public class Oferta implements Serializable {
 		this.idusuario = idusuario;
 	}
 
-	public Categoria getIdcategoria() {
-		return idcategoria;
-	}
-
-	public void setIdcategoria(Categoria idcategoria) {
-		this.idcategoria = idcategoria;
-	}
-
 	public Sistema getSistema() {
 		return sistema;
 	}
 
-	public void setSistema(Sistema idsistema) {
-		this.sistema = idsistema;
+	public void setSistema(Sistema sistema) {
+		this.sistema = sistema;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 }

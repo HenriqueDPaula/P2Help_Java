@@ -9,7 +9,6 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import model.Municipios;
 import model.Sistema;
 import util.HibernateUtil;
 

@@ -12,23 +12,35 @@
 <h:body>
 	<h:form>
 
-		<h:panelGrid columns="10">
+		<h:panelGrid columns="2">
 			<h:outputLabel value="Titulo: " />
 			<h:inputText value="#{ofertaBean.titulo}" />
-			<br />
+			
 			<h:outputLabel value="Descrição: " />
-			<h:inputText value="#{ofertaBean.descricao}" maxlength="399" />
+			<h:inputTextarea value="#{ofertaBean.descricao}" size="400"/> 
 			<br />
 			
-			<p:selectOneMenu value="#{ofertaBean.sistema}">
-				<f:selectItem itemLabel="Selecione um sistema " />
+			<p:selectOneMenu filter="true" value="#{ofertaBean.sistema}">
+				<f:selectItem  itemLabel="Selecione um sistema " />
 				<f:selectItems value="#{ofertaBean.selectSistema()}">
 				</f:selectItems>
 			</p:selectOneMenu>
-			<br />
+			
+			<p:selectOneMenu filter="true" value="#{ofertaBean.categoria}">
+				<f:selectItem  itemLabel="Selecione uma categoria " />
+				<f:selectItems value="#{ofertaBean.selectCategoria()}">
+				</f:selectItems>
+			</p:selectOneMenu>
+			
 			<h:outputLabel value="Valor hora: " />
 			<p:inputMask mask="99,99 R$" value="#{ofertaBean.valorHora}" />
-			<br />
+			
+			
+			<h:outputLabel value="Ativar a oferta: " />
+			<p:selectOneRadio value = "#{ofertaBean.status}">
+			<f:selectItem itemLabel="Sim" itemValue="s"/>
+			<f:selectItem itemLabel="Não" itemValue="n"/>
+			</p:selectOneRadio>
 		</h:panelGrid>
 
 

@@ -61,4 +61,41 @@ public class Categoria implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((categoriaMae == null) ? 0 : categoriaMae.hashCode());
+		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime * result + ((idcategoria == null) ? 0 : idcategoria.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Categoria other = (Categoria) obj;
+		if (categoriaMae == null) {
+			if (other.categoriaMae != null)
+				return false;
+		} else if (!categoriaMae.equals(other.categoriaMae))
+			return false;
+		if (descricao == null) {
+			if (other.descricao != null)
+				return false;
+		} else if (!descricao.equals(other.descricao))
+			return false;
+		if (idcategoria == null) {
+			if (other.idcategoria != null)
+				return false;
+		} else if (!idcategoria.equals(other.idcategoria))
+			return false;
+		return true;
+	}
 }

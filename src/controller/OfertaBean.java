@@ -8,12 +8,12 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 
-import DAO.SistemaDAO;
 import model.Categoria;
 import model.Municipios;
 import model.Oferta;
 import model.Sistema;
 import model.Usuario;
+import service.CategoriaService;
 import service.OfertaService;
 import service.SistemaService;
 
@@ -29,12 +29,14 @@ public class OfertaBean implements Serializable {
 	private Usuario usuario;
 	private OfertaService ofertaService;
 	private SistemaService sistemaService;
+	private CategoriaService categoriaService;
 	private String titulo;
 	private String descricao;
 	private float valorHora;
 	private char status;
-	private Categoria categoria;
+	private int categoria;
 	private List<SelectItem> sistemasSelect;
+	private List<SelectItem> categoriasSelect;
 	private List<Categoria> categorias;
 	private int sistema;
 
@@ -48,10 +50,8 @@ public class OfertaBean implements Serializable {
 			List<Sistema> listasistemas = new ArrayList<Sistema>();
 			listasistemas = sistemaService.listar();
 			if (listasistemas != null && !listasistemas.isEmpty()) {
-				SelectItem item;
 				for (Sistema sistema : listasistemas) {
-					item = new SelectItem(sistema, sistema.getNome());
-					sistemasSelect.add(item);
+					sistemasSelect.add(new SelectItem(sistema, sistema.getNome()));
 				}
 			}
 
@@ -60,12 +60,28 @@ public class OfertaBean implements Serializable {
 
 	}
 
+	public List<SelectItem> selectCategoria() {
+		if (categoriasSelect == null) {
+			categoriasSelect = new ArrayList<SelectItem>();
+			List<Categoria> listacategorias = new ArrayList<Categoria>();
+			listacategorias = categoriaService.listar();
+			if (listacategorias != null && !listacategorias.isEmpty()) {
+				for (Categoria categoria : listacategorias) {
+					categoriasSelect.add(new SelectItem(categoria, categoria.getDescricao()));
+				}
+			}
+
+		}
+		return categoriasSelect;
+	}
+
 	public void cadastrarOferta() {
 		Oferta oferta = new Oferta();
 		oferta.setTitulo(titulo);
 		oferta.setDataOferta(getCurrentTimeStamp());
 		oferta.setDescricao(descricao);
-		oferta.setIdcategoria(categoria);
+		Categoria c = categoriaService.FindById(categoria);
+		oferta.setCategoria(c);
 		Sistema s = sistemaService.FindById(sistema);
 		oferta.setSistema(s);
 		oferta.setStatus(status);
@@ -161,14 +177,6 @@ public class OfertaBean implements Serializable {
 		this.categorias = categorias;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
-
 	public List<SelectItem> getSistemasSelect() {
 		return sistemasSelect;
 	}
@@ -188,6 +196,30 @@ public class OfertaBean implements Serializable {
 
 	public void setSistema(int sistema) {
 		this.sistema = sistema;
+	}
+
+	public CategoriaService getCategoriaService() {
+		return categoriaService;
+	}
+
+	public void setCategoriaService(CategoriaService categoriaService) {
+		this.categoriaService = categoriaService;
+	}
+
+	public int getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(int categoria) {
+		this.categoria = categoria;
+	}
+
+	public List<SelectItem> getCategoriasSelect() {
+		return categoriasSelect;
+	}
+
+	public void setCategoriasSelect(List<SelectItem> categoriasSelect) {
+		this.categoriasSelect = categoriasSelect;
 	}
 
 }
