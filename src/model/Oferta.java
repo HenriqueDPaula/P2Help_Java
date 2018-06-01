@@ -57,7 +57,7 @@ public class Oferta implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "IDSISTEMA")
-	private Sistema idsistema;
+	private Sistema sistema;
 
 	public Oferta() {
 
@@ -134,12 +134,12 @@ public class Oferta implements Serializable {
 		this.idcategoria = idcategoria;
 	}
 
-	public Sistema getIdsistema() {
-		return idsistema;
+	public Sistema getSistema() {
+		return sistema;
 	}
 
-	public void setIdsistema(Sistema idsistema) {
-		this.idsistema = idsistema;
+	public void setSistema(Sistema idsistema) {
+		this.sistema = idsistema;
 	}
 
 }

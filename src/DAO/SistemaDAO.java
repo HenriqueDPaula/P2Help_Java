@@ -8,6 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+
+import model.Municipios;
 import model.Sistema;
 import util.HibernateUtil;
 
@@ -61,6 +63,7 @@ public class SistemaDAO implements ISistemaDAO {
 		return sistemas;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Sistema> findByName(String sistema) {
 		String hql = "SELECT nome FROM Curso curso " + "INNER JOIN curso.disciplina AS disciplina";

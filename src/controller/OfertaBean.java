@@ -8,6 +8,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 
+import DAO.SistemaDAO;
 import model.Categoria;
 import model.Municipios;
 import model.Oferta;
@@ -25,8 +26,6 @@ public class OfertaBean implements Serializable {
 	private static final long serialVersionUID = 5998663528528731657L;
 	private Oferta oferta;
 	private Municipios municipio;
-	private List<SelectItem> sistemaSelect;
-	private List<SelectItem> selectMunicipio;
 	private Usuario usuario;
 	private OfertaService ofertaService;
 	private SistemaService sistemaService;
@@ -34,28 +33,31 @@ public class OfertaBean implements Serializable {
 	private String descricao;
 	private float valorHora;
 	private char status;
-	private Sistema idsistema;
-	private Categoria idcategoria;
+	private Categoria categoria;
+	private List<SelectItem> sistemasSelect;
+	private List<Categoria> categorias;
+	private int sistema;
 
 	public OfertaBean() {
-
+		this.sistemaService = new SistemaService();
 	}
 
 	public List<SelectItem> selectSistema() {
-		if (sistemaSelect == null) {
-			sistemaSelect = new ArrayList<SelectItem>();
-			List<Sistema> listaSistema = new ArrayList<Sistema>();
-			listaSistema = sistemaService.listar();
-			if (listaSistema != null && !listaSistema.isEmpty()) {
+		if (sistemasSelect == null) {
+			sistemasSelect = new ArrayList<SelectItem>();
+			List<Sistema> listasistemas = new ArrayList<Sistema>();
+			listasistemas = sistemaService.listar();
+			if (listasistemas != null && !listasistemas.isEmpty()) {
 				SelectItem item;
-				for (Sistema sistema : listaSistema) {
-					item = new SelectItem(sistema, sistema.getNome(), sistema.getFabricante());
-					sistemaSelect.add(item);
+				for (Sistema sistema : listasistemas) {
+					item = new SelectItem(sistema, sistema.getNome());
+					sistemasSelect.add(item);
 				}
 			}
 
 		}
-		return sistemaSelect;
+		return sistemasSelect;
+
 	}
 
 	public void cadastrarOferta() {
@@ -63,8 +65,9 @@ public class OfertaBean implements Serializable {
 		oferta.setTitulo(titulo);
 		oferta.setDataOferta(getCurrentTimeStamp());
 		oferta.setDescricao(descricao);
-		oferta.setIdcategoria(idcategoria);
-		oferta.setIdsistema(idsistema);
+		oferta.setIdcategoria(categoria);
+		Sistema s = sistemaService.FindById(sistema);
+		oferta.setSistema(s);
 		oferta.setStatus(status);
 		oferta.setValorHora(valorHora);
 	}
@@ -90,14 +93,6 @@ public class OfertaBean implements Serializable {
 		this.municipio = municipio;
 	}
 
-	public List<SelectItem> getSelectMunicipio() {
-		return selectMunicipio;
-	}
-
-	public void setSelectMunicipio(List<SelectItem> selectMunicipio) {
-		this.selectMunicipio = selectMunicipio;
-	}
-
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -116,14 +111,6 @@ public class OfertaBean implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	public List<SelectItem> getSistemaSelect() {
-		return sistemaSelect;
-	}
-
-	public void setSistemaSelect(List<SelectItem> sistemaSelect) {
-		this.sistemaSelect = sistemaSelect;
 	}
 
 	public SistemaService getSistemaService() {
@@ -166,20 +153,41 @@ public class OfertaBean implements Serializable {
 		this.status = status;
 	}
 
-	public Sistema getIdsistema() {
-		return idsistema;
+	public List<Categoria> getCategorias() {
+		return categorias;
 	}
 
-	public void setIdsistema(Sistema idsistema) {
-		this.idsistema = idsistema;
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
 	}
 
-	public Categoria getIdcategoria() {
-		return idcategoria;
+	public Categoria getCategoria() {
+		return categoria;
 	}
 
-	public void setIdcategoria(Categoria idcategoria) {
-		this.idcategoria = idcategoria;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public List<SelectItem> getSistemasSelect() {
+		return sistemasSelect;
+	}
+
+	public void setSistemasSelect(List<SelectItem> sistemasSelect) {
+		this.sistemasSelect = sistemasSelect;
+	}
+
+	public List<Sistema> getSistemas() {
+
+		return sistemaService.listar();
+	}
+
+	public int getSistema() {
+		return sistema;
+	}
+
+	public void setSistema(int sistema) {
+		this.sistema = sistema;
 	}
 
 }

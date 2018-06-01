@@ -9,7 +9,7 @@
 <body>
 
 	<%
-		response.sendRedirect("cadastrarOferta.jsf");
+		response.sendRedirect("pages/cadastrarOferta.jsf");
 	%>
 
 </body>
