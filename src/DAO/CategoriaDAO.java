@@ -54,17 +54,17 @@ public class CategoriaDAO implements Serializable {
 	@SuppressWarnings("unchecked")
 	public List<Categoria> listar() {
 
-		List<Categoria> Categoria = null;
+		List<Categoria> categoria = null;
 
 		// Processamento dos dados
 
 		criteria = session.createCriteria(Categoria.class);
 
-		criteria.addOrder(Order.asc("descricao"));
+		criteria.addOrder(Order.asc("DESCRICAO"));
 
-		Categoria = criteria.list();
+		categoria = criteria.list();
 
-		return Categoria;
+		return categoria;
 	}
 
 }

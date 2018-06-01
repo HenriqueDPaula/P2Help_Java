@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 
@@ -17,6 +18,7 @@ import service.CategoriaService;
 import service.OfertaService;
 import service.SistemaService;
 
+@ManagedBean
 @RequestScoped
 @Named("ofertaBean")
 public class OfertaBean implements Serializable {
@@ -34,11 +36,11 @@ public class OfertaBean implements Serializable {
 	private String descricao;
 	private float valorHora;
 	private char status;
-	private int categoria;
+	private Categoria categoria;
 	private List<SelectItem> sistemasSelect;
 	private List<SelectItem> categoriasSelect;
 	private List<Categoria> categorias;
-	private int sistema;
+	private Sistema sistema;
 
 	public OfertaBean() {
 		this.sistemaService = new SistemaService();
@@ -51,7 +53,8 @@ public class OfertaBean implements Serializable {
 			listasistemas = sistemaService.listar();
 			if (listasistemas != null && !listasistemas.isEmpty()) {
 				for (Sistema sistema : listasistemas) {
-					sistemasSelect.add(new SelectItem(sistema, sistema.getNome()));
+					SelectItem item = new SelectItem(sistema, sistema.getNome());
+					sistemasSelect.add(item);
 				}
 			}
 
@@ -60,32 +63,35 @@ public class OfertaBean implements Serializable {
 
 	}
 
-	public List<SelectItem> selectCategoria() {
-		if (categoriasSelect == null) {
-			categoriasSelect = new ArrayList<SelectItem>();
-			List<Categoria> listacategorias = new ArrayList<Categoria>();
-			listacategorias = categoriaService.listar();
-			if (listacategorias != null && !listacategorias.isEmpty()) {
-				for (Categoria categoria : listacategorias) {
-					categoriasSelect.add(new SelectItem(categoria, categoria.getDescricao()));
-				}
-			}
+	// public List<SelectItem> selectCategoria() {
+	// if (categoriasSelect == null) {
+	// categoriasSelect = new ArrayList<SelectItem>();
+	// List<Categoria> listacategorias = new ArrayList<Categoria>();
+	// listacategorias = categoriaService.listar();
+	// if (listacategorias != null && !listacategorias.isEmpty()) {
+	// for (Categoria categoria : listacategorias) {
+	// SelectItem item = new SelectItem(categoria, categoria.getDescricao());
+	// categoriasSelect.add(item);
+	// }
+	// }
+	//
+	// }
+	// return categoriasSelect;
+	// }
 
-		}
-		return categoriasSelect;
-	}
-
-	public void cadastrarOferta() {
+	public String cadastrarOferta() {
 		Oferta oferta = new Oferta();
 		oferta.setTitulo(titulo);
 		oferta.setDataOferta(getCurrentTimeStamp());
 		oferta.setDescricao(descricao);
-		Categoria c = categoriaService.FindById(categoria);
-		oferta.setCategoria(c);
-		Sistema s = sistemaService.FindById(sistema);
-		oferta.setSistema(s);
+		// Categoria c = categoriaService.FindById(categoria);
+		oferta.setCategoria(null);
+		// Sistema s = sistemaService.FindById(sistema);
+		oferta.setSistema(sistema);
 		oferta.setStatus(status);
 		oferta.setValorHora(valorHora);
+		ofertaService.save(oferta);
+		return "municipioTeste";
 	}
 
 	public java.sql.Timestamp getCurrentTimeStamp() {
@@ -190,14 +196,6 @@ public class OfertaBean implements Serializable {
 		return sistemaService.listar();
 	}
 
-	public int getSistema() {
-		return sistema;
-	}
-
-	public void setSistema(int sistema) {
-		this.sistema = sistema;
-	}
-
 	public CategoriaService getCategoriaService() {
 		return categoriaService;
 	}
@@ -206,20 +204,28 @@ public class OfertaBean implements Serializable {
 		this.categoriaService = categoriaService;
 	}
 
-	public int getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(int categoria) {
-		this.categoria = categoria;
-	}
-
 	public List<SelectItem> getCategoriasSelect() {
 		return categoriasSelect;
 	}
 
 	public void setCategoriasSelect(List<SelectItem> categoriasSelect) {
 		this.categoriasSelect = categoriasSelect;
+	}
+
+	public Sistema getSistema() {
+		return sistema;
+	}
+
+	public void setSistema(Sistema sistema) {
+		this.sistema = sistema;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 }

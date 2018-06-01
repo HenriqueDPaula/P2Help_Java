@@ -15,33 +15,32 @@
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Titulo: " />
 			<h:inputText value="#{ofertaBean.titulo}" />
-			
+
 			<h:outputLabel value="Descrição: " />
-			<h:inputTextarea value="#{ofertaBean.descricao}" size="400"/> 
+			<h:inputTextarea value="#{ofertaBean.descricao}" size="400" />
 			<br />
-			
-			<p:selectOneMenu filter="true" value="#{ofertaBean.sistema}">
-				<f:selectItem  itemLabel="Selecione um sistema " />
+
+			<h:selectOneMenu filter="true" value="#{ofertaBean.sistema}"
+				converter="sistemaConverter">
+				<f:selectItem itemLabel="Selecione um sistema " />
 				<f:selectItems value="#{ofertaBean.selectSistema()}">
 				</f:selectItems>
-			</p:selectOneMenu>
-			
-			<p:selectOneMenu filter="true" value="#{ofertaBean.categoria}">
-				<f:selectItem  itemLabel="Selecione uma categoria " />
-				<f:selectItems value="#{ofertaBean.selectCategoria()}">
-				</f:selectItems>
-			</p:selectOneMenu>
-			
+			</h:selectOneMenu>
+
 			<h:outputLabel value="Valor hora: " />
 			<p:inputMask mask="99,99 R$" value="#{ofertaBean.valorHora}" />
-			
-			
+
+
 			<h:outputLabel value="Ativar a oferta: " />
-			<p:selectOneRadio value = "#{ofertaBean.status}">
-			<f:selectItem itemLabel="Sim" itemValue="s"/>
-			<f:selectItem itemLabel="Não" itemValue="n"/>
+			<p:selectOneRadio value="#{ofertaBean.status}">
+				<f:selectItem itemLabel="Sim" itemValue="s" />
+				<f:selectItem itemLabel="Não" itemValue="n" />
 			</p:selectOneRadio>
 		</h:panelGrid>
+
+		<h:commandButton value="salvar"
+			action="#{ofertaBean.cadastrarOferta()}" />
+
 
 
 

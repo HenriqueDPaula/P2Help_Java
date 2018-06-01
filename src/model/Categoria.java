@@ -27,7 +27,7 @@ public class Categoria implements Serializable {
 	@Column(name = "DESCRICAO", length = 200, nullable = false)
 	private String descricao;
 
-	@Column(name = "cCATEGORIAMAE", nullable = true)
+	@Column(name = "CATEGORIAMAE", nullable = true)
 	private Integer categoriaMae;
 
 	public Categoria() {
