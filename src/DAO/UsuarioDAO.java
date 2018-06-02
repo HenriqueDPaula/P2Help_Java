@@ -11,6 +11,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.sun.media.jfxmedia.logging.Logger;
 
+import model.Sistema;
 import model.Usuario;
 import util.HibernateUtil;
 
@@ -52,6 +53,18 @@ public class UsuarioDAO implements IUsuarioDAO {
 		usuario = (Usuario) criteria.uniqueResult();
 
 		// Saída da informação
+
+		return usuario;
+	}
+
+	public Usuario findById(int idusuario) {
+		Usuario usuario = null;
+
+		criteria = session.createCriteria(Usuario.class);
+
+		criteria.add(Restrictions.eq("idusuario", idusuario));
+
+		usuario = (Usuario) criteria.uniqueResult();
 
 		return usuario;
 	}

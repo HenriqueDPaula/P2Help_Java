@@ -20,6 +20,10 @@ public class UsuarioService {
 		this.usuarioDAO.save(usuario);
 
 	}
+	
+	public Usuario findById(int idusuario) {
+		return this.usuarioDAO.findById(idusuario);
+	}
 
 	public Usuario login() {
 		return this.usuarioDAO.login();

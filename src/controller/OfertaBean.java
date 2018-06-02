@@ -18,6 +18,7 @@ import model.Usuario;
 import service.CategoriaService;
 import service.OfertaService;
 import service.SistemaService;
+import service.UsuarioService;
 
 @ManagedBean
 @RequestScoped
@@ -60,29 +61,9 @@ public class OfertaBean implements Serializable {
 					SelectItem item1 = new SelectItem(categoria, categoria.getDescricao());
 					categoriasSelect.add(item1);
 				}
-			} else {
-				System.out.println("Lista voltando nulo ou vazia");
 			}
-
-		} else {
-			System.out.println("PORRA DE IF MALDITO");
-			// categoriasSelect = null;
-			// List<Categoria> listacategoria = new ArrayList<Categoria>();
-			// listacategoria = categoriaService.listar();
-			// if (listacategoria != null && !listacategoria.isEmpty()) {
-			// for (Categoria categoria : listacategoria) {
-			// SelectItem item1 = new SelectItem(categoria, categoria.getDescricao());
-			// categoriasSelect.add(item1);
-			// }
-			// }
-
 		}
-
-		// } catch (Exception e) {
-		// System.out.println("Para MANOOOOO");
-		// }
 		return categoriasSelect;
-
 	}
 
 	public List<SelectItem> selectSistema() {
@@ -102,36 +83,30 @@ public class OfertaBean implements Serializable {
 
 	}
 
-	// public List<SelectItem> selectCategoria() {
-	// if (categoriasSelect == null) {
-	// categoriasSelect = new ArrayList<SelectItem>();
-	// List<Categoria> listacategorias = new ArrayList<Categoria>();
-	// listacategorias = categoriaService.listar();
-	// if (listacategorias != null && !listacategorias.isEmpty()) {
-	// for (Categoria categoria : listacategorias) {
-	// SelectItem item = new SelectItem(categoria, categoria.getDescricao());
-	// categoriasSelect.add(item);
-	// }
-	// }
-	//
-	// }
-	// return categoriasSelect;
-	// }
+	public void cadastrarOferta() {
+		try {
+			Oferta oferta = new Oferta();
+			oferta.setTitulo(titulo);
+			oferta.setDataOferta(getCurrentTimeStamp());
+			oferta.setDescricao(descricao);
+			oferta.setCategoria(categoria);
+			oferta.setSistema(sistema);
+			Usuario u = new Usuario();
+			UsuarioService usuarioService = new UsuarioService();
+			u = usuarioService.findById(1);
+			oferta.setIdusuario(u);
+			oferta.setStatus(status);
+			valorHora = 22.22f;
+			oferta.setValorHora(valorHora);
+			oferta.setIdoferta(1);
 
-	public String cadastrarOferta() {
-		Oferta oferta = new Oferta();
-		oferta.setTitulo(titulo);
-		oferta.setDataOferta(getCurrentTimeStamp());
-		oferta.setDescricao(descricao);
-		// Categoria c = categoriaService.FindById(categoria);
-		oferta.setCategoria(categoria);
-		// Sistema s = sistemaService.FindById(sistema);
-		oferta.setSistema(sistema);
-		oferta.setStatus(status);
-		valorHora = 22.22f;
-		oferta.setValorHora(valorHora);
-		ofertaService.save(oferta);
-		return "municipioTeste";
+		} catch (Exception e) {
+			System.out.println("noffa");
+			e.printStackTrace();
+		} finally {
+			ofertaService.save(oferta);
+		}
+
 	}
 
 	public java.sql.Timestamp getCurrentTimeStamp() {
