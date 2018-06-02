@@ -27,8 +27,12 @@
 				</f:selectItems>
 			</h:selectOneMenu>
 
-			<h:outputLabel value="Valor hora: " />
-			<p:inputMask mask="99,99 R$" value="#{ofertaBean.valorHora}" />
+			<h:selectOneMenu filter="true" value="#{ofertaBean.categoria}"
+				converter="categoriaConverter">
+				<f:selectItem itemLabel="Selecione uma categoria " />
+				<f:selectItems value="#{ofertaBean.selectCategoria()}">
+				</f:selectItems>
+			</h:selectOneMenu>
 
 
 			<h:outputLabel value="Ativar a oferta: " />

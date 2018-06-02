@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
+
 import DAO.MunicipiosDAO;
 import DAO.SistemaDAO;
-import controller.SistemaBean;
+import model.Categoria;
 import model.Municipios;
-import model.Sistema;
 import model.Usuario;
+import service.CategoriaService;
 import service.MunicipioService;
 import service.SistemaService;
 import service.UsuarioService;
@@ -16,10 +19,16 @@ public class teste {
 	static MunicipioService municipioService = new MunicipioService();
 	static MunicipiosDAO municipioDAO = new MunicipiosDAO();
 	static SistemaService sistemaService = new SistemaService();
+	static CategoriaService categoriaService = new CategoriaService();
 	static SistemaDAO sis = new SistemaDAO();
 
 	public static void main(String[] args) {
 		
+		List<Categoria> cat = new ArrayList<Categoria>();
+		cat = categoriaService.listar();
+		for (Categoria categoria : cat) {
+			System.out.println(categoria.getDescricao());
+		}
 //		SistemaService sis = new SistemaService();
 //		Sistema sistema = new Sistema();
 //		sistema.setNome("carreira");
@@ -42,10 +51,10 @@ public class teste {
 		// municipioDAO.findById(4105805);
 		// System.out.println(municipio.getNome());
 		// //municipioService.FindById(4105805);
-		 municipio.setNome("indiassss");
-		 municipio.setUf("PR");
-		 municipio.setIdmunicipio(4);
-		 municipioService.save(municipio);
+//		 municipio.setNome("indiassss");
+//		 municipio.setUf("PR");
+//		 municipio.setIdmunicipio(4);
+//		 municipioService.save(municipio);
 		// usuario.setNome("carlosAlberto");
 		// usuario.setCpf("01223929938");
 		// usuario.setBairro("xaxim");

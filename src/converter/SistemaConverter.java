@@ -8,7 +8,7 @@ import javax.faces.convert.FacesConverter;
 import model.Sistema;
 import service.SistemaService;
 
-@FacesConverter(forClass = Sistema.class, value = "sistemaConverter")
+@FacesConverter(value = "sistemaConverter")
 public class SistemaConverter implements Converter {
 
 	@Override

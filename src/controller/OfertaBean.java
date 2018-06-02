@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 
+import DAO.CategoriaDAO;
 import model.Categoria;
 import model.Municipios;
 import model.Oferta;
@@ -41,9 +42,47 @@ public class OfertaBean implements Serializable {
 	private List<SelectItem> categoriasSelect;
 	private List<Categoria> categorias;
 	private Sistema sistema;
+	private CategoriaDAO categoriaDAO;
 
 	public OfertaBean() {
 		this.sistemaService = new SistemaService();
+		this.categoriaService = new CategoriaService();
+	}
+
+	public List<SelectItem> selectCategoria() {
+		// try {
+		if (categoriasSelect == null) {
+			categoriasSelect = new ArrayList<SelectItem>();
+			List<Categoria> listacategoria = new ArrayList<Categoria>();
+			listacategoria = categoriaService.listar();
+			if (listacategoria != null && !listacategoria.isEmpty()) {
+				for (Categoria categoria : listacategoria) {
+					SelectItem item1 = new SelectItem(categoria, categoria.getDescricao());
+					categoriasSelect.add(item1);
+				}
+			} else {
+				System.out.println("Lista voltando nulo ou vazia");
+			}
+
+		} else {
+			System.out.println("PORRA DE IF MALDITO");
+			// categoriasSelect = null;
+			// List<Categoria> listacategoria = new ArrayList<Categoria>();
+			// listacategoria = categoriaService.listar();
+			// if (listacategoria != null && !listacategoria.isEmpty()) {
+			// for (Categoria categoria : listacategoria) {
+			// SelectItem item1 = new SelectItem(categoria, categoria.getDescricao());
+			// categoriasSelect.add(item1);
+			// }
+			// }
+
+		}
+
+		// } catch (Exception e) {
+		// System.out.println("Para MANOOOOO");
+		// }
+		return categoriasSelect;
+
 	}
 
 	public List<SelectItem> selectSistema() {
@@ -85,10 +124,11 @@ public class OfertaBean implements Serializable {
 		oferta.setDataOferta(getCurrentTimeStamp());
 		oferta.setDescricao(descricao);
 		// Categoria c = categoriaService.FindById(categoria);
-		oferta.setCategoria(null);
+		oferta.setCategoria(categoria);
 		// Sistema s = sistemaService.FindById(sistema);
 		oferta.setSistema(sistema);
 		oferta.setStatus(status);
+		valorHora = 22.22f;
 		oferta.setValorHora(valorHora);
 		ofertaService.save(oferta);
 		return "municipioTeste";
@@ -226,6 +266,14 @@ public class OfertaBean implements Serializable {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public CategoriaDAO getCategoriaDAO() {
+		return categoriaDAO;
+	}
+
+	public void setCategoriaDAO(CategoriaDAO categoriaDAO) {
+		this.categoriaDAO = categoriaDAO;
 	}
 
 }

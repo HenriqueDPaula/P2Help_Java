@@ -1,6 +1,7 @@
 package DAO;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -11,10 +12,11 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import model.Categoria;
+import model.Municipios;
 import util.HibernateUtil;
 
 public class CategoriaDAO implements Serializable {
-	
+
 	/**
 	 * 
 	 */
@@ -54,17 +56,17 @@ public class CategoriaDAO implements Serializable {
 	@SuppressWarnings("unchecked")
 	public List<Categoria> listar() {
 
-		List<Categoria> categoria = null;
+		List<Categoria> categorias = null;
 
 		// Processamento dos dados
 
 		criteria = session.createCriteria(Categoria.class);
 
-		criteria.addOrder(Order.asc("DESCRICAO"));
+		criteria.addOrder(Order.asc("descricao"));
 
-		categoria = criteria.list();
+		categorias = criteria.list();
 
-		return categoria;
+		return categorias;
 	}
 
 }
