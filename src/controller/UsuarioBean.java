@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -16,7 +17,7 @@ import model.Usuario;
 import service.MunicipioService;
 import service.UsuarioService;
 
-@ViewScoped
+@SessionScoped
 @ManagedBean(name = "usuarioBean")
 public class UsuarioBean implements Serializable {
 
@@ -53,24 +54,15 @@ public class UsuarioBean implements Serializable {
 	// }
 
 	public String login() {
-		String page = "pages/municipioTeste";
-		String pageDown = "pages/cadastroMunicipio";
-
-		Usuario usuario = usuarioDAO.login(email, senha);
+		Usuario usuario = usuarioService.login(email, senha);
 		if (usuario != null) {
-			return page;
-
+			setUsuario(usuario);
+			return "pages/pageUsuario";
 		} else {
-			return pageDown;
+			return "";
 		}
 
 	}
-
-	// public String cadastrarUsuario() {
-	// Usuario usuarioM = preencherUsuario();
-	// usuarioService.save(usuarioM);
-	// return "";
-	// }
 
 	public String cadastrar() {
 		usuario = new Usuario();
@@ -97,16 +89,17 @@ public class UsuarioBean implements Serializable {
 	// usuarioService.save(usuario);
 	// }
 
-//	public String checkSenha() {
-//		if (senha.equals(senhaConfirm)) {
-//			return cadastrar();
-//		} else {
-//			FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Senhas não conferem", ""));
-//	        
-//			return "";
-//		}
-//
-//	}
+	// public String checkSenha() {
+	// if (senha.equals(senhaConfirm)) {
+	// return cadastrar();
+	// } else {
+	// FacesContext.getCurrentInstance().addMessage("", new
+	// FacesMessage(FacesMessage.SEVERITY_ERROR,"Senhas não conferem", ""));
+	//
+	// return "";
+	// }
+	//
+	// }
 
 	public List<SelectItem> selectMunicipios() {
 		if (MunicipioSelect == null) {
@@ -125,6 +118,10 @@ public class UsuarioBean implements Serializable {
 		return MunicipioSelect;
 	}
 
+	public Municipios detalheMunicipio() {
+
+		return usuario.getMunicipio();
+	}
 	// public String checkCpf() {
 	// usuarioService.
 	// if(senha.equals(senhaConfirm)) {
