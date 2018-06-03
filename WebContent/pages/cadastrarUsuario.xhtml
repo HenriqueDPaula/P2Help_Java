@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Cadastrar</title>
+</head>
+<body>
+	<h:form>
+		<h:outputLabel value="nome: " />
+		<h:inputText value="#{usuarioBean.nome}" />
+		<br />
+
+		<h:outputLabel value="email: " />
+		<h:inputText value="#{usuarioBean.email}" />
+		<br />
+
+		<h:outputLabel value="senha: " />
+		<h:inputText value="#{usuarioBean.senha}" />
+		<br />
+
+		<h:outputLabel value="Bairro: " />
+		<h:inputText value="#{usuarioBean.bairro}" />
+		<br />
+
+		<h:outputLabel value="Endereço: " />
+		<h:inputText value="#{usuarioBean.endereco}" />
+		<br />
+
+		<h:outputLabel value="Numero " />
+		<h:inputText value="#{usuarioBean.numero}" />
+		<br />
+
+		<h:outputLabel value="complemento: " />
+		<h:inputText value="#{usuarioBean.complemento}" />
+		<br />
+
+		<h:outputLabel value="Cpf: " />
+		<h:inputText value="#{usuarioBean.cpf}" />
+		<br />
+
+		<h:outputLabel value="RG:  " />
+		<h:inputText value="#{usuarioBean.rg}" />
+		<br />
+
+		<h:outputLabel value="RG Emissor: " />
+		<h:inputText value="#{usuarioBean.rgEmissor}" />
+		<br />
+
+		<!-- 		<h:panelGrid columns="2"> -->
+		<!-- 			<h:outputLabel value="Municipio: " /> -->
+		<!-- 			<h:selectOneMenu value="#{usuarioBean.municipio}" -->
+		<!-- 				converter="municipioConverter"> -->
+		<!-- 				<f:selectItems value="#{municipioBean.selectMunicipios()}"> -->
+		<!-- 				</f:selectItems> -->
+
+		<!-- 			</h:selectOneMenu> -->
+
+
+
+		<!-- 		</h:panelGrid> -->
+
+		<h:commandButton value="Enviar" action="#{usuarioBean.cadastrar()}" />
+
+		<br />
+
+	</h:form>
+</body>
+</html>

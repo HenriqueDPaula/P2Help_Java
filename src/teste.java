@@ -23,12 +23,26 @@ public class teste {
 	static SistemaDAO sis = new SistemaDAO();
 
 	public static void main(String[] args) {
-		
-		List<Categoria> cat = new ArrayList<Categoria>();
-		cat = categoriaService.listar();
-		for (Categoria categoria : cat) {
-			System.out.println(categoria.getDescricao());
-		}
+//		
+		usuario = new Usuario();
+		usuario.setBairro("xaxim");
+		usuario.setComplemento("casa");
+		usuario.setCpf("12633939937");
+		usuario.setEmail("Henrique@email");
+		usuario.setEndereco("gerharddddd");
+		usuario.setNumero("1111");
+		municipio = municipioService.FindById(61);
+		usuario.setMunicipio(municipio);
+		usuario.setNome("Henrique");
+		usuario.setRg("1315555151");
+		usuario.setRgEmissor("pr");
+		usuario.setSenha("senha");
+		usuarioService.save(usuario);
+//		List<Categoria> cat = new ArrayList<Categoria>();
+//		cat = categoriaService.listar();
+//		for (Categoria categoria : cat) {
+//			System.out.println(categoria.getDescricao());
+//		}
 //		SistemaService sis = new SistemaService();
 //		Sistema sistema = new Sistema();
 //		sistema.setNome("carreira");
