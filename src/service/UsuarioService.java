@@ -25,4 +25,8 @@ public class UsuarioService {
 	public Usuario login(String email, String senha) {
 		return this.usuarioDAO.login(email, senha);
 	}
+
+	public void atualizar(Usuario usuario) {
+		this.usuarioDAO.atualizar(usuario);
+	}
 }

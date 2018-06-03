@@ -54,6 +54,15 @@ public class UsuarioDAO implements IUsuarioDAO {
 		return usuario;
 	}
 
+	public void atualizar(Usuario usuario) {
+		// TODO Auto-generated method stub
+
+		Transaction t = session.beginTransaction();
+		session.update(usuario);
+		t.commit();
+
+	}
+
 	public Usuario findById(int idusuario) {
 
 		Usuario usuario = null;

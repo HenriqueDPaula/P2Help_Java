@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Atualizar Cadastro</title>
+</h:head>
+<h:body>
+
+	<h:outputLabel value="Dados do usuário:" styleClass="title" />
+
+	<hr />
+
+	<h:form>
+
+		<h:messages styleClass="msgError" />
+
+		<h:inputHidden value="#{usuarioBean.usuario.idusuario}" />
+
+		<h:panelGrid columns="2">
+
+
+			<h:outputLabel value="Nome" styleClass="emphasis" />
+			<h:inputText value="#{usuarioBean.usuario.nome}" />
+
+			<h:outputLabel value="senha" styleClass="emphasis" />
+			<h:inputText value="#{usuarioBean.usuario.senha}">
+			</h:inputText>
+
+			<h:outputLabel value="E-mail" for="email" styleClass="emphasis" />
+			<h:inputText id="email" label="E-mail"
+				value="#{usuarioBean.usuario.email}" size="20">
+				<f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+" />
+			</h:inputText>
+
+			<h:outputLabel value="Endereço" for="ender" styleClass="emphasis" />
+			<h:inputText id="ender" value="#{usuarioBean.usuario.endereco}"
+				required="true" />
+
+			<h:outputLabel value="Número" styleClass="emphasis" />
+			<h:inputText value="#{usuarioBean.usuario.numero}" />
+
+			<h:outputText value="Bairro" styleClass="emphasis" />
+			<h:inputText value="#{usuarioBean.usuario.bairro}" />
+
+			<h:outputText value="Complemento" styleClass="emphasis" />
+			<h:inputText value="#{usuarioBean.usuario.complemento}" />
+
+
+			<h:outputLabel value="Municipio: " />
+			<h:selectOneMenu filter="true"
+				value="#{usuarioBean.usuario.municipio}" required="true"
+				requiredMessage="Municipio é obrigatório"
+				converter="municipioConverter">
+				<f:selectItems value="#{usuarioBean.selectMunicipios()}">
+				</f:selectItems>
+
+			</h:selectOneMenu>
+
+		</h:panelGrid>
+
+		<hr />
+
+		<h:commandButton action="#{usuarioBean.atualizarConfirm()}"
+			value="Atualizar" />
+
+	</h:form>
+
+
+</h:body>
+</html>

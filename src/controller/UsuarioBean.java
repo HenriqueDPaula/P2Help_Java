@@ -82,24 +82,17 @@ public class UsuarioBean implements Serializable {
 		return "pageUsuario";
 	}
 
-	// public void cadastrar() {
-	//
-	// this.usuario = new Usuario();
-	// this.usuarioService = new UsuarioService();
-	// usuarioService.save(usuario);
-	// }
+	public String atualizar() {
+		this.usuario = usuarioService.findById(this.usuario.getIdusuario());
+		return "atualizarUsuario";
+	}
 
-	// public String checkSenha() {
-	// if (senha.equals(senhaConfirm)) {
-	// return cadastrar();
-	// } else {
-	// FacesContext.getCurrentInstance().addMessage("", new
-	// FacesMessage(FacesMessage.SEVERITY_ERROR,"Senhas não conferem", ""));
-	//
-	// return "";
-	// }
-	//
-	// }
+	public String atualizarConfirm() {
+
+		usuarioService.atualizar(this.usuario);
+
+		return "pageUsuario";
+	}
 
 	public List<SelectItem> selectMunicipios() {
 		if (MunicipioSelect == null) {

@@ -13,7 +13,7 @@
 
 	<hr />
 
-	<h:panelGrid columns="2" >
+	<h:panelGrid columns="2">
 
 		<h:outputLabel value="Nome:  " />
 		<h:outputText value="#{usuarioBean.usuario.nome}" />
@@ -31,7 +31,15 @@
 	</h:panelGrid>
 
 	<hr />
-
+	<h:form>
+		<h:commandLink action="cadastrarOferta" value="Publicar Oferta" />
+	</h:form>
+	<h:form>
+		<h:commandLink action="#{usuarioBean.atualizar()}" value="Editar" />
+	</h:form>
+	<h:form>
+		<h:commandLink action="/login" value="Sair" />
+	</h:form>
 </h:body>
 
 </html>
