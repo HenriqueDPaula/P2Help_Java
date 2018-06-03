@@ -33,7 +33,7 @@ public class MunicipioBean {
 		municipio.setNome(nome);
 		municipio.setUf(uf);
 		this.municipioService.save(municipio);
-		return "municipioTeste";
+		return "pages/municipioTeste";
 	}
 
 	public List<SelectItem> selectMunicipios() {

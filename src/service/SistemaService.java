@@ -2,12 +2,9 @@ package service;
 
 import java.util.List;
 
-import javax.inject.Named;
-
-import DAO.SistemaDAO;
+import dao.SistemaDAO;
 import model.Sistema;
 
-@Named
 public class SistemaService {
 
 	private SistemaDAO sistemaDAO;

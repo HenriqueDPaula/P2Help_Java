@@ -1,11 +1,8 @@
 package service;
 
-import javax.inject.Named;
-
-import DAO.UsuarioDAO;
+import dao.UsuarioDAO;
 import model.Usuario;
 
-@Named
 public class UsuarioService {
 
 	private UsuarioDAO usuarioDAO;
@@ -20,12 +17,12 @@ public class UsuarioService {
 		this.usuarioDAO.save(usuario);
 
 	}
-	
+
 	public Usuario findById(int idusuario) {
 		return this.usuarioDAO.findById(idusuario);
 	}
 
-	public Usuario login() {
-		return this.usuarioDAO.login();
+	public Usuario login(String email, String senha) {
+		return this.usuarioDAO.login(email, senha);
 	}
 }

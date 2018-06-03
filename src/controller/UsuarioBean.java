@@ -1,13 +1,16 @@
 package controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
-import DAO.UsuarioDAO;
+import dao.UsuarioDAO;
 import model.Municipios;
 import model.Usuario;
 import service.MunicipioService;
@@ -37,6 +40,7 @@ public class UsuarioBean implements Serializable {
 	private UsuarioDAO usuarioDAO;
 	private Usuario usuario;
 	private MunicipioService municipioService;
+	private List<SelectItem> MunicipioSelect;
 
 	public UsuarioBean() {
 		this.municipioService = new MunicipioService();
@@ -49,10 +53,10 @@ public class UsuarioBean implements Serializable {
 	// }
 
 	public String login() {
-		String page = "/municipioTeste";
-		String pageDown = "/cadastroMunicipio";
+		String page = "pages/municipioTeste";
+		String pageDown = "pages/cadastroMunicipio";
 
-		usuario = usuarioDAO.login();
+		Usuario usuario = usuarioDAO.login(email, senha);
 		if (usuario != null) {
 			return page;
 
@@ -76,7 +80,6 @@ public class UsuarioBean implements Serializable {
 		usuario.setEmail(email);
 		usuario.setEndereco(endereco);
 		usuario.setNumero(numero);
-		municipio = municipioService.FindById(61);
 		usuario.setMunicipio(municipio);
 		usuario.setNome(nome);
 		usuario.setRg(rg);
@@ -84,7 +87,7 @@ public class UsuarioBean implements Serializable {
 		usuario.setSenha(senha);
 		usuarioService.save(usuario);
 
-		return "";
+		return "pageUsuario";
 	}
 
 	// public void cadastrar() {
@@ -94,15 +97,32 @@ public class UsuarioBean implements Serializable {
 	// usuarioService.save(usuario);
 	// }
 
-	public String checkSenha() {
-		if (senha.equals(senhaConfirm)) {
-			return senha;
-		} else {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha inserida não confere!", ""));
-			return senha;
-		}
+//	public String checkSenha() {
+//		if (senha.equals(senhaConfirm)) {
+//			return cadastrar();
+//		} else {
+//			FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Senhas não conferem", ""));
+//	        
+//			return "";
+//		}
+//
+//	}
 
+	public List<SelectItem> selectMunicipios() {
+		if (MunicipioSelect == null) {
+			MunicipioSelect = new ArrayList<SelectItem>();
+			List<Municipios> listaMunicipios = new ArrayList<Municipios>();
+			listaMunicipios = municipioService.listar();
+			if (listaMunicipios != null && !listaMunicipios.isEmpty()) {
+				SelectItem item;
+				for (Municipios municipios : listaMunicipios) {
+					item = new SelectItem(municipios, municipios.getNome());
+					MunicipioSelect.add(item);
+				}
+			}
+
+		}
+		return MunicipioSelect;
 	}
 
 	// public String checkCpf() {
@@ -248,6 +268,152 @@ public class UsuarioBean implements Serializable {
 
 	public void setMunicipioService(MunicipioService municipioService) {
 		this.municipioService = municipioService;
+	}
+
+	/**
+	 * @return the municipioSelect
+	 */
+	public List<SelectItem> getMunicipioSelect() {
+		return MunicipioSelect;
+	}
+
+	/**
+	 * @param municipioSelect
+	 *            the municipioSelect to set
+	 */
+	public void setMunicipioSelect(List<SelectItem> municipioSelect) {
+		MunicipioSelect = municipioSelect;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((MunicipioSelect == null) ? 0 : MunicipioSelect.hashCode());
+		result = prime * result + ((bairro == null) ? 0 : bairro.hashCode());
+		result = prime * result + ((complemento == null) ? 0 : complemento.hashCode());
+		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
+		result = prime * result + ((municipio == null) ? 0 : municipio.hashCode());
+		result = prime * result + ((municipioService == null) ? 0 : municipioService.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
+		result = prime * result + ((rg == null) ? 0 : rg.hashCode());
+		result = prime * result + ((rgEmissor == null) ? 0 : rgEmissor.hashCode());
+		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
+		result = prime * result + ((senhaConfirm == null) ? 0 : senhaConfirm.hashCode());
+		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
+		result = prime * result + ((usuarioDAO == null) ? 0 : usuarioDAO.hashCode());
+		result = prime * result + ((usuarioService == null) ? 0 : usuarioService.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UsuarioBean other = (UsuarioBean) obj;
+		if (MunicipioSelect == null) {
+			if (other.MunicipioSelect != null)
+				return false;
+		} else if (!MunicipioSelect.equals(other.MunicipioSelect))
+			return false;
+		if (bairro == null) {
+			if (other.bairro != null)
+				return false;
+		} else if (!bairro.equals(other.bairro))
+			return false;
+		if (complemento == null) {
+			if (other.complemento != null)
+				return false;
+		} else if (!complemento.equals(other.complemento))
+			return false;
+		if (cpf == null) {
+			if (other.cpf != null)
+				return false;
+		} else if (!cpf.equals(other.cpf))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (endereco == null) {
+			if (other.endereco != null)
+				return false;
+		} else if (!endereco.equals(other.endereco))
+			return false;
+		if (municipio == null) {
+			if (other.municipio != null)
+				return false;
+		} else if (!municipio.equals(other.municipio))
+			return false;
+		if (municipioService == null) {
+			if (other.municipioService != null)
+				return false;
+		} else if (!municipioService.equals(other.municipioService))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (numero == null) {
+			if (other.numero != null)
+				return false;
+		} else if (!numero.equals(other.numero))
+			return false;
+		if (rg == null) {
+			if (other.rg != null)
+				return false;
+		} else if (!rg.equals(other.rg))
+			return false;
+		if (rgEmissor == null) {
+			if (other.rgEmissor != null)
+				return false;
+		} else if (!rgEmissor.equals(other.rgEmissor))
+			return false;
+		if (senha == null) {
+			if (other.senha != null)
+				return false;
+		} else if (!senha.equals(other.senha))
+			return false;
+		if (senhaConfirm == null) {
+			if (other.senhaConfirm != null)
+				return false;
+		} else if (!senhaConfirm.equals(other.senhaConfirm))
+			return false;
+		if (usuario == null) {
+			if (other.usuario != null)
+				return false;
+		} else if (!usuario.equals(other.usuario))
+			return false;
+		if (usuarioDAO == null) {
+			if (other.usuarioDAO != null)
+				return false;
+		} else if (!usuarioDAO.equals(other.usuarioDAO))
+			return false;
+		if (usuarioService == null) {
+			if (other.usuarioService != null)
+				return false;
+		} else if (!usuarioService.equals(other.usuarioService))
+			return false;
+		return true;
 	}
 
 }

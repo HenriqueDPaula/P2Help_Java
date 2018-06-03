@@ -1,15 +1,11 @@
 package service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Named;
 
-import DAO.CategoriaDAO;
+import dao.CategoriaDAO;
 import model.Categoria;
-import model.Municipios;
 
-@Named
 public class CategoriaService {
 
 	private CategoriaDAO categoriaDAO;

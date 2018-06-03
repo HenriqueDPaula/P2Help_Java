@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -46,7 +45,7 @@ public class Oferta implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "IDUSUARIO")
-	private Usuario idusuario;
+	private Usuario usuario;
 
 	@ManyToOne
 	@JoinColumn(name = "IDCATEGORIA")
@@ -116,11 +115,11 @@ public class Oferta implements Serializable {
 	}
 
 	public Usuario getIdusuario() {
-		return idusuario;
+		return usuario;
 	}
 
 	public void setIdusuario(Usuario idusuario) {
-		this.idusuario = idusuario;
+		this.usuario = idusuario;
 	}
 
 	public Sistema getSistema() {
@@ -137,6 +136,97 @@ public class Oferta implements Serializable {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((categoria == null) ? 0 : categoria.hashCode());
+		result = prime * result + ((dataOferta == null) ? 0 : dataOferta.hashCode());
+		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime * result + ((idoferta == null) ? 0 : idoferta.hashCode());
+		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
+		result = prime * result + ((sistema == null) ? 0 : sistema.hashCode());
+		result = prime * result + status;
+		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
+		result = prime * result + Float.floatToIntBits(valorHora);
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Oferta other = (Oferta) obj;
+		if (categoria == null) {
+			if (other.categoria != null)
+				return false;
+		} else if (!categoria.equals(other.categoria))
+			return false;
+		if (dataOferta == null) {
+			if (other.dataOferta != null)
+				return false;
+		} else if (!dataOferta.equals(other.dataOferta))
+			return false;
+		if (descricao == null) {
+			if (other.descricao != null)
+				return false;
+		} else if (!descricao.equals(other.descricao))
+			return false;
+		if (idoferta == null) {
+			if (other.idoferta != null)
+				return false;
+		} else if (!idoferta.equals(other.idoferta))
+			return false;
+		if (usuario == null) {
+			if (other.usuario != null)
+				return false;
+		} else if (!usuario.equals(other.usuario))
+			return false;
+		if (sistema == null) {
+			if (other.sistema != null)
+				return false;
+		} else if (!sistema.equals(other.sistema))
+			return false;
+		if (status != other.status)
+			return false;
+		if (titulo == null) {
+			if (other.titulo != null)
+				return false;
+		} else if (!titulo.equals(other.titulo))
+			return false;
+		if (Float.floatToIntBits(valorHora) != Float.floatToIntBits(other.valorHora))
+			return false;
+		return true;
+	}
+
+	/**
+	 * @return the usuario
+	 */
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	/**
+	 * @param usuario the usuario to set
+	 */
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

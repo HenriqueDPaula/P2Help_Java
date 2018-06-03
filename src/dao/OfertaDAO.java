@@ -1,4 +1,4 @@
-package DAO;
+package dao;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class OfertaDAO implements IOfertaDAO {
 	public void save(Oferta oferta) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction t = session.beginTransaction();
-		session.save(oferta);
+		session.persist(oferta);
 		t.commit();
 
 	}
@@ -47,7 +47,7 @@ public class OfertaDAO implements IOfertaDAO {
 	@Override
 	public void delete(Oferta oferta) {
 		this.session.delete(oferta);
-		
+
 	}
 
 }

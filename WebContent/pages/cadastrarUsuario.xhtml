@@ -10,58 +10,65 @@
 </head>
 <body>
 	<h:form>
-		<h:outputLabel value="nome: " />
-		<h:inputText value="#{usuarioBean.nome}" />
-		<br />
+		<h:panelGrid columns="2">
+			<h:outputLabel value="nome: " />
+			<h:inputText value="#{usuarioBean.nome}" required="true"
+				requiredMessage="Nome é obrigatório" />
 
-		<h:outputLabel value="email: " />
-		<h:inputText value="#{usuarioBean.email}" />
-		<br />
 
-		<h:outputLabel value="senha: " />
-		<h:inputText value="#{usuarioBean.senha}" />
-		<br />
+			<h:outputLabel value="email: " />
+			<h:inputText value="#{usuarioBean.email}" required="true"
+				requiredMessage="Email é obrigatório" />
 
-		<h:outputLabel value="Bairro: " />
-		<h:inputText value="#{usuarioBean.bairro}" />
-		<br />
 
-		<h:outputLabel value="Endereço: " />
-		<h:inputText value="#{usuarioBean.endereco}" />
-		<br />
+			<h:outputLabel value="senha: " />
+			<h:inputSecret value="#{usuarioBean.senha}" required="true"
+				requiredMessage="Senha é obrigatório" />
 
-		<h:outputLabel value="Numero " />
-		<h:inputText value="#{usuarioBean.numero}" />
-		<br />
+			<h:outputLabel value="Bairro: " />
+			<h:inputText value="#{usuarioBean.bairro}" required="true"
+				requiredMessage="Bairro é obrigatório" />
 
-		<h:outputLabel value="complemento: " />
-		<h:inputText value="#{usuarioBean.complemento}" />
-		<br />
 
-		<h:outputLabel value="Cpf: " />
-		<h:inputText value="#{usuarioBean.cpf}" />
-		<br />
+			<h:outputLabel value="Endereço: " />
+			<h:inputText value="#{usuarioBean.endereco}" required="true"
+				requiredMessage="Endereço é obrigatório" />
 
-		<h:outputLabel value="RG:  " />
-		<h:inputText value="#{usuarioBean.rg}" />
-		<br />
 
-		<h:outputLabel value="RG Emissor: " />
-		<h:inputText value="#{usuarioBean.rgEmissor}" />
-		<br />
+			<h:outputLabel value="Numero " />
+			<h:inputText value="#{usuarioBean.numero}" />
 
-		<!-- 		<h:panelGrid columns="2"> -->
-		<!-- 			<h:outputLabel value="Municipio: " /> -->
-		<!-- 			<h:selectOneMenu value="#{usuarioBean.municipio}" -->
-		<!-- 				converter="municipioConverter"> -->
-		<!-- 				<f:selectItems value="#{municipioBean.selectMunicipios()}"> -->
-		<!-- 				</f:selectItems> -->
 
-		<!-- 			</h:selectOneMenu> -->
+			<h:outputLabel value="complemento: " />
+			<h:inputText value="#{usuarioBean.complemento}" />
+
+
+			<h:outputLabel value="Cpf: " />
+			<h:inputText value="#{usuarioBean.cpf}" required="true"
+				requiredMessage="Cpf é obrigatório" />
+
+
+			<h:outputLabel value="RG:  " />
+			<h:inputText value="#{usuarioBean.rg}" required="true"
+				requiredMessage="Rg é obrigatório" />
+
+
+			<h:outputLabel value="RG Emissor: " />
+			<h:inputText value="#{usuarioBean.rgEmissor}" />
 
 
 
-		<!-- 		</h:panelGrid> -->
+
+			<h:outputLabel value="Municipio: " />
+			<h:selectOneMenu filter="true" value="#{usuarioBean.municipio}"
+				required="true" requiredMessage="Municipio é obrigatório"
+				converter="municipioConverter">
+				<f:selectItems value="#{usuarioBean.selectMunicipios()}">
+				</f:selectItems>
+
+			</h:selectOneMenu>
+
+		</h:panelGrid>
 
 		<h:commandButton value="Enviar" action="#{usuarioBean.cadastrar()}" />
 

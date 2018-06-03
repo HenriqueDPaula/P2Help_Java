@@ -1,7 +1,6 @@
-package DAO;
+package dao;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -9,9 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-import com.sun.media.jfxmedia.logging.Logger;
-
-import model.Sistema;
 import model.Usuario;
 import util.HibernateUtil;
 
@@ -39,7 +35,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 		t.commit();
 	}
 
-	public Usuario login() {
+	public Usuario login(String email, String senha) {
 		Usuario usuario = null;
 
 		// Processamento dos dados
@@ -48,7 +44,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 
 		criteria.add(Restrictions.eq("email", email));
 
-		criteria.add(Restrictions.ne("senha", senha));
+		criteria.add(Restrictions.eq("senha", senha));
 
 		usuario = (Usuario) criteria.uniqueResult();
 
@@ -58,6 +54,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 	}
 
 	public Usuario findById(int idusuario) {
+
 		Usuario usuario = null;
 
 		criteria = session.createCriteria(Usuario.class);
@@ -67,6 +64,73 @@ public class UsuarioDAO implements IUsuarioDAO {
 		usuario = (Usuario) criteria.uniqueResult();
 
 		return usuario;
+	}
+
+	/**
+	 * @return the criteria
+	 */
+	public Criteria getCriteria() {
+		return criteria;
+	}
+
+	/**
+	 * @param criteria
+	 *            the criteria to set
+	 */
+	public void setCriteria(Criteria criteria) {
+		this.criteria = criteria;
+	}
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email
+	 *            the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/**
+	 * @return the senha
+	 */
+	public String getSenha() {
+		return senha;
+	}
+
+	/**
+	 * @param senha
+	 *            the senha to set
+	 */
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	/**
+	 * @return the em
+	 */
+	public EntityManager getEm() {
+		return em;
+	}
+
+	/**
+	 * @param em
+	 *            the em to set
+	 */
+	public void setEm(EntityManager em) {
+		this.em = em;
+	}
+
+	/**
+	 * @return the session
+	 */
+	public Session getSession() {
+		return session;
 	}
 
 }

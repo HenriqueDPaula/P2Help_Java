@@ -1,6 +1,6 @@
-/DAO/
 /controller/
 /converter/
+/dao/
 /hibernate.cfg.xml
 /model/
 /service/

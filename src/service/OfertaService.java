@@ -2,7 +2,7 @@ package service;
 
 import java.io.Serializable;
 
-import DAO.OfertaDAO;
+import dao.OfertaDAO;
 import model.Oferta;
 
 public class OfertaService implements Serializable {
@@ -32,5 +32,12 @@ public class OfertaService implements Serializable {
 
 	public void setOferta(Oferta oferta) {
 		this.oferta = oferta;
+	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }

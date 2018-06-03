@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>perfil</title>
-</head>
-<body>
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>perfil</title>
+</h:head>
+<h:body>
 
-<h2>Nice</h2>
-<!-- 	<h:outputText value="#{usuarioBean.retornaUsuario()}" /> -->
-</body>
+	<h:outputText value="Usuário cadastrado com sucesso."
+		styleClass="title" />
+
+	<hr />
+
+	<h:panelGrid columns="2" border="2">
+
+		<h:outputLabel value="Nome:  " />
+		<h:outputText value="#{usuarioBean.usuario.nome}" />
+
+		<h:outputLabel value="Email: " styleClass="emphasis" />
+		<h:outputText value="#{usuarioBean.usuario.email}" />
+
+
+		<h:outputLabel value="Municipio: " styleClass="emphasis" />
+		<h:outputText value="#{usuarioBean.usuario.municipio}" />
+
+		<h:outputLabel value="Senha: " styleClass="emphasis" />
+		<h:outputText value="#{usuarioBean.usuario.senha}" />
+
+	</h:panelGrid>
+
+	<hr />
+
+</h:body>
+
 </html>

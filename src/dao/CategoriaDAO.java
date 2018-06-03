@@ -1,7 +1,6 @@
-package DAO;
+package dao;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -12,7 +11,6 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import model.Categoria;
-import model.Municipios;
 import util.HibernateUtil;
 
 public class CategoriaDAO implements Serializable {

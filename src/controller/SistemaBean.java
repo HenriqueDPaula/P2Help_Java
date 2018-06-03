@@ -1,8 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -33,18 +30,16 @@ public class SistemaBean {
 		return "/pages/municipioTeste";
 	}
 
-//	public List<Sistema> selectOne() {
-//		MunicipioService muniS = new MunicipioService();
-//		List<Municipios> muniL = new ArrayList();
-//		muniL = muniS.listar();
-//		for (Municipios municipios : muniL) {
-//			muniL.add(new Municipios());
-//		}
-//
-//		return muniL;
-//	}
-
-
+	// public List<Sistema> selectOne() {
+	// MunicipioService muniS = new MunicipioService();
+	// List<Municipios> muniL = new ArrayList();
+	// muniL = muniS.listar();
+	// for (Municipios municipios : muniL) {
+	// muniL.add(new Municipios());
+	// }
+	//
+	// return muniL;
+	// }
 
 	public String getNome() {
 		return nome;

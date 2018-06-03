@@ -9,7 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 
-import DAO.CategoriaDAO;
+import dao.CategoriaDAO;
 import model.Categoria;
 import model.Municipios;
 import model.Oferta;
