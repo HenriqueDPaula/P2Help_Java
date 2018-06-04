@@ -8,8 +8,7 @@
 </h:head>
 <h:body>
 
-	<h:outputText value="Usuário cadastrado com sucesso."
-		styleClass="title" />
+	<h:outputText value="Página usuário" styleClass="title" />
 
 	<hr />
 
@@ -28,6 +27,13 @@
 		<h:outputLabel value="Senha: " styleClass="emphasis" />
 		<h:outputText value="#{usuarioBean.usuario.senha}" />
 
+		<h:panelGroup>
+			<h:outputLabel value="Endereço: " styleClass="emphasis" />
+			<h:outputText value="#{usuarioBean.usuario.endereco}" />
+
+			<h:outputLabel value=" número " styleClass="emphasis" />
+			<h:outputText value="#{usuarioBean.usuario.numero}" />
+		</h:panelGroup>
 	</h:panelGrid>
 
 	<hr />

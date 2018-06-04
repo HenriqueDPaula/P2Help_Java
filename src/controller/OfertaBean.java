@@ -94,8 +94,8 @@ public class OfertaBean implements Serializable {
 			Usuario u = new Usuario();
 			UsuarioService usuarioService = new UsuarioService();
 			u = usuarioService.findById(1);
-			oferta.setIdusuario(u);
-			oferta.setStatus(status);
+//			oferta.setIdusuario(u);
+//			oferta.setStatus(status);
 			valorHora = 22.22f;
 			oferta.setValorHora(valorHora);
 			oferta.setIdoferta(1);

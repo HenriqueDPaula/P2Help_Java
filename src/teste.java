@@ -39,7 +39,7 @@ public class teste {
 		oferta.setCategoria(categoria);
 		Usuario usuario = new Usuario();
 		usuario = usuarioService.findById(26);
-		oferta.setIdusuario(usuario);
+		oferta.setUsuario(usuario);
 		Sistema sistema = new Sistema();
 		sistema = sistemaService.FindById(22);
 		oferta.setSistema(sistema);

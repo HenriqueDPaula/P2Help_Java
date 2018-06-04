@@ -114,14 +114,6 @@ public class Oferta implements Serializable {
 		return serialVersionUID;
 	}
 
-	public Usuario getIdusuario() {
-		return usuario;
-	}
-
-	public void setIdusuario(Usuario idusuario) {
-		this.usuario = idusuario;
-	}
-
 	public Sistema getSistema() {
 		return sistema;
 	}
@@ -223,7 +215,8 @@ public class Oferta implements Serializable {
 	}
 
 	/**
-	 * @param usuario the usuario to set
+	 * @param usuario
+	 *            the usuario to set
 	 */
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;

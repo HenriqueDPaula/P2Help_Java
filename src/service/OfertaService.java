@@ -15,7 +15,8 @@ public class OfertaService implements Serializable {
 	private Oferta oferta;
 
 	public void save(Oferta oferta) {
-		this.ofertaDAO.save(oferta);
+		ofertaDAO = new OfertaDAO();
+		ofertaDAO.save(oferta);
 	}
 
 	public OfertaDAO getOfertaDAO() {
