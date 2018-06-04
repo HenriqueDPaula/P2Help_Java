@@ -18,18 +18,18 @@
 
 			<h:outputLabel value="Descrição: " />
 			<h:inputTextarea value="#{ofertaBean.descricao}" size="400" />
-			<br />
 
+
+			<h:outputLabel value="Selecione um sistema" />
 			<h:selectOneMenu filter="true" value="#{ofertaBean.sistema}"
 				converter="sistemaConverter">
-				<f:selectItem itemLabel="Selecione um sistema " />
 				<f:selectItems value="#{ofertaBean.selectSistema()}">
 				</f:selectItems>
 			</h:selectOneMenu>
 
+			<h:outputLabel value="Selecione uma categoria" />
 			<h:selectOneMenu filter="true" value="#{ofertaBean.categoria}"
 				converter="categoriaConverter">
-				<f:selectItem itemLabel="Selecione uma categoria " />
 				<f:selectItems value="#{ofertaBean.selectCategoria()}">
 				</f:selectItems>
 			</h:selectOneMenu>
@@ -42,12 +42,16 @@
 			</p:selectOneRadio>
 		</h:panelGrid>
 
-		<h:commandButton value="salvar"
-			action="#{ofertaBean.cadastrarOferta()}" />
+		<h:form>
 
+			<h:commandButton value="salvar"
+				action="#{ofertaBean.cadastrarOferta()}" />
 
+			<h:commandButton value="sair"
+				action="#{ofertaBean.cadastrarOferta()}" />
 
-
+			<h:commandButton value="voltar" action="pageUsuario" />
+		</h:form>
 
 	</h:form>
 </h:body>

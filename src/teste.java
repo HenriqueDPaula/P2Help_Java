@@ -22,34 +22,36 @@ public class teste {
 	static CategoriaService categoriaService = new CategoriaService();
 	static OfertaDAO sis = new OfertaDAO();
 	static Oferta oferta = new Oferta();
-	static Sistema sistema = new Sistema();
-	static char s;
+	// static Sistema sistema = new Sistema();
 	static OfertaService ofertaService = new OfertaService();
 
 	public static void main(String[] args) {
 
-		String email = "email@.com";
-		String senha = "1233";
-		usuario = usuarioService.login(email, senha);
-		System.out.println(usuario.getEmail() + usuario.getNome());
-		// oferta = new Oferta();
-		// oferta.setDescricao("Serva que vai");
-		// Categoria categoria = new Categoria();
-		// categoria = categoriaService.FindById(26);
-		// oferta.setCategoria(categoria);
-		// usuario = usuarioService.findById(26);
-		// oferta.setIdusuario(usuario);
-		// sistema = sistemaService.FindById(22);
-		// oferta.setSistema(sistema);
-		// s = 1;
-		// oferta.setStatus(s);
-		// oferta.setTitulo("suporte a eclipse");
-		// oferta.setValorHora(22.22f);
-		// java.util.Date date = new java.util.Date();
-		// long t = date.getTime();
-		// java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(t);
-		// oferta.setDataOferta(sqlTimestamp);
-		// ofertaService.save(oferta);
+		// String email = "email@.com";
+		// String senha = "1233";
+		// usuario = usuarioService.login(email, senha);
+		// System.out.println(usuario.getEmail() + usuario.getNome());
+
+		oferta = new Oferta();
+		oferta.setDescricao("Serva que vai");
+		Categoria categoria = new Categoria();
+		categoria = categoriaService.FindById(26);
+		oferta.setCategoria(categoria);
+		Usuario usuario = new Usuario();
+		usuario = usuarioService.findById(26);
+		oferta.setIdusuario(usuario);
+		Sistema sistema = new Sistema();
+		sistema = sistemaService.FindById(22);
+		oferta.setSistema(sistema);
+		char s = 's';
+		oferta.setStatus(s);
+		oferta.setTitulo("suporte a eclipse");
+		oferta.setValorHora(22.22f);
+		java.util.Date date = new java.util.Date();
+		long t = date.getTime();
+		java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(t);
+		oferta.setDataOferta(sqlTimestamp);
+		ofertaService.save(oferta);
 
 		//
 		// usuario = new Usuario();
@@ -107,6 +109,146 @@ public class teste {
 		// usuario.setMunicipio(muni);
 		// usuarioService.save(usuario);
 		//
+	}
+
+	/**
+	 * @return the usuario
+	 */
+	public static Usuario getUsuario() {
+		return usuario;
+	}
+
+	/**
+	 * @param usuario the usuario to set
+	 */
+	public static void setUsuario(Usuario usuario) {
+		teste.usuario = usuario;
+	}
+
+	/**
+	 * @return the usuarioService
+	 */
+	public static UsuarioService getUsuarioService() {
+		return usuarioService;
+	}
+
+	/**
+	 * @param usuarioService the usuarioService to set
+	 */
+	public static void setUsuarioService(UsuarioService usuarioService) {
+		teste.usuarioService = usuarioService;
+	}
+
+	/**
+	 * @return the municipio
+	 */
+	public static Municipios getMunicipio() {
+		return municipio;
+	}
+
+	/**
+	 * @param municipio the municipio to set
+	 */
+	public static void setMunicipio(Municipios municipio) {
+		teste.municipio = municipio;
+	}
+
+	/**
+	 * @return the municipioService
+	 */
+	public static MunicipioService getMunicipioService() {
+		return municipioService;
+	}
+
+	/**
+	 * @param municipioService the municipioService to set
+	 */
+	public static void setMunicipioService(MunicipioService municipioService) {
+		teste.municipioService = municipioService;
+	}
+
+	/**
+	 * @return the municipioDAO
+	 */
+	public static MunicipiosDAO getMunicipioDAO() {
+		return municipioDAO;
+	}
+
+	/**
+	 * @param municipioDAO the municipioDAO to set
+	 */
+	public static void setMunicipioDAO(MunicipiosDAO municipioDAO) {
+		teste.municipioDAO = municipioDAO;
+	}
+
+	/**
+	 * @return the sistemaService
+	 */
+	public static SistemaService getSistemaService() {
+		return sistemaService;
+	}
+
+	/**
+	 * @param sistemaService the sistemaService to set
+	 */
+	public static void setSistemaService(SistemaService sistemaService) {
+		teste.sistemaService = sistemaService;
+	}
+
+	/**
+	 * @return the categoriaService
+	 */
+	public static CategoriaService getCategoriaService() {
+		return categoriaService;
+	}
+
+	/**
+	 * @param categoriaService the categoriaService to set
+	 */
+	public static void setCategoriaService(CategoriaService categoriaService) {
+		teste.categoriaService = categoriaService;
+	}
+
+	/**
+	 * @return the sis
+	 */
+	public static OfertaDAO getSis() {
+		return sis;
+	}
+
+	/**
+	 * @param sis the sis to set
+	 */
+	public static void setSis(OfertaDAO sis) {
+		teste.sis = sis;
+	}
+
+	/**
+	 * @return the oferta
+	 */
+	public static Oferta getOferta() {
+		return oferta;
+	}
+
+	/**
+	 * @param oferta the oferta to set
+	 */
+	public static void setOferta(Oferta oferta) {
+		teste.oferta = oferta;
+	}
+
+	/**
+	 * @return the ofertaService
+	 */
+	public static OfertaService getOfertaService() {
+		return ofertaService;
+	}
+
+	/**
+	 * @param ofertaService the ofertaService to set
+	 */
+	public static void setOfertaService(OfertaService ofertaService) {
+		teste.ofertaService = ofertaService;
 	}
 
 }

@@ -32,13 +32,9 @@
 
 	<hr />
 	<h:form>
-		<h:commandLink action="cadastrarOferta" value="Publicar Oferta" />
-	</h:form>
-	<h:form>
-		<h:commandLink action="#{usuarioBean.atualizar()}" value="Editar" />
-	</h:form>
-	<h:form>
-		<h:commandLink action="/login" value="Sair" />
+		<h:commandButton action="cadastrarOferta" value="Publicar Oferta" />
+		<h:commandButton action="#{usuarioBean.atualizar()}" value="Editar" />
+		<h:commandButton action="/login" value="Sair" />
 	</h:form>
 </h:body>
 
