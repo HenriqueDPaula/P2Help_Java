@@ -38,7 +38,7 @@ public class teste {
 		categoria = categoriaService.FindById(26);
 		oferta.setCategoria(categoria);
 		Usuario usuario = new Usuario();
-		usuario = usuarioService.findById(26);
+		usuario = usuarioService.findById(66);
 		oferta.setUsuario(usuario);
 		Sistema sistema = new Sistema();
 		sistema = sistemaService.FindById(22);
@@ -119,7 +119,8 @@ public class teste {
 	}
 
 	/**
-	 * @param usuario the usuario to set
+	 * @param usuario
+	 *            the usuario to set
 	 */
 	public static void setUsuario(Usuario usuario) {
 		teste.usuario = usuario;
@@ -133,7 +134,8 @@ public class teste {
 	}
 
 	/**
-	 * @param usuarioService the usuarioService to set
+	 * @param usuarioService
+	 *            the usuarioService to set
 	 */
 	public static void setUsuarioService(UsuarioService usuarioService) {
 		teste.usuarioService = usuarioService;
@@ -147,7 +149,8 @@ public class teste {
 	}
 
 	/**
-	 * @param municipio the municipio to set
+	 * @param municipio
+	 *            the municipio to set
 	 */
 	public static void setMunicipio(Municipios municipio) {
 		teste.municipio = municipio;
@@ -161,7 +164,8 @@ public class teste {
 	}
 
 	/**
-	 * @param municipioService the municipioService to set
+	 * @param municipioService
+	 *            the municipioService to set
 	 */
 	public static void setMunicipioService(MunicipioService municipioService) {
 		teste.municipioService = municipioService;
@@ -175,7 +179,8 @@ public class teste {
 	}
 
 	/**
-	 * @param municipioDAO the municipioDAO to set
+	 * @param municipioDAO
+	 *            the municipioDAO to set
 	 */
 	public static void setMunicipioDAO(MunicipiosDAO municipioDAO) {
 		teste.municipioDAO = municipioDAO;
@@ -189,7 +194,8 @@ public class teste {
 	}
 
 	/**
-	 * @param sistemaService the sistemaService to set
+	 * @param sistemaService
+	 *            the sistemaService to set
 	 */
 	public static void setSistemaService(SistemaService sistemaService) {
 		teste.sistemaService = sistemaService;
@@ -203,7 +209,8 @@ public class teste {
 	}
 
 	/**
-	 * @param categoriaService the categoriaService to set
+	 * @param categoriaService
+	 *            the categoriaService to set
 	 */
 	public static void setCategoriaService(CategoriaService categoriaService) {
 		teste.categoriaService = categoriaService;
@@ -217,7 +224,8 @@ public class teste {
 	}
 
 	/**
-	 * @param sis the sis to set
+	 * @param sis
+	 *            the sis to set
 	 */
 	public static void setSis(OfertaDAO sis) {
 		teste.sis = sis;
@@ -231,7 +239,8 @@ public class teste {
 	}
 
 	/**
-	 * @param oferta the oferta to set
+	 * @param oferta
+	 *            the oferta to set
 	 */
 	public static void setOferta(Oferta oferta) {
 		teste.oferta = oferta;
@@ -245,7 +254,8 @@ public class teste {
 	}
 
 	/**
-	 * @param ofertaService the ofertaService to set
+	 * @param ofertaService
+	 *            the ofertaService to set
 	 */
 	public static void setOfertaService(OfertaService ofertaService) {
 		teste.ofertaService = ofertaService;

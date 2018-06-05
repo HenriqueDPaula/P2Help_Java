@@ -10,6 +10,7 @@
 </h:head>
 <h:body>
 	<h:form>
+		<p:messages id="messages" autoUpdate="true" showDetail="true" />
 		<h:panelGrid columns="2">
 			<p:outputLabel value="nome: " />
 			<p:inputText value="#{usuarioBean.nome}" required="true"
@@ -24,6 +25,10 @@
 			<p:outputLabel value="senha: " />
 			<p:password value="#{usuarioBean.senha}" required="true"
 				requiredMessage="Senha é obrigatório" />
+
+			<p:outputLabel value="Confirmar senha: " />
+			<p:password value="#{usuarioBean.senhaConfirm}" required="true"
+				requiredMessage="Confirmação de senha é obrigatório" />
 
 			<p:outputLabel value="Bairro: " />
 			<p:inputText value="#{usuarioBean.bairro}" required="true"
@@ -58,7 +63,6 @@
 			<p:outputLabel value="RG Emissor: " />
 			<p:inputText value="#{usuarioBean.rgEmissor}" required="true"
 				maxlength="2" size="2">
-				<f:validateRegex pattern="^[A-Z]+$" />
 				<f:validateLength maximum="2" />
 			</p:inputText>
 
@@ -75,7 +79,8 @@
 			</p:selectOneMenu>
 		</h:panelGrid>
 
-		<p:commandButton value="Enviar" action="#{usuarioBean.cadastrar()}" />
+		<p:commandButton value="Enviar"
+			action="#{usuarioBean.validarSenhas()}" />
 
 		<br />
 

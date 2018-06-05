@@ -13,48 +13,47 @@
 	<h:form>
 		<p:messages />
 		<h:panelGrid columns="2">
-			<h:outputLabel value="Titulo: " />
-			<h:inputText value="#{ofertaBean.titulo}" />
+			<p:outputLabel value="Titulo: " />
+			<p:inputText value="#{ofertaBean.titulo}" />
 
-			<h:outputLabel value="Descrição: " />
+			<p:outputLabel value="Descrição: " />
 			<h:inputTextarea value="#{ofertaBean.descricao}" size="400" />
 
 
-			<h:outputLabel value="Selecione um sistema" />
+			<p:outputLabel value="Selecione um sistema" />
 			<p:selectOneMenu filter="true" value="#{ofertaBean.sistema}"
 				converter="sistemaConverter">
+				<f:selectItem itemLabel="Selecione" />
 				<f:selectItems value="#{ofertaBean.selectSistema()}">
 				</f:selectItems>
 			</p:selectOneMenu>
 
-			<h:outputLabel value="Selecione uma categoria" />
+			<p:outputLabel value="Selecione uma categoria" />
 			<p:selectOneMenu filter="true" value="#{ofertaBean.categoria}"
 				converter="categoriaConverter">
+				<f:selectItem itemLabel="Selecione" />
 				<f:selectItems value="#{ofertaBean.selectCategoria()}">
 				</f:selectItems>
 			</p:selectOneMenu>
 
 
-			<h:outputLabel value="Ativar a oferta: " />
-			<p:selectOneRadio value="#{ofertaBean.status}">
-				<f:selectItem itemLabel="Sim" itemValue="s" />
-				<f:selectItem itemLabel="Não" itemValue="n" />
+			<p:outputLabel value="Ativar a oferta: " />
+			<p:selectOneRadio value="#{ofertaBean.radio}">
+				<f:selectItem itemLabel="Sim" itemValue="true" />
+				<f:selectItem itemLabel="Não" itemValue="false" />
 			</p:selectOneRadio>
 		</h:panelGrid>
 
-			<h:outputLabel value="Valor por hora(R$): " />
-			<h:inputText value="#{ofertaBean.valorHora}" />
-			
-		<h:form>
+		<p:outputLabel value="Valor por hora(R$): " />
+		<p:inputText value="#{ofertaBean.valorHora}" />
+		<br />
 
-			<p:commandButton value="salvar"
-				action="#{ofertaBean.cadastrarOferta()}" />
+		<p:commandButton value="salvar" action="#{ofertaBean.cadastrar()}" />
 
-			<p:commandButton value="sair"
-				action="#{ofertaBean.cadastrarOferta()}" />
+		<p:commandButton value="sair" action="/login" />
 
-			<p:commandButton value="voltar" action="pageUsuario" />
-		</h:form>
+		<p:commandButton value="voltar" action="pageUsuario" />
+
 
 	</h:form>
 </h:body>
