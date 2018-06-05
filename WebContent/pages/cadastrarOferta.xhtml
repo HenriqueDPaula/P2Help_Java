@@ -11,7 +11,7 @@
 </h:head>
 <h:body>
 	<h:form>
-
+		<p:messages />
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Titulo: " />
 			<h:inputText value="#{ofertaBean.titulo}" />
@@ -21,18 +21,18 @@
 
 
 			<h:outputLabel value="Selecione um sistema" />
-			<h:selectOneMenu filter="true" value="#{ofertaBean.sistema}"
+			<p:selectOneMenu filter="true" value="#{ofertaBean.sistema}"
 				converter="sistemaConverter">
 				<f:selectItems value="#{ofertaBean.selectSistema()}">
 				</f:selectItems>
-			</h:selectOneMenu>
+			</p:selectOneMenu>
 
 			<h:outputLabel value="Selecione uma categoria" />
-			<h:selectOneMenu filter="true" value="#{ofertaBean.categoria}"
+			<p:selectOneMenu filter="true" value="#{ofertaBean.categoria}"
 				converter="categoriaConverter">
 				<f:selectItems value="#{ofertaBean.selectCategoria()}">
 				</f:selectItems>
-			</h:selectOneMenu>
+			</p:selectOneMenu>
 
 
 			<h:outputLabel value="Ativar a oferta: " />
@@ -42,15 +42,18 @@
 			</p:selectOneRadio>
 		</h:panelGrid>
 
+			<h:outputLabel value="Valor por hora(R$): " />
+			<h:inputText value="#{ofertaBean.valorHora}" />
+			
 		<h:form>
 
-			<h:commandButton value="salvar"
+			<p:commandButton value="salvar"
 				action="#{ofertaBean.cadastrarOferta()}" />
 
-			<h:commandButton value="sair"
+			<p:commandButton value="sair"
 				action="#{ofertaBean.cadastrarOferta()}" />
 
-			<h:commandButton value="voltar" action="pageUsuario" />
+			<p:commandButton value="voltar" action="pageUsuario" />
 		</h:form>
 
 	</h:form>

@@ -78,6 +78,9 @@ public class UsuarioBean implements Serializable {
 		usuario.setRgEmissor(rgEmissor);
 		usuario.setSenha(senha);
 		usuarioService.save(usuario);
+		FacesContext.getCurrentInstance().addMessage(null, new
+				 FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha inserida não confere!",
+				 ""));
 
 		return "pageUsuario";
 	}
@@ -120,9 +123,7 @@ public class UsuarioBean implements Serializable {
 	// if(senha.equals(senhaConfirm)) {
 	// return senha;
 	// }else {
-	// FacesContext.getCurrentInstance().addMessage(null, new
-	// FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha inserida não confere!",
-	// ""));
+	 
 	// return senha;
 	// }
 	//
