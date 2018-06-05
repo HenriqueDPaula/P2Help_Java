@@ -7,7 +7,6 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -48,23 +47,20 @@ public class UsuarioBean implements Serializable {
 		this.usuarioService = new UsuarioService();
 	}
 
-	// @PostConstruct
-	// public void init() {
-	// usuarioService = new UsuarioService();
-	// }
-
 	public String login() {
 		Usuario usuario = usuarioService.login(email, senha);
 		if (usuario != null) {
 			setUsuario(usuario);
 			return "pages/pageUsuario";
 		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, null, "Usuário ou senha não conferem."));
 			return "";
 		}
 
 	}
 
-	public String cadastrar() {
+	public Usuario usuario() {
 		usuario = new Usuario();
 		usuario.setBairro(bairro);
 		usuario.setComplemento(complemento);
@@ -77,14 +73,30 @@ public class UsuarioBean implements Serializable {
 		usuario.setRg(rg);
 		usuario.setRgEmissor(rgEmissor);
 		usuario.setSenha(senha);
-		usuarioService.save(usuario);
+		return usuario;
 
-		return "pageUsuario";
+	}
+
+	public void cadastrar() {
+		Usuario usuarioP = usuario();
+		usuarioService.save(usuarioP);
+
 	}
 
 	public String atualizar() {
 		this.usuario = usuarioService.findById(this.usuario.getIdusuario());
 		return "atualizarUsuario";
+	}
+
+	public String validarSenhas() {
+		if (senha.equals(senhaConfirm)) {
+			cadastrar();
+			return "pageUsuario";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "As senhas devem ser iguais."));
+			return "";
+		}
 	}
 
 	public String atualizarConfirm() {
@@ -115,18 +127,6 @@ public class UsuarioBean implements Serializable {
 
 		return usuario.getMunicipio();
 	}
-	// public String checkCpf() {
-	// usuarioService.
-	// if(senha.equals(senhaConfirm)) {
-	// return senha;
-	// }else {
-	// FacesContext.getCurrentInstance().addMessage(null, new
-	// FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha inserida não confere!",
-	// ""));
-	// return senha;
-	// }
-	//
-	// }
 
 	public UsuarioService getUsuarioService() {
 		return usuarioService;

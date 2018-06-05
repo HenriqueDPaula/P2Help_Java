@@ -44,10 +44,12 @@ public class OfertaBean implements Serializable {
 	private List<Categoria> categorias;
 	private Sistema sistema;
 	private CategoriaDAO categoriaDAO;
+	private boolean radio;
 
 	public OfertaBean() {
 		this.sistemaService = new SistemaService();
 		this.categoriaService = new CategoriaService();
+		this.ofertaService = new OfertaService();
 	}
 
 	public List<SelectItem> selectCategoria() {
@@ -83,35 +85,35 @@ public class OfertaBean implements Serializable {
 
 	}
 
-	public void cadastrarOferta() {
-		try {
-			Oferta oferta = new Oferta();
-			oferta.setTitulo(titulo);
-			oferta.setDataOferta(getCurrentTimeStamp());
-			oferta.setDescricao(descricao);
-			oferta.setCategoria(categoria);
-			oferta.setSistema(sistema);
-			Usuario u = new Usuario();
-			UsuarioService usuarioService = new UsuarioService();
-			u = usuarioService.findById(1);
-//			oferta.setIdusuario(u);
-//			oferta.setStatus(status);
-			valorHora = 22.22f;
-			oferta.setValorHora(valorHora);
-			oferta.setIdoferta(1);
+	public String cadastrar() {
 
-		} catch (Exception e) {
-			System.out.println("noffa");
-			e.printStackTrace();
-		} finally {
-			ofertaService.save(oferta);
+		oferta = new Oferta();
+		oferta.setTitulo(titulo);
+		java.util.Date date = new java.util.Date();
+		long t = date.getTime();
+		java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(t);
+		oferta.setDataOferta(sqlTimestamp);
+		oferta.setDescricao(descricao);
+		oferta.setCategoria(categoria);
+		oferta.setSistema(sistema);
+		Usuario u = new Usuario();
+		UsuarioService usuarioService = new UsuarioService();
+		u = usuarioService.findById(usuario.getIdusuario());
+		oferta.setUsuario(u);
+
+		if (radio == true) {
+			status = 's';
+			oferta.setStatus(status);
+		} else {
+			status = 'n';
+			oferta.setStatus(status);
 		}
 
-	}
+		oferta.setValorHora(valorHora);
 
-	public java.sql.Timestamp getCurrentTimeStamp() {
-		java.util.Date today = new java.util.Date();
-		return new java.sql.Timestamp(today.getTime());
+		ofertaService.save(oferta);
+		return "pageOferta";
+
 	}
 
 	public Oferta getOferta() {
@@ -249,6 +251,21 @@ public class OfertaBean implements Serializable {
 
 	public void setCategoriaDAO(CategoriaDAO categoriaDAO) {
 		this.categoriaDAO = categoriaDAO;
+	}
+
+	/**
+	 * @return the radio
+	 */
+	public boolean isRadio() {
+		return radio;
+	}
+
+	/**
+	 * @param radio
+	 *            the radio to set
+	 */
+	public void setRadio(boolean radio) {
+		this.radio = radio;
 	}
 
 }

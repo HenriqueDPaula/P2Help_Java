@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>perfil</title>
 </h:head>
 <h:body>
 
-	<h:outputText value="Página usuário" styleClass="title" />
+	<p:outputLabel value="Página usuário" styleClass="title" />
 
 	<hr />
 
-	<h:panelGrid columns="2">
+
+	<p:panelGrid columns="2" border="1">
 
 		<h:outputLabel value="Nome:  " />
 		<h:outputText value="#{usuarioBean.usuario.nome}" />
@@ -27,20 +30,20 @@
 		<h:outputLabel value="Senha: " styleClass="emphasis" />
 		<h:outputText value="#{usuarioBean.usuario.senha}" />
 
-		<h:panelGroup>
-			<h:outputLabel value="Endereço: " styleClass="emphasis" />
-			<h:outputText value="#{usuarioBean.usuario.endereco}" />
 
-			<h:outputLabel value=" número " styleClass="emphasis" />
-			<h:outputText value="#{usuarioBean.usuario.numero}" />
-		</h:panelGroup>
-	</h:panelGrid>
+		<h:outputLabel value="Endereço: " styleClass="emphasis" />
+		<h:outputText value="#{usuarioBean.usuario.endereco}" />
+
+		<h:outputLabel value=" número " styleClass="emphasis" />
+		<h:outputText value="#{usuarioBean.usuario.numero}" />
+
+	</p:panelGrid>
 
 	<hr />
 	<h:form>
-		<h:commandButton action="cadastrarOferta" value="Publicar Oferta" />
-		<h:commandButton action="#{usuarioBean.atualizar()}" value="Editar" />
-		<h:commandButton action="/login" value="Sair" />
+		<p:commandButton action="cadastrarOferta" value="Publicar Oferta" />
+		<p:commandButton action="#{usuarioBean.atualizar()}" value="Editar" />
+		<p:commandButton action="/login" value="Sair" />
 	</h:form>
 </h:body>
 

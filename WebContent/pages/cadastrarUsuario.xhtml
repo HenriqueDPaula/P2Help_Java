@@ -4,76 +4,86 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Cadastrar</title>
-</head>
-<body>
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Cadastrar</title>
+</h:head>
+<h:body>
 	<h:form>
+		<p:messages id="messages" autoUpdate="true" showDetail="true" />
 		<h:panelGrid columns="2">
-			<h:outputLabel value="nome: " />
-			<h:inputText value="#{usuarioBean.nome}" required="true"
+			<p:outputLabel value="nome: " />
+			<p:inputText value="#{usuarioBean.nome}" required="true"
 				requiredMessage="Nome é obrigatório" />
 
 
-			<h:outputLabel value="email: " />
-			<h:inputText value="#{usuarioBean.email}" required="true"
+			<p:outputLabel value="email: " />
+			<p:inputText value="#{usuarioBean.email}" required="true"
 				requiredMessage="Email é obrigatório" />
 
 
-			<h:outputLabel value="senha: " />
-			<h:inputSecret value="#{usuarioBean.senha}" required="true"
+			<p:outputLabel value="senha: " />
+			<p:password value="#{usuarioBean.senha}" required="true"
 				requiredMessage="Senha é obrigatório" />
 
-			<h:outputLabel value="Bairro: " />
-			<h:inputText value="#{usuarioBean.bairro}" required="true"
+			<p:outputLabel value="Confirmar senha: " />
+			<p:password value="#{usuarioBean.senhaConfirm}" required="true"
+				requiredMessage="Confirmação de senha é obrigatório" />
+
+			<p:outputLabel value="Bairro: " />
+			<p:inputText value="#{usuarioBean.bairro}" required="true"
 				requiredMessage="Bairro é obrigatório" />
 
 
-			<h:outputLabel value="Endereço: " />
-			<h:inputText value="#{usuarioBean.endereco}" required="true"
+			<p:outputLabel value="Endereço: " />
+			<p:inputText value="#{usuarioBean.endereco}" required="true"
 				requiredMessage="Endereço é obrigatório" />
 
 
-			<h:outputLabel value="Numero " />
-			<h:inputText value="#{usuarioBean.numero}" />
+			<p:outputLabel value=" Numero " />
+			<p:inputText value="#{usuarioBean.numero}" required="true"
+				requiredMessage="Nome é obrigatório" size="2" />
 
 
-			<h:outputLabel value="complemento: " />
-			<h:inputText value="#{usuarioBean.complemento}" />
+			<p:outputLabel value="complemento: " />
+			<p:inputText value="#{usuarioBean.complemento}" />
 
 
-			<h:outputLabel value="Cpf: " />
-			<h:inputText value="#{usuarioBean.cpf}" required="true"
-				requiredMessage="Cpf é obrigatório" />
-
-
-			<h:outputLabel value="RG:  " />
-			<h:inputText value="#{usuarioBean.rg}" required="true"
-				requiredMessage="Rg é obrigatório" />
-
-
-			<h:outputLabel value="RG Emissor: " />
-			<h:inputText value="#{usuarioBean.rgEmissor}" />
+			<p:outputLabel value="Cpf: " />
+			<p:inputMask mask="999.999.999-99" value="#{usuarioBean.cpf}"
+				required="true" requiredMessage="Cpf é obrigatório" />
 
 
 
+			<p:outputLabel value="RG:  " />
+			<p:inputMask mask="99.999.999-9" value="#{usuarioBean.rg}"
+				required="true" requiredMessage="RG é obrigatório" />
 
-			<h:outputLabel value="Municipio: " />
-			<h:selectOneMenu filter="true" value="#{usuarioBean.municipio}"
+
+			<p:outputLabel value="RG Emissor: " />
+			<p:inputText value="#{usuarioBean.rgEmissor}" required="true"
+				maxlength="2" size="2">
+				<f:validateLength maximum="2" />
+			</p:inputText>
+
+
+
+
+			<p:outputLabel value="Municipio: " />
+			<p:selectOneMenu filter="true" value="#{usuarioBean.municipio}"
 				required="true" requiredMessage="Municipio é obrigatório"
 				converter="municipioConverter">
 				<f:selectItems value="#{usuarioBean.selectMunicipios()}">
 				</f:selectItems>
 
-			</h:selectOneMenu>
-
+			</p:selectOneMenu>
 		</h:panelGrid>
 
-		<h:commandButton value="Enviar" action="#{usuarioBean.cadastrar()}" />
+		<p:commandButton value="Enviar"
+			action="#{usuarioBean.validarSenhas()}" />
 
 		<br />
 
 	</h:form>
-</body>
+</h:body>
 </html>
