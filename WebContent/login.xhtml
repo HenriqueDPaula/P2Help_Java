@@ -10,20 +10,21 @@
 	<title>Teste</title>
 </h:head>
 <h:body>
-	<h:form>
-		<p:messages id="messages" autoUpdate="true" showDetail="true"/>
-		<p:outputLabel value="Email" for="email" />
-		<p:inputText id="email" value="#{usuarioBean.email}" />
-		<br></br>
-		<p:outputLabel value="Senha" for="senha" />
-		<p:password id="senha" value="#{usuarioBean.senha}" required="true"
-			requiredMessage="Senha é obrigatório" />
 
-		<p:commandButton action="#{usuarioBean.login()}" value="Entrar"
-			type="submit">
-		</p:commandButton>
-
-	</h:form>
+	
+	<form id="formLogin" method="post"
+	action="#(request.contextPath)/j_spring_security_check" >
+	
+		<label for="">Usuário (email)</label> <br />
+		<input type="text" name="j_username" /> <br />
+		<br />
+		
+		<label for="">Usuário (email)</label> <br />
+		<input type="password" name="j_password" />
+			
+	
+		<input type="submit" value="Entrar" />
+	</form>
 	<h:form>
 		<h:commandLink action="pages/cadastrarUsuario" value="Cadastrar" />
 	</h:form>
