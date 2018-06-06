@@ -15,8 +15,8 @@ import javax.persistence.Table;
  * Entidade e nome da tabela para mapeamento
  */
 @Entity
-@Table(name = "USUARIO")
-public class Usuario implements Serializable {
+@Table(name = "GrupoXUsuario")
+public class GrupoXUsuario implements Serializable {
 
 	/**
 	 * 
@@ -79,7 +79,7 @@ public class Usuario implements Serializable {
 	/*
 	 * Constructor
 	 */
-	public Usuario() {
+	public GrupoXUsuario() {
 
 	}
 
@@ -245,7 +245,7 @@ public class Usuario implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Usuario other = (Usuario) obj;
+		GrupoXUsuario other = (GrupoXUsuario) obj;
 		if (bairro == null) {
 			if (other.bairro != null)
 				return false;
