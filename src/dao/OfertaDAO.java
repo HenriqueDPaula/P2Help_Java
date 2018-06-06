@@ -38,10 +38,25 @@ public class OfertaDAO implements IOfertaDAO {
 		return oferta;
 	}
 
-	@Override
+	public void atualizar(Oferta oferta) {
+
+		Transaction t = session.beginTransaction();
+		session.update(oferta);
+		t.commit();
+
+	}
+
+	@SuppressWarnings("unchecked")
 	public List<Oferta> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Oferta> oferta = null;
+
+		// Processamento dos dados
+
+		criteria = session.createCriteria(Oferta.class);
+
+		oferta = criteria.list();
+
+		return oferta;
 	}
 
 	@Override

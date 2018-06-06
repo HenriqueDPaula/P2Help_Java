@@ -10,6 +10,27 @@
 </h:head>
 <h:body>
 
+	<h:form>
+		<p:menubar>
+			<p:submenu label="Ofertas">
+				<p:menuitem value="publicar" url="pages/cadastrarOferta.jsf" />
+				<p:menuitem value="procurar" url="pages/ofertas.jsf" />
+				<p:separator />
+				<p:menuitem value="minhas ofertas" url="pages/ofertasUsuario.jsf" />
+			</p:submenu>
+
+			<p:submenu label="Perfil">
+				<p:menuitem value="informações" url="pageUsuario.jsf" />
+				<p:menuitem value="atualizar" url="atualizarUsuario.jsf" />
+				<p:separator />
+				<p:menuitem value="apagar conta"  />
+			</p:submenu>
+
+			<p:menuitem value="Sair" url="/login.jsf" />
+
+		</p:menubar>
+	</h:form>
+
 	<p:outputLabel value="Página usuário" styleClass="title" />
 
 	<hr />

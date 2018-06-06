@@ -1,9 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
+
 import dao.MunicipiosDAO;
 import dao.OfertaDAO;
-import model.Categoria;
 import model.Municipios;
 import model.Oferta;
-import model.Sistema;
 import model.Usuario;
 import service.CategoriaService;
 import service.MunicipioService;
@@ -20,7 +21,7 @@ public class teste {
 	static MunicipiosDAO municipioDAO = new MunicipiosDAO();
 	static SistemaService sistemaService = new SistemaService();
 	static CategoriaService categoriaService = new CategoriaService();
-	static OfertaDAO sis = new OfertaDAO();
+	static OfertaDAO ofertaDAO = new OfertaDAO();
 	static Oferta oferta = new Oferta();
 	// static Sistema sistema = new Sistema();
 	static OfertaService ofertaService = new OfertaService();
@@ -33,25 +34,31 @@ public class teste {
 		// System.out.println(usuario.getEmail() + usuario.getNome());
 
 		oferta = new Oferta();
-		oferta.setDescricao("Serva que vai");
-		Categoria categoria = new Categoria();
-		categoria = categoriaService.FindById(26);
-		oferta.setCategoria(categoria);
-		Usuario usuario = new Usuario();
-		usuario = usuarioService.findById(66);
-		oferta.setUsuario(usuario);
-		Sistema sistema = new Sistema();
-		sistema = sistemaService.FindById(22);
-		oferta.setSistema(sistema);
-		char s = 's';
-		oferta.setStatus(s);
-		oferta.setTitulo("suporte a eclipse");
-		oferta.setValorHora(22.22f);
-		java.util.Date date = new java.util.Date();
-		long t = date.getTime();
-		java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(t);
-		oferta.setDataOferta(sqlTimestamp);
-		ofertaService.save(oferta);
+		ofertaDAO = new OfertaDAO();
+		List<Oferta> list = new ArrayList<Oferta>();
+		list = ofertaDAO.listar();
+		for (Oferta oferta : list) {
+			System.out.println(oferta.getTitulo());
+		}
+		// oferta.setDescricao("Serva que vai");
+		// Categoria categoria = new Categoria();
+		// categoria = categoriaService.FindById(26);
+		// oferta.setCategoria(categoria);
+		// Usuario usuario = new Usuario();
+		// usuario = usuarioService.findById(66);
+		// oferta.setUsuario(usuario);
+		// Sistema sistema = new Sistema();
+		// sistema = sistemaService.FindById(22);
+		// oferta.setSistema(sistema);
+		// char s = 's';
+		// oferta.setStatus(s);
+		// oferta.setTitulo("suporte a eclipse");
+		// oferta.setValorHora(22.22f);
+		// java.util.Date date = new java.util.Date();
+		// long t = date.getTime();
+		// java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(t);
+		// oferta.setDataOferta(sqlTimestamp);
+		// ofertaService.save(oferta);
 
 		//
 		// usuario = new Usuario();
@@ -219,18 +226,6 @@ public class teste {
 	/**
 	 * @return the sis
 	 */
-	public static OfertaDAO getSis() {
-		return sis;
-	}
-
-	/**
-	 * @param sis
-	 *            the sis to set
-	 */
-	public static void setSis(OfertaDAO sis) {
-		teste.sis = sis;
-	}
-
 	/**
 	 * @return the oferta
 	 */
@@ -259,6 +254,21 @@ public class teste {
 	 */
 	public static void setOfertaService(OfertaService ofertaService) {
 		teste.ofertaService = ofertaService;
+	}
+
+	/**
+	 * @return the ofertaDAO
+	 */
+	public static OfertaDAO getOfertaDAO() {
+		return ofertaDAO;
+	}
+
+	/**
+	 * @param ofertaDAO
+	 *            the ofertaDAO to set
+	 */
+	public static void setOfertaDAO(OfertaDAO ofertaDAO) {
+		teste.ofertaDAO = ofertaDAO;
 	}
 
 }

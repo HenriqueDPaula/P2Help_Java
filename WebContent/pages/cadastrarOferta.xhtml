@@ -17,7 +17,7 @@
 			<p:inputText value="#{ofertaBean.titulo}" />
 
 			<p:outputLabel value="Descrição: " />
-			<h:inputTextarea value="#{ofertaBean.descricao}" size="400" />
+			<p:inputTextarea value="#{ofertaBean.descricao}" size="500" />
 
 
 			<p:outputLabel value="Selecione um sistema" />
@@ -42,11 +42,13 @@
 				<f:selectItem itemLabel="Sim" itemValue="true" />
 				<f:selectItem itemLabel="Não" itemValue="false" />
 			</p:selectOneRadio>
+
+			<p:outputLabel value="Valor por hora(R$): " />
+			<p:inputText value="#{ofertaBean.valorHora}" />
+			<br />
+
 		</h:panelGrid>
 
-		<p:outputLabel value="Valor por hora(R$): " />
-		<p:inputText value="#{ofertaBean.valorHora}" />
-		<br />
 
 		<p:commandButton value="salvar" action="#{ofertaBean.cadastrar()}" />
 

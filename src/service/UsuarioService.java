@@ -12,9 +12,13 @@ public class UsuarioService {
 		this.usuarioDAO = new UsuarioDAO();
 	}
 
-	public void save(Usuario usuario) {
+	public boolean save(Usuario usuario) {
 		// TODO Auto-generated method stub
-		this.usuarioDAO.save(usuario);
+		if (this.usuarioDAO.save(usuario)) {
+			return true;
+		} else {
+			return false;
+		}
 
 	}
 

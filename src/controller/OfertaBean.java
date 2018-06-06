@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 
@@ -45,11 +46,14 @@ public class OfertaBean implements Serializable {
 	private Sistema sistema;
 	private CategoriaDAO categoriaDAO;
 	private boolean radio;
+	private UsuarioService usuarioService;
 
 	public OfertaBean() {
 		this.sistemaService = new SistemaService();
 		this.categoriaService = new CategoriaService();
 		this.ofertaService = new OfertaService();
+		this.usuarioService = new UsuarioService();
+		usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioL");
 	}
 
 	public List<SelectItem> selectCategoria() {
@@ -96,10 +100,10 @@ public class OfertaBean implements Serializable {
 		oferta.setDescricao(descricao);
 		oferta.setCategoria(categoria);
 		oferta.setSistema(sistema);
-		Usuario u = new Usuario();
-		UsuarioService usuarioService = new UsuarioService();
-		u = usuarioService.findById(usuario.getIdusuario());
-		oferta.setUsuario(u);
+//		Usuario u = new Usuario();
+//		usuarioService = new UsuarioService();
+//		u = usuarioService.findById(usuario.getIdusuario());
+		oferta.setUsuario(usuario);
 
 		if (radio == true) {
 			status = 's';
@@ -112,6 +116,7 @@ public class OfertaBean implements Serializable {
 		oferta.setValorHora(valorHora);
 
 		ofertaService.save(oferta);
+
 		return "pageOferta";
 
 	}
@@ -266,6 +271,20 @@ public class OfertaBean implements Serializable {
 	 */
 	public void setRadio(boolean radio) {
 		this.radio = radio;
+	}
+
+	/**
+	 * @return the usuarioService
+	 */
+	public UsuarioService getUsuarioService() {
+		return usuarioService;
+	}
+
+	/**
+	 * @param usuarioService the usuarioService to set
+	 */
+	public void setUsuarioService(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
 	}
 
 }

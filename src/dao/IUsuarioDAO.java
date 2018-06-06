@@ -4,6 +4,6 @@ import model.Usuario;
 
 public interface IUsuarioDAO {
 
-	public void save(Usuario usuario);
+	public boolean save(Usuario usuario);
 
 }

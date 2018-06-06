@@ -51,6 +51,7 @@ public class UsuarioBean implements Serializable {
 		Usuario usuario = usuarioService.login(email, senha);
 		if (usuario != null) {
 			setUsuario(usuario);
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioL", usuario);
 			return "pages/pageUsuario";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
@@ -77,9 +78,16 @@ public class UsuarioBean implements Serializable {
 
 	}
 
-	public void cadastrar() {
+	public boolean cadastrar() {
 		Usuario usuarioP = usuario();
-		usuarioService.save(usuarioP);
+		if (usuarioP != null) {
+			if (usuarioService.save(usuarioP)) {
+				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuarioP);
+			}
+			return true;
+		} else {
+			return false;
+		}
 
 	}
 
@@ -90,7 +98,10 @@ public class UsuarioBean implements Serializable {
 
 	public String validarSenhas() {
 		if (senha.equals(senhaConfirm)) {
-			cadastrar();
+			if (cadastrar()) {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO, "Parabens", "Usuario cadastrado com sucesso"));
+			}
 			return "pageUsuario";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,

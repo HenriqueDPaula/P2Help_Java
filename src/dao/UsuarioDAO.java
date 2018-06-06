@@ -27,12 +27,17 @@ public class UsuarioDAO implements IUsuarioDAO {
 		this.session = session;
 	}
 
-	public void save(Usuario usuario) throws HibernateException {
+	public boolean save(Usuario usuario) throws HibernateException {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction t = session.beginTransaction();
-		session.save(usuario);
-		t.commit();
+		if (session.save(usuario) != null) {
+			t.commit();
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 	public Usuario login(String email, String senha) {
