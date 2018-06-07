@@ -82,7 +82,7 @@ public class UsuarioBean implements Serializable {
 		Usuario usuarioP = usuario();
 		if (usuarioP != null) {
 			if (usuarioService.save(usuarioP)) {
-				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuarioP);
+
 			}
 			return true;
 		} else {
@@ -99,10 +99,10 @@ public class UsuarioBean implements Serializable {
 	public String validarSenhas() {
 		if (senha.equals(senhaConfirm)) {
 			if (cadastrar()) {
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_INFO, "Parabens", "Usuario cadastrado com sucesso"));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Usuario cadastrado", " faça login para continuar"));
 			}
-			return "pageUsuario";
+			return ";login";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "As senhas devem ser iguais."));
@@ -134,9 +134,9 @@ public class UsuarioBean implements Serializable {
 		return MunicipioSelect;
 	}
 
-	public Municipios detalheMunicipio() {
+	public String detalheMunicipio() {
 
-		return usuario.getMunicipio();
+		return usuario.getMunicipio().getNome();
 	}
 
 	public UsuarioService getUsuarioService() {

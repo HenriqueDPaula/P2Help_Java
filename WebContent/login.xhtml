@@ -1,4 +1,41 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
+<!-- <?xml version="1.0" encoding="ISO-8859-1" ?> -->
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<!-- <html xmlns="http://www.w3.org/1999/xhtml" -->
+<!-- 	xmlns:h="http://java.sun.com/jsf/html" -->
+<!-- 	xmlns:f="http://java.sun.com/jsf/core" -->
+<!-- 	xmlns:p="http://primefaces.org/ui"> -->
+
+<!-- <h:head> -->
+<!-- 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /> -->
+<!-- 	<title>Teste</title> -->
+<!-- </h:head> -->
+<!-- <h:body> -->
+
+
+<!-- 	<form id="formLogin" method="post" -->
+<!--  	action="#(request.contextPath)/j_spring_security_check" > -->
+
+
+<!-- 		<label for="">Usurio (email)</label> <br /> -->
+<!-- 		<input type="text" name="j_username" /> <br /> -->
+<!-- 		<br /> -->
+
+<!-- 		<label for="">Usurio (email)</label> <br /> -->
+<!-- 		<input type="password" name="j_password" /> -->
+
+
+<!-- 		<input type="submit" value="Entrar" /> -->
+<!-- 	</form> -->
+<!-- 	<h:form> -->
+<!-- 		<h:commandLink action="pages/cadastrarUsuario" value="Cadastrar" /> -->
+<!-- 	</h:form> -->
+
+
+<!-- </h:body> -->
+<!-- </html> -->
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -10,21 +47,20 @@
 	<title>Teste</title>
 </h:head>
 <h:body>
+	<h:form>
+		<p:messages id="messages" autoUpdate="true" showDetail="true" />
+		<p:outputLabel value="Email" for="email" />
+		<p:inputText id="email" value="#{usuarioBean.email}" />
+		<br></br>
+		<p:outputLabel value="Senha" for="senha" />
+		<p:password id="senha" value="#{usuarioBean.senha}" required="true"
+			requiredMessage="Senha é obrigatório" />
 
-	
-	<form id="formLogin" method="post"
-	action="#(request.contextPath)/j_spring_security_check" >
-	
-		<label for="">Usuário (email)</label> <br />
-		<input type="text" name="j_username" /> <br />
-		<br />
-		
-		<label for="">Usuário (email)</label> <br />
-		<input type="password" name="j_password" />
-			
-	
-		<input type="submit" value="Entrar" />
-	</form>
+		<p:commandButton action="#{usuarioBean.login()}" value="Entrar"
+			type="submit">
+		</p:commandButton>
+
+	</h:form>
 	<h:form>
 		<h:commandLink action="pages/cadastrarUsuario" value="Cadastrar" />
 	</h:form>
