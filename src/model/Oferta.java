@@ -15,6 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.metamodel.binding.CascadeType;
+
 @Entity
 @Table(name = "OFERTAS")
 public class Oferta implements Serializable {
@@ -43,7 +46,7 @@ public class Oferta implements Serializable {
 	@Column(name = "DESCRICAO", length = 400, nullable = true)
 	private String descricao;
 
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "IDUSUARIO")
 	private Usuario usuario;
 

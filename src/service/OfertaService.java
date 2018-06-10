@@ -1,6 +1,7 @@
 package service;
 
 import java.io.Serializable;
+import java.util.List;
 
 import dao.OfertaDAO;
 import model.Oferta;
@@ -8,21 +9,75 @@ import model.Oferta;
 public class OfertaService implements Serializable {
 
 	/**
-	 * 
+	 * Atributos e SerialVersion
 	 */
 	private static final long serialVersionUID = -894570698311045270L;
 	private OfertaDAO ofertaDAO;
 	private Oferta oferta;
 
+	/**
+	 * Construtor instanciando a classe OfertaDAO
+	 */
 	public OfertaService() {
 		ofertaDAO = new OfertaDAO();
 	}
 
+	/**
+	 * Salvar Oferta
+	 * 
+	 * @param oferta
+	 */
 	public void save(Oferta oferta) {
 
 		ofertaDAO.save(oferta);
 	}
 
+	/**
+	 * Listar Ofertas
+	 * 
+	 * @return ofertaDAO.listar
+	 */
+	public List<Oferta> listarOfertas() {
+		return this.ofertaDAO.listar();
+	}
+
+	/**
+	 * Atualizar Oferta
+	 * 
+	 * @param oferta
+	 */
+	public void atualizar(Oferta oferta) {
+		this.ofertaDAO.atualizar(oferta);
+	}
+
+	/**
+	 * Listar oferta pelo seu id
+	 * 
+	 * @param idoferta
+	 * @return
+	 */
+	public Oferta findById(int idoferta) {
+		return this.ofertaDAO.findById(idoferta);
+	}
+
+	/**
+	 * Apagar oferta
+	 * 
+	 * @param oferta
+	 */
+	public boolean delete(Oferta oferta) {
+		if (this.ofertaDAO.delete(oferta)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Getters and Setters
+	 * 
+	 * @return
+	 */
 	public OfertaDAO getOfertaDAO() {
 		return ofertaDAO;
 	}

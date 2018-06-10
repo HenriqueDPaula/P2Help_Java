@@ -42,11 +42,29 @@ public class UsuarioBean implements Serializable {
 	private MunicipioService municipioService;
 	private List<SelectItem> MunicipioSelect;
 
+	/**
+	 * Construtor setando atributos vazios e instanciando respectivas services
+	 */
 	public UsuarioBean() {
 		this.municipioService = new MunicipioService();
 		this.usuarioService = new UsuarioService();
+		setBairro("");
+		setComplemento("");
+		setCpf("");
+		setEmail("");
+		setEndereco("");
+		setNome("");
+		setNumero("");
+		setSenha("");
+		setSenhaConfirm("");
+		setRg("");
 	}
 
+	/**
+	 * Login
+	 * 
+	 * @return
+	 */
 	public String login() {
 		Usuario usuario = usuarioService.login(email, senha);
 		if (usuario != null) {
@@ -61,6 +79,11 @@ public class UsuarioBean implements Serializable {
 
 	}
 
+	/**
+	 * Setando valores nos atributos de usuario
+	 * 
+	 * @return
+	 */
 	public Usuario usuario() {
 		usuario = new Usuario();
 		usuario.setBairro(bairro);
@@ -78,6 +101,11 @@ public class UsuarioBean implements Serializable {
 
 	}
 
+	/**
+	 * Cadastrando Usuario já com valor nos atributos
+	 * 
+	 * @return
+	 */
 	public boolean cadastrar() {
 		Usuario usuarioP = usuario();
 		if (usuarioP != null) {
@@ -91,18 +119,18 @@ public class UsuarioBean implements Serializable {
 
 	}
 
-	public String atualizar() {
-		this.usuario = usuarioService.findById(this.usuario.getIdusuario());
-		return "atualizarUsuario";
-	}
-
+	/**
+	 * Método para validar se senha == senhaConfirm
+	 * 
+	 * @return
+	 */
 	public String validarSenhas() {
 		if (senha.equals(senhaConfirm)) {
 			if (cadastrar()) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 						"Usuario cadastrado", " faça login para continuar"));
 			}
-			return ";login";
+			return "/login";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "As senhas devem ser iguais."));
@@ -110,6 +138,33 @@ public class UsuarioBean implements Serializable {
 		}
 	}
 
+	public String delete() {
+		this.usuario = usuarioService.findById(this.usuario.getIdusuario());
+		deleteConfirm();
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Conta", " Excluida"));
+		return "/login";
+	}
+
+	public void deleteConfirm() {
+		usuarioService.delete(usuario);
+	}
+
+	/**
+	 * Encontrar Usuario para redirecionar para a pagina de edição
+	 * 
+	 * @return
+	 */
+	public String atualizar() {
+		this.usuario = usuarioService.findById(this.usuario.getIdusuario());
+		return "atualizarUsuario";
+	}
+
+	/**
+	 * Atualizando usuario
+	 * 
+	 * @return
+	 */
 	public String atualizarConfirm() {
 
 		usuarioService.atualizar(this.usuario);
@@ -117,6 +172,11 @@ public class UsuarioBean implements Serializable {
 		return "pageUsuario";
 	}
 
+	/**
+	 * Método para SelectOne do primefaces de Municipios, com SelectItem
+	 * 
+	 * @return
+	 */
 	public List<SelectItem> selectMunicipios() {
 		if (MunicipioSelect == null) {
 			MunicipioSelect = new ArrayList<SelectItem>();
@@ -134,11 +194,30 @@ public class UsuarioBean implements Serializable {
 		return MunicipioSelect;
 	}
 
+	/**
+	 * Método para retornar nome do municipio
+	 * 
+	 * @return
+	 */
 	public String detalheMunicipio() {
 
 		return usuario.getMunicipio().getNome();
 	}
 
+	/**
+	 * Redirecionamento de pagina
+	 * 
+	 * @return
+	 */
+	public String redirecionaPerfil() {
+		return "pageUsuario";
+	}
+
+	/**
+	 * Getters and Setters
+	 * 
+	 * @return
+	 */
 	public UsuarioService getUsuarioService() {
 		return usuarioService;
 	}

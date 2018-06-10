@@ -21,6 +21,10 @@ public class UsuarioService {
 		}
 
 	}
+	
+	public void delete(Usuario usuario) {
+		this.usuarioDAO.delete(usuario);
+	}
 
 	public Usuario findById(int idusuario) {
 		return this.usuarioDAO.findById(idusuario);

@@ -30,7 +30,7 @@
 
 			<h:outputLabel value="E-mail" for="email" styleClass="emphasis" />
 			<p:inputText id="email" label="E-mail"
-				value="#{usuarioBean.usuario.email}" >
+				value="#{usuarioBean.usuario.email}">
 				<f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+" />
 			</p:inputText>
 
@@ -64,6 +64,7 @@
 
 		<p:commandButton action="#{usuarioBean.atualizarConfirm()}"
 			value="Atualizar" />
+		<p:commandButton value="voltar" immediate="true" action="pageUsuario" />
 
 	</h:form>
 

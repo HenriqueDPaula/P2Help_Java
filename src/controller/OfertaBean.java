@@ -5,10 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
+
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.SelectableDataModel;
 
 import dao.CategoriaDAO;
 import model.Categoria;
@@ -47,17 +51,30 @@ public class OfertaBean implements Serializable {
 	private CategoriaDAO categoriaDAO;
 	private boolean radio;
 	private UsuarioService usuarioService;
+	private List<Oferta> listOfertas;
+	private Boolean flagModal;
+	private Oferta ofertaSelecionada;
 
+	/**
+	 * Construtor, instanciado as devidas Services e pegando o usuario logado na
+	 * sessão
+	 */
 	public OfertaBean() {
 		this.sistemaService = new SistemaService();
 		this.categoriaService = new CategoriaService();
 		this.ofertaService = new OfertaService();
 		this.usuarioService = new UsuarioService();
-		usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioL");
+		usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioL"); // usuario
+																													// logado
+		flagModal = false;
 	}
 
+	/**
+	 * Método para SelectOne do primefaces de Categoria, com SelectItem
+	 * 
+	 * @return
+	 */
 	public List<SelectItem> selectCategoria() {
-		// try {
 		if (categoriasSelect == null) {
 			categoriasSelect = new ArrayList<SelectItem>();
 			List<Categoria> listacategoria = new ArrayList<Categoria>();
@@ -72,6 +89,11 @@ public class OfertaBean implements Serializable {
 		return categoriasSelect;
 	}
 
+	/**
+	 * Método para SelectOne do primefaces de Sistema, com SelectItem
+	 * 
+	 * @return
+	 */
 	public List<SelectItem> selectSistema() {
 		if (sistemasSelect == null) {
 			sistemasSelect = new ArrayList<SelectItem>();
@@ -89,6 +111,11 @@ public class OfertaBean implements Serializable {
 
 	}
 
+	/**
+	 * Cadastrar Oferta
+	 * 
+	 * @return
+	 */
 	public String cadastrar() {
 
 		oferta = new Oferta();
@@ -100,12 +127,9 @@ public class OfertaBean implements Serializable {
 		oferta.setDescricao(descricao);
 		oferta.setCategoria(categoria);
 		oferta.setSistema(sistema);
-//		Usuario u = new Usuario();
-//		usuarioService = new UsuarioService();
-//		u = usuarioService.findById(usuario.getIdusuario());
 		oferta.setUsuario(usuario);
 
-		if (radio == true) {
+		if (radio == true) { // Setando o status da oferta com RadioButton no front
 			status = 's';
 			oferta.setStatus(status);
 		} else {
@@ -121,6 +145,88 @@ public class OfertaBean implements Serializable {
 
 	}
 
+	/**
+	 * Localizar oferta pelo id e redirecionar para a pagina para editar
+	 * 
+	 * @return Ofertas
+	 */
+	public String atualizar() {
+		this.oferta = ofertaService.findById(this.oferta.getIdoferta());
+		return "atualizarOferta";
+	}
+
+	/**
+	 * Atualizando oferta
+	 * 
+	 * @return
+	 */
+	public String atualizarConfirm() {
+
+		ofertaService.atualizar(this.oferta);
+
+		return "pageOferta";
+	}
+
+	/**
+	 * Listagem de todas as ofertas
+	 * 
+	 * @return lista de ofertas
+	 */
+	public List<Oferta> listarOfertas() {
+
+		listOfertas = ofertaService.listarOfertas();
+
+		return listOfertas;
+	}
+
+	/**
+	 * Apagar Oferta
+	 */
+	public String deleteOferta() {
+		this.oferta = ofertaService.findById(this.oferta.getIdoferta());
+		
+		return "pageOferta";
+	}
+
+	/**
+	 * Método para retornar nome do sistema
+	 * 
+	 * @return Nome sistema
+	 */
+	public String detalheSistema() {
+
+		return oferta.getSistema().getNome();
+	}
+
+	/**
+	 * Método para retornar nome da categoria
+	 * 
+	 * @return Descricao Categoria
+	 */
+	public String detalheCategoria() {
+
+		return oferta.getCategoria().getDescricao();
+	}
+
+	/*
+	 * Redirecionamento de página
+	 */
+	public String redirecionaOfertas() {
+		return "Ofertas";
+	}
+
+	/*
+	 * Redirecionamento de página
+	 */
+	public String redirecionaCadastroOferta() {
+		return "cadastrarOferta";
+	}
+
+	/**
+	 * Getters and Setters
+	 * 
+	 * @return
+	 */
 	public Oferta getOferta() {
 		return oferta;
 	}
@@ -281,10 +387,70 @@ public class OfertaBean implements Serializable {
 	}
 
 	/**
-	 * @param usuarioService the usuarioService to set
+	 * @param usuarioService
+	 *            the usuarioService to set
 	 */
 	public void setUsuarioService(UsuarioService usuarioService) {
 		this.usuarioService = usuarioService;
+	}
+
+	/**
+	 * @return the listOfertas
+	 */
+	public List<Oferta> getListOfertas() {
+		return listOfertas;
+	}
+
+	/**
+	 * @param listOfertas
+	 *            the listOfertas to set
+	 */
+	public void setListOfertas(List<Oferta> listOfertas) {
+		this.listOfertas = listOfertas;
+	}
+	// public void onRowSelect(SelectEvent event) {
+	// FacesMessage msg = new FacesMessage("Car Selected", event.;
+	// FacesContext.getCurrentInstance().addMessage(null, msg);
+	// }
+	//
+	// public void onRowUnselect(UnselectEvent event) {
+	// FacesMessage msg = new FacesMessage("Car Unselected", ((Car)
+	// event.getObject()).getId());
+	// FacesContext.getCurrentInstance().addMessage(null, msg);
+	// }
+
+	/**
+	 * @return the ofertaSelecionada
+	 */
+
+	/**
+	 * @return the flagModal
+	 */
+	public Boolean getFlagModal() {
+		return flagModal;
+	}
+
+	/**
+	 * @param flagModal
+	 *            the flagModal to set
+	 */
+	public void setFlagModal(Boolean flagModal) {
+		this.flagModal = flagModal;
+	}
+
+	/**
+	 * @return the ofertaSelecionada
+	 */
+	public Oferta getOfertaSelecionada() {
+		return ofertaSelecionada;
+	}
+
+	/**
+	 * @param ofertaSelecionada
+	 *            the ofertaSelecionada to set
+	 */
+	public void setOfertaSelecionada(Oferta ofertaSelecionada) {
+		this.ofertaSelecionada = ofertaSelecionada;
 	}
 
 }

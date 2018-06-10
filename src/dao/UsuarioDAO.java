@@ -1,9 +1,9 @@
 package dao;
 
 import javax.persistence.EntityManager;
-
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -79,6 +79,13 @@ public class UsuarioDAO implements IUsuarioDAO {
 		usuario = (Usuario) criteria.uniqueResult();
 
 		return usuario;
+	}
+
+	public void delete(Usuario usuario) {
+		Transaction t = session.beginTransaction();
+		session.delete(usuario);
+		t.commit();
+
 	}
 
 	/**

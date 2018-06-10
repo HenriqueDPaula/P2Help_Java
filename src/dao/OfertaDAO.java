@@ -15,6 +15,9 @@ public class OfertaDAO implements IOfertaDAO {
 	private Criteria criteria;
 	private Session session;
 
+	/**
+	 * Cadastrar Oferta no Banco
+	 */
 	@Override
 	public void save(Oferta oferta) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -24,6 +27,9 @@ public class OfertaDAO implements IOfertaDAO {
 
 	}
 
+	/**
+	 * Encontrar oferta pelo seu id
+	 */
 	@Override
 	public Oferta findById(int idoferta) {
 
@@ -38,6 +44,11 @@ public class OfertaDAO implements IOfertaDAO {
 		return oferta;
 	}
 
+	/**
+	 * Atualizar oferta
+	 * 
+	 * @param oferta
+	 */
 	public void atualizar(Oferta oferta) {
 
 		Transaction t = session.beginTransaction();
@@ -46,23 +57,30 @@ public class OfertaDAO implements IOfertaDAO {
 
 	}
 
+	/**
+	 * Listar todas as ofertas
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Oferta> listar() {
-		List<Oferta> oferta = null;
 
-		// Processamento dos dados
+		session = HibernateUtil.getSessionFactory().openSession();
 
-		criteria = session.createCriteria(Oferta.class);
+		Criteria criteria = session.createCriteria(Oferta.class);
 
-		oferta = criteria.list();
+		List<Oferta> listaOfertas = criteria.list();
 
-		return oferta;
+		return listaOfertas;
 	}
 
+	/**
+	 * Apagar Oferta
+	 */
 	@Override
-	public void delete(Oferta oferta) {
-		this.session.delete(oferta);
-
+	public boolean delete(Oferta oferta) {
+		boolean flag = false;
+		session.delete(oferta);
+		flag = true;
+		return flag;
 	}
 
 }

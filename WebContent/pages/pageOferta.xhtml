@@ -1,11 +1,52 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Insert title here</title>
-</head>
-<body>
-	<h1>Nice</h1>
-</body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Oferta</title>
+</h:head>
+<h:body>
+	<p:outputLabel value="Página Oferta" styleClass="title" />
+
+	<hr />
+	<h:form>
+		<p:messages />
+		<p:panelGrid columns="2" border="1">
+
+			<h:outputLabel value="Título:  " />
+			<h:outputText value="#{ofertaBean.oferta.titulo}" />
+
+			<h:outputLabel value="Descrição: " styleClass="emphasis" />
+			<h:outputText value="#{ofertaBean.oferta.descricao}" />
+
+
+			<h:outputLabel value="Sistema: " styleClass="emphasis" />
+			<h:outputText value="#{ofertaBean.oferta.sistema}" />
+
+			<h:outputLabel value="Categoria: " styleClass="emphasis" />
+			<h:outputText value="#{ofertaBean.oferta.categoria}" />
+
+
+			<h:outputLabel value="Ativo: " styleClass="emphasis" />
+			<h:outputText value="#{ofertaBean.oferta.status}" />
+
+			<h:outputLabel value="Valor: " styleClass="emphasis" />
+			<h:outputText value="#{ofertaBean.oferta.valorHora}" />
+
+			<h:outputLabel value="Publicado em: " styleClass="emphasis" />
+			<h:outputText value="#{ofertaBean.oferta.dataOferta}" />
+
+		</p:panelGrid>
+	</h:form>
+	<h:form>
+		<p:commandButton action="cadastrarOferta" value="Publicar Oferta" />
+		<p:commandButton action="#{ofertaBean.atualizar()}"
+			value="Editar" />
+		<p:commandButton action="#{ofertaBean.deleteOferta()}" value="Excluir" />
+	</h:form>
+
+</h:body>
 </html>

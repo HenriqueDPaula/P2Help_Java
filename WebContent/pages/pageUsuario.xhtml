@@ -13,17 +13,19 @@
 	<h:form>
 		<p:menubar>
 			<p:submenu label="Ofertas">
-				<p:menuitem value="publicar" url="pages/cadastrarOferta.jsf" />
-				<p:menuitem value="procurar" url="pages/ofertas.jsf" />
+				<p:menuitem value="publicar" action="cadastrarOferta" />
+				<p:menuitem value="procurar"
+					action="#{ofertaBean.redirecionaOfertas()}" />
 				<p:separator />
 				<p:menuitem value="minhas ofertas" url="pages/ofertasUsuario.jsf" />
 			</p:submenu>
 
 			<p:submenu label="Perfil">
-				<p:menuitem value="informações" url="pageUsuario.jsf" />
-				<p:menuitem value="atualizar" url="atualizarUsuario.jsf" />
+				<p:menuitem value="informações"
+					action="#{usuarioBean.redirecionaPerfil()}" />
+				<p:menuitem value="atualizar" action="#{usuarioBean.atualizar()}" />
 				<p:separator />
-				<p:menuitem value="apagar conta"  />
+				<p:menuitem value="apagar conta" />
 			</p:submenu>
 
 			<p:menuitem value="Sair" url="/login.jsf" />
@@ -34,37 +36,38 @@
 	<p:outputLabel value="Página usuário" styleClass="title" />
 
 	<hr />
+	<h:form>
+		<p:panelGrid columns="2" border="1">
+
+			<h:outputLabel value="Nome:  " />
+			<h:outputText value="#{usuarioBean.usuario.nome}" />
+
+			<h:outputLabel value="Email: " styleClass="emphasis" />
+			<h:outputText value="#{usuarioBean.usuario.email}" />
 
 
-	<p:panelGrid columns="2" border="1">
+			<h:outputLabel value="Municipio: " styleClass="emphasis" />
+			<h:outputText value="#{usuarioBean.detalheMunicipio()}" />
 
-		<h:outputLabel value="Nome:  " />
-		<h:outputText value="#{usuarioBean.usuario.nome}" />
-
-		<h:outputLabel value="Email: " styleClass="emphasis" />
-		<h:outputText value="#{usuarioBean.usuario.email}" />
+			<h:outputLabel value="Senha: " styleClass="emphasis" />
+			<h:outputText value="#{usuarioBean.usuario.senha}" />
 
 
-		<h:outputLabel value="Municipio: " styleClass="emphasis" />
-		<h:outputText value="#{usuarioBean.detalheMunicipio()}" />
+			<h:outputLabel value="Endereço: " styleClass="emphasis" />
+			<h:outputText value="#{usuarioBean.usuario.endereco}" />
 
-		<h:outputLabel value="Senha: " styleClass="emphasis" />
-		<h:outputText value="#{usuarioBean.usuario.senha}" />
+			<h:outputLabel value=" número " styleClass="emphasis" />
+			<h:outputText value="#{usuarioBean.usuario.numero}" />
 
-
-		<h:outputLabel value="Endereço: " styleClass="emphasis" />
-		<h:outputText value="#{usuarioBean.usuario.endereco}" />
-
-		<h:outputLabel value=" número " styleClass="emphasis" />
-		<h:outputText value="#{usuarioBean.usuario.numero}" />
-
-	</p:panelGrid>
-
+		</p:panelGrid>
+	</h:form>
 	<hr />
 	<h:form>
 		<p:commandButton action="cadastrarOferta" value="Publicar Oferta" />
 		<p:commandButton action="#{usuarioBean.atualizar()}" value="Editar" />
 		<p:commandButton action="/login" value="Sair" />
+		<p:commandButton action="#{usuarioBean.delete()}"
+			value="Excluir conta" />
 	</h:form>
 </h:body>
 
