@@ -5,6 +5,7 @@ import java.util.List;
 
 import dao.OfertaDAO;
 import model.Oferta;
+import model.Usuario;
 
 public class OfertaService implements Serializable {
 
@@ -60,17 +61,18 @@ public class OfertaService implements Serializable {
 		return this.ofertaDAO.findById(idoferta);
 	}
 
+	public List<Oferta> listById(int idusuario) {
+		return this.ofertaDAO.listById(idusuario);
+	}
+
 	/**
 	 * Apagar oferta
 	 * 
 	 * @param oferta
 	 */
-	public boolean delete(Oferta oferta) {
-		if (this.ofertaDAO.delete(oferta)) {
-			return true;
-		} else {
-			return false;
-		}
+	public void delete(Oferta oferta) {
+		this.ofertaDAO.delete(oferta);
+
 	}
 
 	/**

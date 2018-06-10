@@ -24,10 +24,11 @@
 
 
 			<h:outputLabel value="Sistema: " styleClass="emphasis" />
-			<h:outputText value="#{ofertaBean.oferta.sistema}" />
+			<h:outputText value="#{ofertaBean.oferta.sistema.nome}" />
+
 
 			<h:outputLabel value="Categoria: " styleClass="emphasis" />
-			<h:outputText value="#{ofertaBean.oferta.categoria}" />
+			<h:outputText value="#{ofertaBean.oferta.categoria.descricao}" />
 
 
 			<h:outputLabel value="Ativo: " styleClass="emphasis" />
@@ -43,8 +44,7 @@
 	</h:form>
 	<h:form>
 		<p:commandButton action="cadastrarOferta" value="Publicar Oferta" />
-		<p:commandButton action="#{ofertaBean.atualizar()}"
-			value="Editar" />
+		<p:commandButton action="#{ofertaBean.atualizar()}" value="Editar" />
 		<p:commandButton action="#{ofertaBean.deleteOferta()}" value="Excluir" />
 	</h:form>
 

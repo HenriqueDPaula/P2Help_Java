@@ -10,24 +10,44 @@
 	<title>Cadastrar Oferta</title>
 </h:head>
 <h:body>
+
+
+
+
+
+
 	<h:form>
 		<p:messages />
+		<p:dialog id="modalDialog" header="Cadastrar Sistema"
+			widgetVar="sistemaAdd" modal="true" height="100">
+			<h:form>
+
+				<p:inputText value="#{sistemaBean.nome1}" />
+				<p:inputText value="#{sistemaBean.fabricante1}" />
+				<p:commandButton value="Adicionar"
+					action="#{sistemaBean.CadastrarSistema()}"
+					onclick="PF('sistemaAdd').close();" immediate="true" />
+			</h:form>
+		</p:dialog>
 		<h:panelGrid columns="2">
 			<p:outputLabel value="Titulo: " />
 			<p:inputText value="#{ofertaBean.titulo}" required="true" />
 
 			<p:outputLabel value="Descrição: " />
-			<p:inputTextarea value="#{ofertaBean.descricao}" size="500" required="true"/>
-
+			<p:inputTextarea value="#{ofertaBean.descricao}" size="500"
+				required="true" />
 
 			<p:outputLabel value="Selecione um sistema" />
-			<p:selectOneMenu filter="true" value="#{ofertaBean.sistema}"
-				converter="sistemaConverter" required="true">
-				<f:selectItem itemLabel="Selecione" />
-				<f:selectItems value="#{ofertaBean.selectSistema()}">
-				</f:selectItems>
-			</p:selectOneMenu>
-
+			<h:panelGroup>
+				<p:selectOneMenu filter="true" value="#{ofertaBean.sistema}"
+					converter="sistemaConverter" required="true">
+					<f:selectItem itemLabel="Selecione" />
+					<f:selectItems value="#{ofertaBean.selectSistema()}">
+					</f:selectItems>
+				</p:selectOneMenu>
+				<p:commandButton value="Add" onclick="PF('sistemaAdd').show();"
+					type="button" />
+			</h:panelGroup>
 			<p:outputLabel value="Selecione uma categoria" />
 			<p:selectOneMenu filter="true" value="#{ofertaBean.categoria}"
 				converter="categoriaConverter" required="true">

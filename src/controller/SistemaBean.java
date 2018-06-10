@@ -1,17 +1,25 @@
 package controller;
 
-import javax.enterprise.context.RequestScoped;
+import java.io.Serializable;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.inject.Named;
 
 import model.Sistema;
 import service.SistemaService;
 
-@Named("sistemaBean")
+@ManagedBean
 @RequestScoped
-public class SistemaBean {
+@Named("sistemaBean")
+public class SistemaBean implements Serializable {
 
-	private String nome;
-	private String fabricante;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1586597289480682468L;
+	private String nome1;
+	private String fabricante1;
 	private SistemaService sistemaService;
 	private Sistema sistema;
 
@@ -23,11 +31,11 @@ public class SistemaBean {
 	 * Cadstro de Sistema sem verificaçao
 	 */
 	public String CadastrarSistema() {
-		this.sistema = new Sistema();
-		sistema.setNome(nome);
-		sistema.setFabricante(fabricante);
-		this.sistemaService.save(sistema);
-		return "/pages/municipioTeste";
+		sistema = new Sistema();
+		sistema.setFabricante(fabricante1);
+		sistema.setNome(nome1);
+		sistemaService.save(sistema);
+		return "cadastrarOferta";
 	}
 
 	// public List<Sistema> selectOne() {
@@ -40,22 +48,6 @@ public class SistemaBean {
 	//
 	// return muniL;
 	// }
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getFabricante() {
-		return fabricante;
-	}
-
-	public void setFabricante(String fabricante) {
-		this.fabricante = fabricante;
-	}
 
 	public SistemaService getSistemaService() {
 		return sistemaService;
@@ -71,6 +63,36 @@ public class SistemaBean {
 
 	public void setSistema(Sistema sistema) {
 		this.sistema = sistema;
+	}
+
+	/**
+	 * @return the nome1
+	 */
+	public String getNome1() {
+		return nome1;
+	}
+
+	/**
+	 * @param nome1
+	 *            the nome1 to set
+	 */
+	public void setNome1(String nome1) {
+		this.nome1 = nome1;
+	}
+
+	/**
+	 * @return the fabricante1
+	 */
+	public String getFabricante1() {
+		return fabricante1;
+	}
+
+	/**
+	 * @param fabricante1
+	 *            the fabricante1 to set
+	 */
+	public void setFabricante1(String fabricante1) {
+		this.fabricante1 = fabricante1;
 	}
 
 }

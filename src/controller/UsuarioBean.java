@@ -10,6 +10,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import dao.UsuarioDAO;
 import model.Municipios;
 import model.Usuario;
@@ -108,6 +110,7 @@ public class UsuarioBean implements Serializable {
 	 */
 	public boolean cadastrar() {
 		Usuario usuarioP = usuario();
+
 		if (usuarioP != null) {
 			if (usuarioService.save(usuarioP)) {
 
@@ -125,25 +128,42 @@ public class UsuarioBean implements Serializable {
 	 * @return
 	 */
 	public String validarSenhas() {
-		if (senha.equals(senhaConfirm)) {
-			if (cadastrar()) {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Usuario cadastrado", " faça login para continuar"));
+		if (usuarioService.validarUsuario(email) == false) {
+			if (senha.equals(senhaConfirm)) {
+				if (cadastrar()) {
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Usuario cadastrado", " faça login para continuar"));
+				}
+				return "/login";
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "As senhas devem ser iguais."));
+				return "";
 			}
-			return "/login";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "As senhas devem ser iguais."));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "email ja cadastrado."));
 			return "";
 		}
+
 	}
 
 	public String delete() {
 		this.usuario = usuarioService.findById(this.usuario.getIdusuario());
-		deleteConfirm();
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Conta", " Excluida"));
-		return "/login";
+		try {
+			deleteConfirm();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Conta", " Excluida"));
+			return "/login";
+		} catch (ConstraintViolationException c) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", " favor excluir suas ofertas antes!"));
+
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", " favor excluir suas ofertas antes!"));
+		}
+		return "ofertasUsuario";
 	}
 
 	public void deleteConfirm() {

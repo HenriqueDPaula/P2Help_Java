@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.ViewHandler;
 import javax.faces.bean.ManagedBean;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
-
-import org.primefaces.event.SelectEvent;
-import org.primefaces.model.SelectableDataModel;
 
 import dao.CategoriaDAO;
 import model.Categoria;
@@ -52,6 +52,7 @@ public class OfertaBean implements Serializable {
 	private boolean radio;
 	private UsuarioService usuarioService;
 	private List<Oferta> listOfertas;
+	private List<Oferta> listOferta;
 	private Boolean flagModal;
 	private Oferta ofertaSelecionada;
 
@@ -120,7 +121,7 @@ public class OfertaBean implements Serializable {
 
 		oferta = new Oferta();
 		oferta.setTitulo(titulo);
-		java.util.Date date = new java.util.Date();
+		java.util.Date date = new java.util.Date(); // Instanciando um objeto do tipo Date da classe java.util
 		long t = date.getTime();
 		java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(t);
 		oferta.setDataOferta(sqlTimestamp);
@@ -140,7 +141,8 @@ public class OfertaBean implements Serializable {
 		oferta.setValorHora(valorHora);
 
 		ofertaService.save(oferta);
-
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Oferta cadastrada com sucesso!", " "));
 		return "pageOferta";
 
 	}
@@ -151,7 +153,7 @@ public class OfertaBean implements Serializable {
 	 * @return Ofertas
 	 */
 	public String atualizar() {
-		this.oferta = ofertaService.findById(this.oferta.getIdoferta());
+		oferta = ofertaService.findById(oferta.getIdoferta());
 		return "atualizarOferta";
 	}
 
@@ -179,13 +181,32 @@ public class OfertaBean implements Serializable {
 		return listOfertas;
 	}
 
+	public List<Oferta> listById() {
+		listOferta = ofertaService.listById(usuario.getIdusuario());
+		if (listOferta != null) {
+			return listOferta;
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "nenhuma", " Oferta cadastrada"));
+			return null;
+		}
+	}
+
 	/**
 	 * Apagar Oferta
 	 */
 	public String deleteOferta() {
 		this.oferta = ofertaService.findById(this.oferta.getIdoferta());
-		
-		return "pageOferta";
+		deleteConfirm();
+		this.refresh();
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Oferta Excluida", " "));
+		return "ofertasUsuario";
+
+	}
+
+	public void deleteConfirm() {
+		ofertaService.delete(this.oferta);
 	}
 
 	/**
@@ -220,6 +241,19 @@ public class OfertaBean implements Serializable {
 	 */
 	public String redirecionaCadastroOferta() {
 		return "cadastrarOferta";
+	}
+
+	public String redirecionaOfertasUsuario() {
+		return "ofertasUsuario";
+	}
+
+	public void refresh() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Application application = context.getApplication();
+		ViewHandler viewHandler = application.getViewHandler();
+		UIViewRoot viewRoot = viewHandler.createView(context, context.getViewRoot().getViewId());
+		context.setViewRoot(viewRoot);
+		context.renderResponse();
 	}
 
 	/**

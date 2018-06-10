@@ -21,7 +21,12 @@ public class UsuarioService {
 		}
 
 	}
-	
+
+	public Boolean validarUsuario(String email) {
+		// TODO Auto-generated method stub
+		return usuarioDAO.validarUsuario(email);
+	}
+
 	public void delete(Usuario usuario) {
 		this.usuarioDAO.delete(usuario);
 	}

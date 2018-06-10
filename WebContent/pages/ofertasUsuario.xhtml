@@ -11,51 +11,41 @@
 <h:body>
 
 	<h:form>
-		<p:dialog header="Modal Dialog" widgetVar="ofertaClicada"
-			minHeight="40">
-			<h:outputText value="#{ofertaBean.oferta.titulo}" />
-		</p:dialog>
 
-		<p:dataTable filterEvent="enter" value="#{ofertaBean.listarOfertas()}"
-			var="ofertas" widgetVar="tabelaOfertas" rows="15" paginator="true"
+		<p:messages />
+		<p:dataTable filterEvent="enter" value="#{ofertaBean.listById()}"
+			var="ofertas" widgetVar="tabelaOferta" rows="15" paginator="true"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15" paginatorPosition="bottom">
 
-			<f:facet name="header">
-				<div align="right">
-					<h:outputText value="Buscar:" />
-					<p:inputText id="globalFilter"
-						onkeyup="PF('tabelaOfertas').filter()" style="width:150px"
-						placeholder="Pesquisar" />
-				</div>
-			</f:facet>
+			<h:inputHidden value="#{ofertas.idoferta}" />
 
-			<p:column 
-				headerText="Ofertante">
-				<h:outputText value="#{ofertas.usuario.nome}" />
-			</p:column>
-
-			<p:column sortBy="#{ofertas.titulo}" headerText="Titulo">
+			<p:column headerText="Titulo">
 				<h:outputText value="#{ofertas.titulo}" />
 			</p:column>
 
-			<p:column sortBy="#{ofertas.sistema.nome}" headerText="Sistema">
+			<p:column headerText="Sistema">
 				<h:outputText value="#{ofertas.sistema.nome}" />
 			</p:column>
 
-			<p:column sortBy="#{ofertas.categoria.descricao}"
-				headerText="Categoria">
+			<p:column headerText="Categoria">
 				<h:outputText value="#{ofertas.categoria.descricao}" />
 			</p:column>
 
-			<p:column sortBy="#{ofertas.valorHora}" headerText="Valor/hora">
+			<p:column headerText="Valor/hora">
 				<h:outputText value="#{ofertas.valorHora}">
 					<f:convertNumber pattern="¤#,##0.00" currencySymbol="R$" />
 				</h:outputText>
 			</p:column>
 
 			<p:column>
-				<p:commandButton value="Contratar" action="contratarOferta">
+				<p:commandButton value="Editar" action="#{ofertaBean.atualizar()}">
+					<f:setPropertyActionListener value="#{ofertas}"
+						target="#{ofertaBean.oferta}" />
+				</p:commandButton>
+			</p:column>
+			<p:column>
+				<p:commandButton value="Excluir" action="#{ofertaBean.deleteOferta()}">
 					<f:setPropertyActionListener value="#{ofertas}"
 						target="#{ofertaBean.oferta}" />
 				</p:commandButton>

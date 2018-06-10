@@ -88,6 +88,39 @@ public class UsuarioDAO implements IUsuarioDAO {
 
 	}
 
+	public Boolean validarUsuario(String email) {
+		// TODO Auto-generated method stub
+
+		// Declaração de variáveis
+
+		Usuario usuario = null;
+
+		Boolean flag = null;
+
+		// Processamento dos dados
+
+		criteria = session.createCriteria(Usuario.class);
+
+		criteria.add(Restrictions.eq("email", email));
+
+		usuario = (Usuario) criteria.uniqueResult();
+
+		if (usuario != null) {
+
+			flag = true;
+
+		} else {
+
+			flag = false;
+
+		}
+
+		// Saída da informação
+
+		return flag;
+
+	}
+
 	/**
 	 * @return the criteria
 	 */

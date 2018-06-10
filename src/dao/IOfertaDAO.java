@@ -12,5 +12,5 @@ public void save(Oferta oferta);
 
 	public List<Oferta> listar();
 	
-	public boolean delete(Oferta oferta);
+	public void delete(Oferta oferta);
 }

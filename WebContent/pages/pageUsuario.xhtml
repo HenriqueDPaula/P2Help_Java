@@ -11,13 +11,14 @@
 <h:body>
 
 	<h:form>
+
 		<p:menubar>
 			<p:submenu label="Ofertas">
 				<p:menuitem value="publicar" action="cadastrarOferta" />
 				<p:menuitem value="procurar"
 					action="#{ofertaBean.redirecionaOfertas()}" />
 				<p:separator />
-				<p:menuitem value="minhas ofertas" url="pages/ofertasUsuario.jsf" />
+				<p:menuitem value="minhas ofertas" action="#{ofertaBean.redirecionaOfertasUsuario()}" />
 			</p:submenu>
 
 			<p:submenu label="Perfil">
@@ -25,7 +26,7 @@
 					action="#{usuarioBean.redirecionaPerfil()}" />
 				<p:menuitem value="atualizar" action="#{usuarioBean.atualizar()}" />
 				<p:separator />
-				<p:menuitem value="apagar conta" />
+				<p:menuitem value="apagar conta" action="#{usuarioBean.delete()}" />
 			</p:submenu>
 
 			<p:menuitem value="Sair" url="/login.jsf" />
@@ -37,6 +38,7 @@
 
 	<hr />
 	<h:form>
+		<p:messages />
 		<p:panelGrid columns="2" border="1">
 
 			<h:outputLabel value="Nome:  " />
@@ -62,13 +64,6 @@
 		</p:panelGrid>
 	</h:form>
 	<hr />
-	<h:form>
-		<p:commandButton action="cadastrarOferta" value="Publicar Oferta" />
-		<p:commandButton action="#{usuarioBean.atualizar()}" value="Editar" />
-		<p:commandButton action="/login" value="Sair" />
-		<p:commandButton action="#{usuarioBean.delete()}"
-			value="Excluir conta" />
-	</h:form>
 </h:body>
 
 </html>

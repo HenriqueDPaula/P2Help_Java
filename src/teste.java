@@ -5,6 +5,7 @@ import dao.MunicipiosDAO;
 import dao.OfertaDAO;
 import model.Municipios;
 import model.Oferta;
+import model.Sistema;
 import model.Usuario;
 import service.CategoriaService;
 import service.MunicipioService;
@@ -25,6 +26,7 @@ public class teste {
 	static Oferta oferta = new Oferta();
 	// static Sistema sistema = new Sistema();
 	static OfertaService ofertaService = new OfertaService();
+	static Sistema sistema;
 
 	public static void main(String[] args) {
 
@@ -33,13 +35,13 @@ public class teste {
 		// usuario = usuarioService.login(email, senha);
 		// System.out.println(usuario.getEmail() + usuario.getNome());
 
-		oferta = new Oferta();
-		ofertaDAO = new OfertaDAO();
-		List<Oferta> list = new ArrayList<Oferta>();
-		list = ofertaDAO.listar();
-		for (Oferta oferta : list) {
-			System.out.println(oferta.getTitulo());
-		}
+		// oferta = new Oferta();
+		// ofertaDAO = new OfertaDAO();
+		// List<Oferta> list = new ArrayList<Oferta>();
+		// list = ofertaDAO.listar();
+		// for (Oferta oferta : list) {
+		// System.out.println(oferta.getTitulo());
+		// }
 		// oferta.setDescricao("Serva que vai");
 		// Categoria categoria = new Categoria();
 		// categoria = categoriaService.FindById(26);
@@ -93,9 +95,10 @@ public class teste {
 		// }
 		//
 		// Sistema sistema = sistemaService.FindById(6);
-		// sistema.setFabricante("hp");
-		// sistema.setNome("notebook");
-		// sistemaService.save(sistema);
+		sistema = new Sistema();
+		sistema.setFabricante("hp");
+		sistema.setNome("notebook");
+		sistemaService.save(sistema);
 		// System.out.println(sistema.getNome());
 		// Municipios muni = municipioService.FindById(4106902);
 		// System.out.println(muni.getNome());
