@@ -1,12 +1,15 @@
 package controller;
 
 import java.io.Serializable;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.application.ViewHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -128,9 +131,9 @@ public class UsuarioBean implements Serializable {
 	 * @return
 	 */
 	public String validarSenhas() {
-		if (usuarioService.validarUsuario(email) == false) {
-			if (senha.equals(senhaConfirm)) {
-				if (cadastrar()) {
+		if (usuarioService.validarUsuario(email) == false) { // Se não achar o email inserido, prossegue
+			if (senha.equals(senhaConfirm)) { // Se as duas senhas conferirem, prossegue
+				if (cadastrar()) { // Método responsável pela persistencia
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Usuario cadastrado", " faça login para continuar"));
 				}
@@ -148,6 +151,11 @@ public class UsuarioBean implements Serializable {
 
 	}
 
+	/**
+	 * Deletar usuario, se nao for possivel, redireciona para a pagina de oferta
+	 * 
+	 * @return
+	 */
 	public String delete() {
 		this.usuario = usuarioService.findById(this.usuario.getIdusuario());
 		try {
@@ -157,11 +165,11 @@ public class UsuarioBean implements Serializable {
 			return "/login";
 		} catch (ConstraintViolationException c) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", " favor excluir suas ofertas antes!"));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Favor excluir suas ofertas antes!", " "));
 
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", " favor excluir suas ofertas antes!"));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Favor excluir suas ofertas antes!", " "));
 		}
 		return "ofertasUsuario";
 	}
@@ -219,10 +227,10 @@ public class UsuarioBean implements Serializable {
 	 * 
 	 * @return
 	 */
-	public String detalheMunicipio() {
-
-		return usuario.getMunicipio().getNome();
-	}
+//	public String detalheMunicipio() {
+//
+//		return usuario.getMunicipio().getNome();
+//	}
 
 	/**
 	 * Redirecionamento de pagina
@@ -231,6 +239,15 @@ public class UsuarioBean implements Serializable {
 	 */
 	public String redirecionaPerfil() {
 		return "pageUsuario";
+	}
+
+	public void refresh() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		String viewId = context.getViewRoot().getViewId();
+		ViewHandler handler = context.getApplication().getViewHandler();
+		UIViewRoot root = handler.createView(context, viewId);
+		root.setViewId(viewId);
+		context.setViewRoot(root);
 	}
 
 	/**

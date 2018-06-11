@@ -32,8 +32,8 @@ public class SistemaBean implements Serializable {
 	 */
 	public String CadastrarSistema() {
 		sistema = new Sistema();
-		sistema.setFabricante(fabricante1);
-		sistema.setNome(nome1);
+		sistema.setFabricante("maria");
+		sistema.setNome("joseph");
 		sistemaService.save(sistema);
 		return "cadastrarOferta";
 	}
@@ -93,6 +93,13 @@ public class SistemaBean implements Serializable {
 	 */
 	public void setFabricante1(String fabricante1) {
 		this.fabricante1 = fabricante1;
+	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

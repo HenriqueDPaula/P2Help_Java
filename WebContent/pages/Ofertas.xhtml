@@ -9,7 +9,30 @@
 	<title>Ofertas</title>
 </h:head>
 <h:body>
+	<h:form>
+		<p:messages />
+		<p:menubar>
+			<p:submenu label="Ofertas">
+				<p:menuitem value="publicar" action="cadastrarOferta" />
+				<p:menuitem value="procurar"
+					action="#{ofertaBean.redirecionaOfertas()}" />
+				<p:separator />
+				<p:menuitem value="minhas ofertas"
+					action="#{ofertaBean.redirecionaOfertasUsuario()}" />
+			</p:submenu>
 
+			<p:submenu label="Perfil">
+				<p:menuitem value="informações"
+					action="#{usuarioBean.redirecionaPerfil()}" />
+				<p:menuitem value="atualizar" action="#{usuarioBean.atualizar()}" />
+				<p:separator />
+				<p:menuitem value="apagar conta" action="#{usuarioBean.delete()}" />
+			</p:submenu>
+
+			<p:menuitem value="Sair" url="/login.jsf" />
+
+		</p:menubar>
+	</h:form>
 	<h:form>
 		<p:dialog header="Modal Dialog" widgetVar="ofertaClicada"
 			minHeight="40">
@@ -30,8 +53,7 @@
 				</div>
 			</f:facet>
 
-			<p:column 
-				headerText="Ofertante">
+			<p:column headerText="Ofertante">
 				<h:outputText value="#{ofertas.usuario.nome}" />
 			</p:column>
 

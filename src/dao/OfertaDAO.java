@@ -6,10 +6,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 
 import model.Oferta;
-import model.Usuario;
 import util.HibernateUtil;
 
 public class OfertaDAO implements IOfertaDAO {
@@ -37,11 +35,10 @@ public class OfertaDAO implements IOfertaDAO {
 
 		Oferta oferta = null;
 
-		criteria = session.createCriteria(Oferta.class);
-
-		criteria.add(Restrictions.eq("idoferta", idoferta));
-
-		oferta = (Oferta) criteria.uniqueResult();
+		String hql = "from Oferta where idoferta =:idoferta";
+		Query query = (Query) session.createQuery(hql);
+		query.setParameter("idoferta", idoferta);
+		oferta = (Oferta) query.uniqueResult();
 
 		return oferta;
 	}

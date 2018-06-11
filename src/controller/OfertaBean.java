@@ -153,7 +153,7 @@ public class OfertaBean implements Serializable {
 	 * @return Ofertas
 	 */
 	public String atualizar() {
-		oferta = ofertaService.findById(oferta.getIdoferta());
+		this.oferta = ofertaService.findById(this.oferta.getIdoferta());
 		return "atualizarOferta";
 	}
 
@@ -177,6 +177,13 @@ public class OfertaBean implements Serializable {
 	public List<Oferta> listarOfertas() {
 
 		listOfertas = ofertaService.listarOfertas();
+		// for (int i = 0; i < listOfertas.size(); i++) {
+		// if (oferta.getStatus() == 'n') {
+		// return listOfertas;
+		// }else {
+		//
+		// }
+		// }
 
 		return listOfertas;
 	}
@@ -198,10 +205,9 @@ public class OfertaBean implements Serializable {
 	public String deleteOferta() {
 		this.oferta = ofertaService.findById(this.oferta.getIdoferta());
 		deleteConfirm();
-		this.refresh();
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Oferta Excluida", " "));
-		return "ofertasUsuario";
+		return "pageUsuario";
 
 	}
 
@@ -247,13 +253,23 @@ public class OfertaBean implements Serializable {
 		return "ofertasUsuario";
 	}
 
+	// public void refresh() {
+	// FacesContext context = FacesContext.getCurrentInstance();
+	// Application application = context.getApplication();
+	// ViewHandler viewHandler = application.getViewHandler();
+	// UIViewRoot viewRoot = viewHandler.createView(context,
+	// context.getViewRoot().getViewId());
+	// context.setViewRoot(viewRoot);
+	// context.renderResponse();
+	// }
+
 	public void refresh() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		Application application = context.getApplication();
-		ViewHandler viewHandler = application.getViewHandler();
-		UIViewRoot viewRoot = viewHandler.createView(context, context.getViewRoot().getViewId());
-		context.setViewRoot(viewRoot);
-		context.renderResponse();
+		String viewId = context.getViewRoot().getViewId();
+		ViewHandler handler = context.getApplication().getViewHandler();
+		UIViewRoot root = handler.createView(context, viewId);
+		root.setViewId(viewId);
+		context.setViewRoot(root);
 	}
 
 	/**

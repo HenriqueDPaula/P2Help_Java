@@ -11,14 +11,15 @@
 <h:body>
 
 	<h:form>
-
+		<p:messages />
 		<p:menubar>
 			<p:submenu label="Ofertas">
 				<p:menuitem value="publicar" action="cadastrarOferta" />
 				<p:menuitem value="procurar"
 					action="#{ofertaBean.redirecionaOfertas()}" />
 				<p:separator />
-				<p:menuitem value="minhas ofertas" action="#{ofertaBean.redirecionaOfertasUsuario()}" />
+				<p:menuitem value="minhas ofertas"
+					action="#{ofertaBean.redirecionaOfertasUsuario()}" />
 			</p:submenu>
 
 			<p:submenu label="Perfil">
@@ -38,7 +39,9 @@
 
 	<hr />
 	<h:form>
-		<p:messages />
+
+
+
 		<p:panelGrid columns="2" border="1">
 
 			<h:outputLabel value="Nome:  " />
@@ -49,7 +52,7 @@
 
 
 			<h:outputLabel value="Municipio: " styleClass="emphasis" />
-			<h:outputText value="#{usuarioBean.detalheMunicipio()}" />
+			<h:outputText value="#{usuarioBean.municipio.nome}" />
 
 			<h:outputLabel value="Senha: " styleClass="emphasis" />
 			<h:outputText value="#{usuarioBean.usuario.senha}" />
