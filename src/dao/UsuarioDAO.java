@@ -27,6 +27,9 @@ public class UsuarioDAO implements IUsuarioDAO {
 		this.session = session;
 	}
 
+	/**
+	 * Salvar Usuario
+	 */
 	public boolean save(Usuario usuario) throws HibernateException {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -40,6 +43,13 @@ public class UsuarioDAO implements IUsuarioDAO {
 
 	}
 
+	/**
+	 * Login com restrições da Criteria, email e senha
+	 * 
+	 * @param email
+	 * @param senha
+	 * @return
+	 */
 	public Usuario login(String email, String senha) {
 
 		Usuario usuario = null;
@@ -59,6 +69,11 @@ public class UsuarioDAO implements IUsuarioDAO {
 		return usuario;
 	}
 
+	/**
+	 * Atualizar Usuario
+	 * 
+	 * @param usuario
+	 */
 	public void atualizar(Usuario usuario) {
 		// TODO Auto-generated method stub
 
@@ -68,6 +83,12 @@ public class UsuarioDAO implements IUsuarioDAO {
 
 	}
 
+	/**
+	 * Encontrar usuario pelo seu id
+	 * 
+	 * @param idusuario
+	 * @return
+	 */
 	public Usuario findById(int idusuario) {
 
 		Usuario usuario = null;
@@ -81,6 +102,11 @@ public class UsuarioDAO implements IUsuarioDAO {
 		return usuario;
 	}
 
+	/**
+	 * Deletar Usuario
+	 * 
+	 * @param usuario
+	 */
 	public void delete(Usuario usuario) {
 		Transaction t = session.beginTransaction();
 		session.delete(usuario);
@@ -88,6 +114,12 @@ public class UsuarioDAO implements IUsuarioDAO {
 
 	}
 
+	/**
+	 * Verifica se o email inserido no cadastro ja não existe no banco de dados
+	 * 
+	 * @param email
+	 * @return
+	 */
 	public Boolean validarUsuario(String email) {
 		// TODO Auto-generated method stub
 

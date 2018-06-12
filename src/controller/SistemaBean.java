@@ -32,8 +32,8 @@ public class SistemaBean implements Serializable {
 	 */
 	public String CadastrarSistema() {
 		sistema = new Sistema();
-		sistema.setFabricante("maria");
-		sistema.setNome("joseph");
+		sistema.setFabricante(fabricante1);
+		sistema.setNome(nome1);
 		sistemaService.save(sistema);
 		return "cadastrarOferta";
 	}

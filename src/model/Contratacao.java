@@ -25,8 +25,10 @@ public class Contratacao implements Serializable {
 	@Column(name = "IDCONTRATACAO", nullable = false)
 	private Integer idcontratacao;
 
+	@JoinColumn(name = "iDOFERTA", nullable = false)
 	private Oferta oferta;
 
+	@JoinColumn(name = "IDUSUARIO", nullable = false)
 	private Usuario usuario;
 
 	@Column(name = "QUANTIDADE", nullable = false)

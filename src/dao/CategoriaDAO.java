@@ -30,6 +30,12 @@ public class CategoriaDAO implements Serializable {
 		this.session = session;
 	}
 
+	/**
+	 * Salvar Categoria(Não sera usado por enquanto)
+	 * 
+	 * @param categoria
+	 * @throws HibernateException
+	 */
 	public void save(Categoria categoria) throws HibernateException {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -38,6 +44,12 @@ public class CategoriaDAO implements Serializable {
 		t.commit();
 	}
 
+	/**
+	 * Encontrar Categoria pelo Id
+	 * 
+	 * @param idcategoria
+	 * @return
+	 */
 	public Categoria findById(int idcategoria) {
 
 		Categoria categoria = null;
@@ -51,6 +63,11 @@ public class CategoriaDAO implements Serializable {
 		return categoria;
 	}
 
+	/**
+	 * Listar todas as categorias
+	 * 
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Categoria> listar() {
 

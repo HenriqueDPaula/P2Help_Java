@@ -12,7 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import model.Municipios;
 import util.HibernateUtil;
 
-public class MunicipiosDAO implements IMunicipiosDAO{
+public class MunicipiosDAO implements IMunicipiosDAO {
 
 	private Session session;
 	private Criteria criteria;
@@ -25,6 +25,9 @@ public class MunicipiosDAO implements IMunicipiosDAO{
 		this.session = session;
 	}
 
+	/**
+	 * Salvar Municipio
+	 */
 	public void save(Municipios municipio) throws HibernateException {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -33,6 +36,9 @@ public class MunicipiosDAO implements IMunicipiosDAO{
 		t.commit();
 	}
 
+	/**
+	 * Encontrar municipio pelo Id
+	 */
 	public Municipios findById(int idmunicipio) {
 
 		Municipios municipio = null;
@@ -46,6 +52,9 @@ public class MunicipiosDAO implements IMunicipiosDAO{
 		return municipio;
 	}
 
+	/**
+	 * Listar Todos os Municipios
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Municipios> listar() {
 

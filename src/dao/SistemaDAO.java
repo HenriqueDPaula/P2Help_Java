@@ -25,6 +25,9 @@ public class SistemaDAO implements ISistemaDAO {
 		this.session = session;
 	}
 
+	/**
+	 * Salvar Sistema
+	 */
 	public void save(Sistema sistema) throws HibernateException {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -33,6 +36,9 @@ public class SistemaDAO implements ISistemaDAO {
 		t.commit();
 	}
 
+	/**
+	 * Encontrar o sistema pelo id
+	 */
 	public Sistema findById(int idsistema) {
 
 		Sistema sistema = null;
@@ -46,6 +52,9 @@ public class SistemaDAO implements ISistemaDAO {
 		return sistema;
 	}
 
+	/**
+	 * listar todos os sistemas
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Sistema> listar() {
 
@@ -62,12 +71,13 @@ public class SistemaDAO implements ISistemaDAO {
 		return sistemas;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Sistema> findByName(String sistema) {
-		String hql = "SELECT nome FROM Curso curso " + "INNER JOIN curso.disciplina AS disciplina";
-		return (List<Sistema>) session.createQuery(hql).list();
-
-	}
+	// @SuppressWarnings("unchecked")
+	// @Override
+	// public List<Sistema> findByName(String sistema) {
+	// String hql = "SELECT nome FROM Curso curso " + "INNER JOIN curso.disciplina
+	// AS disciplina";
+	// return (List<Sistema>) session.createQuery(hql).list();
+	//
+	// }
 
 }

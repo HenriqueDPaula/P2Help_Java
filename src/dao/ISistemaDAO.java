@@ -12,5 +12,5 @@ public interface ISistemaDAO {
 
 	public Sistema findById(int idsistema);
 	
-	public List<Sistema> findByName(String sistema);
+//	public List<Sistema> findByName(String sistema);
 }

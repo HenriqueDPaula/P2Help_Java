@@ -43,6 +43,12 @@ public class OfertaDAO implements IOfertaDAO {
 		return oferta;
 	}
 
+	/**
+	 * Listar ofertas pelo id do usuario
+	 * 
+	 * @param idusuario
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Oferta> listById(int idusuario) {
 
@@ -64,7 +70,7 @@ public class OfertaDAO implements IOfertaDAO {
 	 * @param oferta
 	 */
 	public void atualizar(Oferta oferta) {
-
+		session = HibernateUtil.getSessionFactory().openSession();
 		Transaction t = session.beginTransaction();
 		session.update(oferta);
 		t.commit();
@@ -95,6 +101,36 @@ public class OfertaDAO implements IOfertaDAO {
 		session.delete(oferta);
 		t.commit();
 
+	}
+
+	/**
+	 * @return the criteria
+	 */
+	public Criteria getCriteria() {
+		return criteria;
+	}
+
+	/**
+	 * @param criteria
+	 *            the criteria to set
+	 */
+	public void setCriteria(Criteria criteria) {
+		this.criteria = criteria;
+	}
+
+	/**
+	 * @return the session
+	 */
+	public Session getSession() {
+		return session;
+	}
+
+	/**
+	 * @param session
+	 *            the session to set
+	 */
+	public void setSession(Session session) {
+		this.session = session;
 	}
 
 }

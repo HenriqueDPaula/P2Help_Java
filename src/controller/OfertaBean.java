@@ -164,7 +164,18 @@ public class OfertaBean implements Serializable {
 	 */
 	public String atualizarConfirm() {
 
-		ofertaService.atualizar(this.oferta);
+		java.util.Date date = new java.util.Date(); // Instanciando um objeto do tipo Date da classe java.util
+		long t = date.getTime();
+		java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(t);
+		oferta.setDataOferta(sqlTimestamp);
+		if (radio == true) { // Setando o status da oferta com RadioButton no front
+			status = 's';
+			oferta.setStatus(status);
+		} else {
+			status = 'n';
+			oferta.setStatus(status);
+		}
+		ofertaService.atualizar(oferta);
 
 		return "pageOferta";
 	}
