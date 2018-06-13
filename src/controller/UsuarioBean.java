@@ -12,6 +12,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -47,6 +48,9 @@ public class UsuarioBean implements Serializable {
 	private MunicipioService municipioService;
 	private List<SelectItem> MunicipioSelect;
 
+//	@Inject
+//	private OfertaBean ofertaBean;
+//	
 	/**
 	 * Construtor setando atributos vazios e instanciando respectivas services
 	 */
@@ -227,10 +231,10 @@ public class UsuarioBean implements Serializable {
 	 * 
 	 * @return
 	 */
-//	public String detalheMunicipio() {
-//
-//		return usuario.getMunicipio().getNome();
-//	}
+	public String detalheMunicipio() {
+
+		return usuario.getMunicipio().getNome();
+	}
 
 	/**
 	 * Redirecionamento de pagina

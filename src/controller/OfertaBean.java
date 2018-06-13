@@ -4,11 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
-import javax.faces.application.Application;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ViewHandler;
-import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -25,9 +23,9 @@ import service.OfertaService;
 import service.SistemaService;
 import service.UsuarioService;
 
-@ManagedBean
-@RequestScoped
+
 @Named("ofertaBean")
+@SessionScoped
 public class OfertaBean implements Serializable {
 	/**
 	 * 
@@ -61,6 +59,7 @@ public class OfertaBean implements Serializable {
 	 * sessão
 	 */
 	public OfertaBean() {
+		this.oferta = new Oferta();
 		this.sistemaService = new SistemaService();
 		this.categoriaService = new CategoriaService();
 		this.ofertaService = new OfertaService();
@@ -154,6 +153,9 @@ public class OfertaBean implements Serializable {
 	 */
 	public String atualizar() {
 		this.oferta = ofertaService.findById(this.oferta.getIdoferta());
+
+		String x = "";
+		System.out.println(x);
 		return "atualizarOferta";
 	}
 
