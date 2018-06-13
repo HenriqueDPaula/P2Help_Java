@@ -55,16 +55,17 @@
 		<p:commandButton value="salvar" action="#{ofertaBean.cadastrar()}" />
 		<p:commandButton value="voltar" immediate="true" action="pageUsuario" />
 
+
 		<p:dialog id="modalDialog" header="Cadastrar Sistema"
 			widgetVar="sistemaAdd" modal="true" height="100">
 
 
-			<h:inputText value="#{sistemaBean.nome1}" />
+			<p:inputText value="#{sistemaBean.nome1}" />
 			<br />
-			<h:inputText value="#{sistemaBean.fabricante1}" />
+			<p:inputText value="#{sistemaBean.fabricante1}" />
 			<br />
 			<p:commandButton value="Adicionar"
-				action="#{sistemaBean.CadastrarSistema()}" immediate="true"
+				action="#{sistemaBean.cadastrarSistema()}" immediate="true"
 				onclick="PF('sistemaAdd').close();" />
 
 		</p:dialog>

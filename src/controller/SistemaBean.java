@@ -2,16 +2,14 @@ package controller;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import model.Sistema;
 import service.SistemaService;
 
-@ManagedBean
-@RequestScoped
 @Named("sistemaBean")
+@SessionScoped
 public class SistemaBean implements Serializable {
 
 	/**
@@ -25,13 +23,19 @@ public class SistemaBean implements Serializable {
 
 	public SistemaBean() {
 		this.sistemaService = new SistemaService();
+		sistema = new Sistema();
+		System.out.println("as======================================================");
+		nome1 = "testeeeeeeeeeeeeeeeeeeeeeeeeeeeefdfffffffffffffff";
 	}
 
 	/*
 	 * Cadstro de Sistema sem verificaçao
 	 */
-	public String CadastrarSistema() {
+	public String cadastrarSistema() {
 		sistema = new Sistema();
+		System.out.println("-=-=+_=-=-+_=-=-+-=_+-+_=-=-=-=-=_++++++++++++++++++++++++++++____________________________++++++++=+-=_+-+_");
+		System.out.println(nome1);
+		System.out.println(fabricante1);
 		sistema.setFabricante(fabricante1);
 		sistema.setNome(nome1);
 		sistemaService.save(sistema);
@@ -77,6 +81,7 @@ public class SistemaBean implements Serializable {
 	 *            the nome1 to set
 	 */
 	public void setNome1(String nome1) {
+		System.out.println("Primefaces");
 		this.nome1 = nome1;
 	}
 
