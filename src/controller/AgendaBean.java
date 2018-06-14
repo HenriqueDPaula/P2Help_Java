@@ -48,6 +48,7 @@ public class AgendaBean implements Serializable {
 	private Contratacao contratacao;
 	private Oferta ofertaSelecionada;
 	private List<Agenda> listarAgenda;
+	private Agenda agendaSelecionada;
 
 	/**
 	 * Construtor instanciando os principais atributos
@@ -81,6 +82,7 @@ public class AgendaBean implements Serializable {
 		agendaService.save(agenda);
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Agenda", " Cadastrada com sucesso!"));
+		setDataEhora(null);
 
 	}
 
@@ -99,8 +101,7 @@ public class AgendaBean implements Serializable {
 	 * Cadastrar Contratação após a agenda ser atualizada com o id do usuario
 	 **/
 	public void cadastrarContratacao() {
-		Agenda agenda = agendaUpdate();
-		contratacao.setAgenda(agenda);
+		contratacao.setAgenda(agendaSelecionada);
 		java.util.Date date = new java.util.Date(); // Instanciando um objeto do tipo Date da classe java.util
 		long t = date.getTime();
 		java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(t);
@@ -368,6 +369,21 @@ public class AgendaBean implements Serializable {
 	 */
 	public void setListarAgenda(List<Agenda> listarAgenda) {
 		this.listarAgenda = listarAgenda;
+	}
+
+	/**
+	 * @return the agendaSelecionada
+	 */
+	public Agenda getAgendaSelecionada() {
+		return agendaSelecionada;
+	}
+
+	/**
+	 * @param agendaSelecionada
+	 *            the agendaSelecionada to set
+	 */
+	public void setAgendaSelecionada(Agenda agendaSelecionada) {
+		this.agendaSelecionada = agendaSelecionada;
 	}
 
 	// public Agenda inserirUsuario() {

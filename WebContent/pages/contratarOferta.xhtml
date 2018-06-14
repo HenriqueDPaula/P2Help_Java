@@ -60,9 +60,32 @@
 			<h:outputText value="#{agendaBean.ofertaSelecionada.dataOferta}" />
 
 		</p:panelGrid>
-		<p:commandButton action="Ofertas" value="voltar" />
-		<p:commandButton action="#{contratacaoBean.contratarOferta()}"
-			value="Contratar" />
+		<br />
+		<hr />
+
+		<p:dataTable filterEvent="enter"
+			value="#{agendaBean.findAgendaByOferta()}" var="agenda"
+			widgetVar="tabelaAgenda" rows="5" paginator="true"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10" paginatorPosition="bottom">
+
+			<p:column headerText="Data/hora">
+				<h:outputText value="#{agenda.idagenda.dataEhora}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+				</h:outputText>
+			</p:column>
+
+			<p:column>
+				<p:commandButton value="selecionar"
+					action="#{agendaBean.cadastrarContratacao()}">
+					<f:setPropertyActionListener value="#{agenda}"
+						target="#{agendaBean.agendaSelecionada}" />
+				</p:commandButton>
+			</p:column>
+
+
+		</p:dataTable>
+
 	</h:form>
 	<hr />
 

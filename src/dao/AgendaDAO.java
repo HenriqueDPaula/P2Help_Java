@@ -79,7 +79,7 @@ public class AgendaDAO implements Serializable {
 
 		session = HibernateUtil.getSessionFactory().openSession();
 
-		String hql = "from Agenda where OFERTA = :idoferta";
+		String hql = "from Agenda where IDOFERTA = :idoferta";
 		Query query = (Query) session.createQuery(hql);
 		query.setParameter("idoferta", idoferta);
 		listAgenda = query.list();
