@@ -1,7 +1,6 @@
 package service;
 
 import java.io.Serializable;
-import java.util.List;
 
 import dao.AgendaDAO;
 import model.Agenda;
@@ -35,13 +34,13 @@ public class AgendaService implements Serializable {
 		this.agendaDAO.save(agenda);
 	}
 
-	public Agenda findById(AgendaPK agendaPK) {
-		return this.agendaDAO.findById(agendaPK);
-	}
-
-	public void atualizar(Agenda agenda) {
-		this.agendaDAO.atualizar(agenda);
-	}
+//	public Agenda findById(AgendaPK agendaPK) {
+//		return this.agendaDAO.findById(agendaPK);
+//	}
+//
+//	public void atualizar(Agenda agenda) {
+//		this.agendaDAO.atualizar(agenda);
+//	}
 
 	/**
 	 * @return the agenda

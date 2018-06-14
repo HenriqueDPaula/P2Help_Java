@@ -3,7 +3,12 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Embeddable
 public class AgendaPK implements Serializable {
@@ -11,8 +16,15 @@ public class AgendaPK implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -8913733314598981150L;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "DATA", nullable = false)
 	private Date data;
+
+	@Column(name = "HORA", nullable = false)
 	private Date hora;
+
+	@ManyToOne
+	@JoinColumn(name = "IDOFERTA")
 	private Oferta oferta;
 
 	public AgendaPK() {

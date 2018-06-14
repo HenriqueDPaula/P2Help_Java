@@ -66,14 +66,14 @@ public class Usuario implements Serializable {
 
 	@Column(name = "COMPLEMENTO", length = 200, nullable = true)
 	private String complemento;
-//	
-//	@Column(name = "ativo", length = 200, nullable = true)
-//	private int ativo;
+	//
+	// @Column(name = "ativo", length = 200, nullable = true)
+	// private int ativo;
 
 	@ManyToOne
 	@JoinColumn(name = "idmunicipio")
 	private Municipios municipio;
-	
+
 	/*
 	 * Constructor
 	 */
@@ -307,18 +307,18 @@ public class Usuario implements Serializable {
 		return true;
 	}
 
-//	/**
-//	 * @return the ativo
-//	 */
-//	public int getAtivo() {
-//		return ativo;
-//	}
-//
-//	/**
-//	 * @param ativo the ativo to set
-//	 */
-//	public void setAtivo(int ativo) {
-//		this.ativo = ativo;
-//	}
+	// /**
+	// * @return the ativo
+	// */
+	// public int getAtivo() {
+	// return ativo;
+	// }
+	//
+	// /**
+	// * @param ativo the ativo to set
+	// */
+	// public void setAtivo(int ativo) {
+	// this.ativo = ativo;
+	// }
 
 }

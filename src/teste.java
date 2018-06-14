@@ -1,8 +1,11 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import dao.MunicipiosDAO;
 import dao.OfertaDAO;
+import model.Agenda;
+import model.AgendaPK;
 import model.Municipios;
 import model.Oferta;
 import model.Sistema;
@@ -28,8 +31,27 @@ public class teste {
 	static OfertaService ofertaService = new OfertaService();
 	static Sistema sistema;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 
+//		AgendaPK ap = new AgendaPK();
+//		String data = "20/05/2018";
+//		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//		Date dataa = sdf.parse(data);
+//		ap.setData(dataa);
+//
+//		String hora = "20:21";
+//		SimpleDateFormat sdff = new SimpleDateFormat("HH:mm");
+//		Date horaa = sdff.parse(hora);
+//		ap.setHora(horaa);
+//
+//		oferta = ofertaService.findById();
+//		ap.setOferta(oferta);
+//
+//		Usuario usuario = usuarioService.findById(69);
+//		Agenda agenda = new Agenda();
+//		agenda.setUsuario(usuario);
+//
+//		agenda.setIdagenda(ap);
 		// String email = "email@.com";
 		// String senha = "1233";
 		// usuario = usuarioService.login(email, senha);

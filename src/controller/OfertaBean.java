@@ -23,7 +23,6 @@ import service.OfertaService;
 import service.SistemaService;
 import service.UsuarioService;
 
-
 @Named("ofertaBean")
 @SessionScoped
 public class OfertaBean implements Serializable {
@@ -140,9 +139,10 @@ public class OfertaBean implements Serializable {
 		oferta.setValorHora(valorHora);
 
 		ofertaService.save(oferta);
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ofertaC", oferta);
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Oferta cadastrada com sucesso!", " "));
-		return "pageOferta";
+		return "agenda";
 
 	}
 

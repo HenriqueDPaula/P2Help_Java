@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +15,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "SISTEMAS")
-public class Sistema {
+public class Sistema implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2917099059447534916L;
 
 	/*
 	 * Constructor
@@ -103,6 +110,13 @@ public class Sistema {
 		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
+	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }
