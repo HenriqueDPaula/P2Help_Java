@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,14 +26,9 @@ public class Contratacao implements Serializable {
 	@Column(name = "IDCONTRATACAO", nullable = false)
 	private Integer idcontratacao;
 
-	@JoinColumn(name = "iDOFERTA", nullable = false)
-	private Oferta oferta;
-
-	@JoinColumn(name = "IDUSUARIO", nullable = false)
-	private Usuario usuario;
-
-	@Column(name = "QUANTIDADE", nullable = false)
-	private Integer quantidade;
+	@OneToOne
+	@JoinColumn(name = "IDAGENDA", nullable = false)
+	private Agenda agenda;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "DATA_CONTRATACAO", nullable = false)
@@ -40,6 +36,10 @@ public class Contratacao implements Serializable {
 
 	@Column(name = "STATUS", length = 20, nullable = false)
 	private char status;
+
+	public Contratacao() {
+
+	}
 
 	/**
 	 * @return the idcontratacao
@@ -49,52 +49,23 @@ public class Contratacao implements Serializable {
 	}
 
 	/**
-	 * @param idcontratacao the idcontratacao to set
+	 * @param idcontratacao
+	 *            the idcontratacao to set
 	 */
 	public void setIdcontratacao(Integer idcontratacao) {
 		this.idcontratacao = idcontratacao;
 	}
 
-	/**
-	 * @return the oferta
-	 */
-	public Oferta getOferta() {
-		return oferta;
+	public Agenda getAgenda() {
+		return agenda;
 	}
 
 	/**
-	 * @param oferta the oferta to set
+	 * @param idcontratacao
+	 *            the idcontratacao to set
 	 */
-	public void setOferta(Oferta oferta) {
-		this.oferta = oferta;
-	}
-
-	/**
-	 * @return the usuario
-	 */
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	/**
-	 * @param usuario the usuario to set
-	 */
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	/**
-	 * @return the quantidade
-	 */
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	/**
-	 * @param quantidade the quantidade to set
-	 */
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
+	public void setAgenda(Agenda agenda) {
+		this.agenda = agenda;
 	}
 
 	/**
@@ -105,7 +76,8 @@ public class Contratacao implements Serializable {
 	}
 
 	/**
-	 * @param dataContratacao the dataContratacao to set
+	 * @param dataContratacao
+	 *            the dataContratacao to set
 	 */
 	public void setDataContratacao(Date dataContratacao) {
 		this.dataContratacao = dataContratacao;
@@ -119,7 +91,8 @@ public class Contratacao implements Serializable {
 	}
 
 	/**
-	 * @param status the status to set
+	 * @param status
+	 *            the status to set
 	 */
 	public void setStatus(char status) {
 		this.status = status;
@@ -130,6 +103,52 @@ public class Contratacao implements Serializable {
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((agenda == null) ? 0 : agenda.hashCode());
+		result = prime * result + ((dataContratacao == null) ? 0 : dataContratacao.hashCode());
+		result = prime * result + ((idcontratacao == null) ? 0 : idcontratacao.hashCode());
+		result = prime * result + status;
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Contratacao))
+			return false;
+		Contratacao other = (Contratacao) obj;
+		if (agenda == null) {
+			if (other.agenda != null)
+				return false;
+		} else if (!agenda.equals(other.agenda))
+			return false;
+		if (dataContratacao == null) {
+			if (other.dataContratacao != null)
+				return false;
+		} else if (!dataContratacao.equals(other.dataContratacao))
+			return false;
+		if (idcontratacao == null) {
+			if (other.idcontratacao != null)
+				return false;
+		} else if (!idcontratacao.equals(other.idcontratacao))
+			return false;
+		if (status != other.status)
+			return false;
+		return true;
 	}
 
 }

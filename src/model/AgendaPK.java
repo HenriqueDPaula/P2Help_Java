@@ -10,6 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/**
+ * Classe para definir as chaves primárias(compostas) da classe Agenda
+ **/
 @Embeddable
 public class AgendaPK implements Serializable {
 	/**
@@ -17,11 +20,8 @@ public class AgendaPK implements Serializable {
 	 */
 	private static final long serialVersionUID = -8913733314598981150L;
 	@Temporal(TemporalType.DATE)
-	@Column(name = "DATA", nullable = false)
-	private Date data;
-
-	@Column(name = "HORA", nullable = false)
-	private Date hora;
+	@Column(name = "DATA_HORA", nullable = false)
+	private Date dataEhora;
 
 	@ManyToOne
 	@JoinColumn(name = "IDOFERTA")
@@ -31,22 +31,13 @@ public class AgendaPK implements Serializable {
 
 	}
 
-	public Date getData() {
-		return data;
+	public Date getDataEhora() {
+		return dataEhora;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setDataEhora(Date dataEhora) {
+		this.dataEhora = dataEhora;
 
-	}
-
-	public Date getHora() {
-		return hora;
-	}
-
-	public void setHora(Date hora) {
-
-		this.hora = hora;
 	}
 
 	/**
@@ -71,24 +62,19 @@ public class AgendaPK implements Serializable {
 		return serialVersionUID;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((data == null) ? 0 : data.hashCode());
-		result = prime * result + ((hora == null) ? 0 : hora.hashCode());
+		result = prime * result + ((dataEhora == null) ? 0 : dataEhora.hashCode());
 		result = prime * result + ((oferta == null) ? 0 : oferta.hashCode());
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -100,15 +86,10 @@ public class AgendaPK implements Serializable {
 		if (!(obj instanceof AgendaPK))
 			return false;
 		AgendaPK other = (AgendaPK) obj;
-		if (data == null) {
-			if (other.data != null)
+		if (dataEhora == null) {
+			if (other.dataEhora != null)
 				return false;
-		} else if (!data.equals(other.data))
-			return false;
-		if (hora == null) {
-			if (other.hora != null)
-				return false;
-		} else if (!hora.equals(other.hora))
+		} else if (!dataEhora.equals(other.dataEhora))
 			return false;
 		if (oferta == null) {
 			if (other.oferta != null)

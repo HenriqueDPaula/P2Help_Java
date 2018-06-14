@@ -1,6 +1,7 @@
 package service;
 
 import java.io.Serializable;
+import java.util.List;
 
 import dao.AgendaDAO;
 import model.Agenda;
@@ -9,7 +10,7 @@ import model.AgendaPK;
 public class AgendaService implements Serializable {
 
 	/**
-	 * 
+	 * Atributos e serialNumber
 	 */
 	private static final long serialVersionUID = -312978313685550135L;
 	private Agenda agenda;
@@ -24,23 +25,40 @@ public class AgendaService implements Serializable {
 
 	}
 
-	// ToDo método para retornar os horários inseridos para uma oferta
-
-//	public List<Agenda> listById(int idoferta) {
-//		return this.agendaDAO.listById(idoferta);
-//	}
-
+	/**
+	 * Salvar agenda
+	 **/
 	public void save(Agenda agenda) {
 		this.agendaDAO.save(agenda);
 	}
 
-//	public Agenda findById(AgendaPK agendaPK) {
-//		return this.agendaDAO.findById(agendaPK);
-//	}
-//
-//	public void atualizar(Agenda agenda) {
-//		this.agendaDAO.atualizar(agenda);
-//	}
+	/**
+	 * Encontrar agenda pelo id(agendaPK)
+	 **/
+	public Agenda findById(AgendaPK agendaPK) {
+		return this.agendaDAO.findById(agendaPK);
+	}
+
+	/**
+	 * Atualizar agenda
+	 **/
+	public void atualizar(Agenda agenda) {
+		this.agendaDAO.atualizar(agenda);
+	}
+
+	/**
+	 * Deletar agenda
+	 **/
+	public void delete(Agenda agenda) {
+		this.agendaDAO.delete(agenda);
+	}
+
+	/**
+	 * Listar agendas pelo id da oferta
+	 **/
+	public List<Agenda> listById(int idoferta) {
+		return this.agendaDAO.listById(idoferta);
+	}
 
 	/**
 	 * @return the agenda
