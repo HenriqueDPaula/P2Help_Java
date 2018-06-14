@@ -34,36 +34,38 @@
 
 		</p:menubar>
 	</h:form>
-	<h:outputText value="Contratar Oferta?" />
-	<hr />
-	<p:panelGrid columns="2" border="1">
-
-		<h:outputLabel value="Título:  " />
-		<h:outputText value="#{ofertaBean.oferta.titulo}" />
-
-		<h:outputLabel value="Descrição: " styleClass="emphasis" />
-		<h:outputText value="#{ofertaBean.oferta.descricao}" />
-
-
-		<h:outputLabel value="Sistema: " styleClass="emphasis" />
-		<h:outputText value="#{ofertaBean.oferta.sistema.nome}" />
-
-		<h:outputLabel value="Categoria: " styleClass="emphasis" />
-		<h:outputText value="#{ofertaBean.oferta.categoria.descricao}" />
-
-
-		<h:outputLabel value="Ativo: " styleClass="emphasis" />
-		<h:outputText value="#{ofertaBean.oferta.status}" />
-
-		<h:outputLabel value="Valor: " styleClass="emphasis" />
-		<h:outputText value="#{ofertaBean.oferta.valorHora}" />
-
-		<h:outputLabel value="Publicado em: " styleClass="emphasis" />
-		<h:outputText value="#{ofertaBean.oferta.dataOferta}" />
+	<h:form>
+		<h:outputText value="Contratar Oferta?" />
 		<hr />
-	</p:panelGrid>
-	<p:commandButton action="Ofertas" value="voltar" />
-	<p:commandButton action="#{contratacaoBean.contratarOferta()}"
-		value="Contratar" />
+		<p:panelGrid columns="2" border="1">
+
+			<h:outputLabel value="Título:  " />
+			<h:outputText value="#{agendaBean.ofertaSelecionada.titulo}" />
+
+			<h:outputLabel value="Descrição: " styleClass="emphasis" />
+			<h:outputText value="#{agendaBean.ofertaSelecionada.descricao}" />
+
+
+			<h:outputLabel value="Sistema: " styleClass="emphasis" />
+			<h:outputText value="#{agendaBean.ofertaSelecionada.sistema.nome}" />
+
+			<h:outputLabel value="Categoria: " styleClass="emphasis" />
+			<h:outputText
+				value="#{agendaBean.ofertaSelecionada.categoria.descricao}" />
+
+			<h:outputLabel value="Valor: " styleClass="emphasis" />
+			<h:outputText value="#{agendaBean.ofertaSelecionada.valorHora}" />
+
+			<h:outputLabel value="Publicado em: " styleClass="emphasis" />
+			<h:outputText value="#{agendaBean.ofertaSelecionada.dataOferta}" />
+
+		</p:panelGrid>
+		<p:commandButton action="Ofertas" value="voltar" />
+		<p:commandButton action="#{contratacaoBean.contratarOferta()}"
+			value="Contratar" />
+	</h:form>
+	<hr />
+
+
 </h:body>
 </html>
