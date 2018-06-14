@@ -64,8 +64,7 @@ public class OfertaBean implements Serializable {
 		this.ofertaService = new OfertaService();
 		this.usuarioService = new UsuarioService();
 		usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioL"); // usuario
-																													// logado
-		flagModal = false;
+
 	}
 
 	/**

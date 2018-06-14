@@ -19,7 +19,7 @@ public class AgendaPK implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -8913733314598981150L;
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "DATA_HORA", nullable = false)
 	private Date dataEhora;
 
@@ -62,7 +62,9 @@ public class AgendaPK implements Serializable {
 		return serialVersionUID;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -74,7 +76,9 @@ public class AgendaPK implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

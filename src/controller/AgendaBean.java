@@ -2,6 +2,7 @@ package controller;
 
 import java.io.Serializable;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -53,12 +54,9 @@ public class AgendaBean implements Serializable {
 	 */
 	public AgendaBean() {
 		contratacaoService = new ContratacaoService();
-		contratacao = new Contratacao();
-		avaliacao = new Avaliacao();
 		avaliacaoService = new AvaliacaoService();
 		agendaService = new AgendaService();
 		agenda = new Agenda();
-		agendaPK = new AgendaPK();
 		oferta = (Oferta) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("ofertaC"); // Oferta
 																													// que
 																													// está
@@ -71,15 +69,19 @@ public class AgendaBean implements Serializable {
 
 	/**
 	 * Cadastro de Agenda e sua Chave Primária(agendaPK)
+	 * 
+	 * @throws ParseException
 	 **/
-	public void cadastrar() throws ParseException {
+	public void cadastrarAgenda() {
+
+		agendaPK = new AgendaPK();
 		agendaPK.setDataEhora(dataEhora);
 		agendaPK.setOferta(oferta);
 		agenda.setIdagenda(agendaPK);
-		agenda.setUsuario(null);
 		agendaService.save(agenda);
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Agenda", " Cadastrada com sucesso!"));
+
 	}
 
 	/**

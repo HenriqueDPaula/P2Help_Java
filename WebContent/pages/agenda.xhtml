@@ -14,8 +14,26 @@
 	<hr />
 
 	<h:form>
-		<p:commandButton value="Inserir agenda"
-			action="#{agendaBean.cadastrar()}" />
+		<p:panel id="panel" header="Form">
+			<p:messages />
+			<h:panelGrid columns="2">
+				<p:outputLabel for="datetime"
+					value="Data e hora disponivel para sua oferta:" />
+				<p:calendar id="datetime" value="#{agendaBean.dataEhora}"
+					pattern="dd/MM/yyyy HH:mm" />
+			</h:panelGrid>
+		</p:panel>
+		<p:commandButton value="add" update="panel" process="@this">
+			<p:resetInput target="panel" />
+		</p:commandButton>
+		<p:commandButton value="salvar agenda"
+			action="#{agendaBean.cadastrarAgenda()}">
+			<p:resetInput target="panel" />
+		</p:commandButton>
+
+		<p:commandButton value="Concluir" action="ofertasUsuario">
+			<p:resetInput target="panel" />
+		</p:commandButton>
 	</h:form>
 
 
