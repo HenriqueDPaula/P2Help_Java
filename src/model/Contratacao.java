@@ -31,11 +31,8 @@ public class Contratacao implements Serializable {
 	private Integer idcontratacao;
 
 	@OneToOne
-	@JoinColumns({
-		@JoinColumn(name = "IDOFERTA",  referencedColumnName = "IDOFERTA"),
-		@JoinColumn(name = "DATA_HORA", referencedColumnName = "DATA_HORA"),
-		})
-	
+	@JoinColumns({ @JoinColumn(name = "IDOFERTA", referencedColumnName = "IDOFERTA"),
+			@JoinColumn(name = "DATA_HORA", referencedColumnName = "DATA_HORA"), })
 	private Agenda agenda;
 
 	@Temporal(TemporalType.TIMESTAMP)

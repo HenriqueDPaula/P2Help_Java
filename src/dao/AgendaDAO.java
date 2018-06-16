@@ -68,13 +68,7 @@ public class AgendaDAO implements Serializable {
 		query.setParameter("idoferta", idoferta);
 		query.setParameter("dataEhora", dataEhora);
 		agenda = (Agenda) query.uniqueResult();
-		// EntityManager em = null;
-		// Agenda agenda = null;
-		//
-		// agenda = em.find(Agenda.class, agendaPK);
-		// em.close();
-		//
-		// return agenda;
+
 		return agenda;
 
 	}
@@ -97,13 +91,15 @@ public class AgendaDAO implements Serializable {
 		return listAgenda;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Agenda> listAgendaByIdUsuario(int idusuario) {
 		List<Agenda> listAgendaByIdUsuario = null;
 
 		session = HibernateUtil.getSessionFactory().openSession();
 
-		String hql = "from agenda where idusuario = :idusuario";
+		String hql = "from Agenda where IDUSUARIO = :idusuario";
 		Query query = (Query) session.createQuery(hql);
+		query.setParameter("idusuario", idusuario);
 		listAgendaByIdUsuario = query.list();
 		return listAgendaByIdUsuario;
 	}

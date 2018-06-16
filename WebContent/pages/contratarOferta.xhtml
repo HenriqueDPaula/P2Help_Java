@@ -58,7 +58,6 @@
 
 			<h:outputLabel value="Publicado em: " styleClass="emphasis" />
 			<h:outputText value="#{agendaBean.ofertaSelecionada.dataOferta}">
-				<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
 			</h:outputText>
 		</p:panelGrid>
 		<br />
@@ -72,7 +71,6 @@
 
 			<p:column headerText="Data/hora">
 				<h:outputText value="#{agenda.idagenda.dataEhora}">
-					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
 				</h:outputText>
 			</p:column>
 

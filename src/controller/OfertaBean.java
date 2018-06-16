@@ -267,6 +267,10 @@ public class OfertaBean implements Serializable {
 		return "Ofertas";
 	}
 
+	public String redirecionarContratadas() {
+		return "ofertasContratadas";
+	}
+
 	/*
 	 * Redirecionamento de p�gina
 	 */

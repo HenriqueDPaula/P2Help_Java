@@ -14,10 +14,13 @@
 		<p:messages />
 		<p:menubar>
 			<p:submenu label="Ofertas">
-				<p:menuitem value="publicar" action="cadastrarOferta.jsf?faces-redirect=true" />
+				<p:menuitem value="publicar"
+					action="cadastrarOferta.jsf?faces-redirect=true" />
 				<p:menuitem value="procurar"
 					action="#{ofertaBean.redirecionaOfertas()}" />
 				<p:separator />
+				<p:menuitem value="Contratadas"
+					action="#{ofertaBean.redirecionarContratadas()}" />
 				<p:menuitem value="minhas ofertas"
 					action="#{ofertaBean.redirecionaOfertasUsuario()}" />
 			</p:submenu>

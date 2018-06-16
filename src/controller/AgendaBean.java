@@ -41,7 +41,7 @@ public class AgendaBean implements Serializable {
 	private ContratacaoService contratacaoService;
 	private AvaliacaoService avaliacaoService;
 	private Agenda agenda;
-	
+
 	private Avaliacao avaliacao;
 	private Integer servico;
 	private Integer atendimento;
@@ -61,6 +61,9 @@ public class AgendaBean implements Serializable {
 		avaliacaoService = new AvaliacaoService();
 		agendaService = new AgendaService();
 		agenda = new Agenda();
+		contratacao = new Contratacao();
+		avaliacao = new Avaliacao();
+		agendaAvaliar = new Agenda();
 		oferta = (Oferta) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("ofertaC"); // Oferta
 																													// //
 																													// sess�o
@@ -105,7 +108,7 @@ public class AgendaBean implements Serializable {
 	 *
 	 */
 	public String agendaUpdate() {
-		
+
 		agenda = agendaService.findById(agendaSelecionada.getIdagenda().getOferta().getIdoferta(),
 				agendaSelecionada.getIdagenda().getDataEhora()); // Passando como parâmetros o id da oferta e a data
 																	// para encontrar a agenda
@@ -135,8 +138,8 @@ public class AgendaBean implements Serializable {
 		java.util.Date date = new java.util.Date(); // Instanciando um objeto do tipo Date da classe java.util
 		long t = date.getTime();
 		java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(t);
-		
-		contratacao.setDataContratacao(new Date() ); // Data e hora do sistema
+
+		contratacao.setDataContratacao(new Date()); // Data e hora do sistema
 		contratacao.setStatus('p'); // Pendente, mudará o status através de uma trigger no BD
 		contratacaoService.save(contratacao);
 
@@ -169,17 +172,16 @@ public class AgendaBean implements Serializable {
 	 *
 	 */
 	public String avaliacao() {
-		Agenda agenda = new Agenda();
-		agenda = agendaService.findById(agendaAvaliar.getIdagenda().getOferta().getIdoferta(),
-				agendaAvaliar.getIdagenda().getDataEhora()); // Encontrar id da agenda seleciona na tela Avaliação
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm");
 
-		Contratacao contratacao = new Contratacao();
-		contratacao = contratacaoService.findById(agenda.getIdagenda().getOferta().getIdoferta(),
-				agenda.getIdagenda().getDataEhora());
-		// avaliacao.setIdcontratacao(contratacao); // Chave primária da avaliação é a
-		// chave primária da contratacao
+		sdf.format(agendaAvaliar.getIdagenda().getDataEhora());
+
+		contratacao = contratacaoService.findById(agendaAvaliar.getIdagenda().getOferta().getIdoferta(),
+				agendaAvaliar.getIdagenda().getDataEhora());
+		avaliacao.setIdcontratacao(contratacao); // Chave primária da avaliação é a
 		avaliacao.setAtendimento(atendimento);
 		avaliacao.setServico(servico);
+
 		try {
 			avaliacaoService.save(avaliacao);
 			FacesContext.getCurrentInstance().addMessage(null,

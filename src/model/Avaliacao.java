@@ -5,10 +5,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -21,17 +23,19 @@ public class Avaliacao implements Serializable {
 	private static final long serialVersionUID = 5260819040137629327L;
 
 	@Id
-	private Integer id;
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "avaliacao_sequence")
+	@SequenceGenerator(name = "avaliacao_sequence", sequenceName = "avaliacao_sequence")
+	@Column(name = "IDAVALIACAO", nullable = false)
+	private Integer idavaliacao;
 
-	@OneToOne
-	@JoinColumn(name = "id")
-	@MapsId
+	@OneToOne()
+	@JoinColumn(name = "IDCONTRATACAO")
 	private Contratacao idcontratacao;
 
 	@Column(name = "NOTA_ATENDIMENTO", nullable = true)
 	private Integer atendimento;
 
-	@Column(name = "NOTA_SERVICO, nullable = true ")
+	@Column(name = "NOTA_SERVICO", nullable = true)
 	private Integer servico;
 
 	@Column(name = "COMENTARIO", nullable = true)
@@ -41,13 +45,13 @@ public class Avaliacao implements Serializable {
 
 	}
 
-//	public Contratacao getIdcontratacao() {
-//		return idcontratacao;
-//	}
-//
-//	public void setIdcontratacao(Contratacao idcontratacao) {
-//		this.idcontratacao = idcontratacao;
-//	}
+	// public Contratacao getIdcontratacao() {
+	// return idcontratacao;
+	// }
+	//
+	// public void setIdcontratacao(Contratacao idcontratacao) {
+	// this.idcontratacao = idcontratacao;
+	// }
 
 	public Integer getAtendimento() {
 		return atendimento;
@@ -84,10 +88,32 @@ public class Avaliacao implements Serializable {
 		int result = 1;
 		result = prime * result + ((atendimento == null) ? 0 : atendimento.hashCode());
 		result = prime * result + ((comentario == null) ? 0 : comentario.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-//		result = prime * result + ((idcontratacao == null) ? 0 : idcontratacao.hashCode());
+		result = prime * result + ((idcontratacao == null) ? 0 : idcontratacao.hashCode());
+
 		result = prime * result + ((servico == null) ? 0 : servico.hashCode());
 		return result;
+	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	/**
+	 * @return the contratacao
+	 */
+	public Contratacao getContratacao() {
+		return idcontratacao;
+	}
+
+	/**
+	 * @param contratacao
+	 *            the contratacao to set
+	 */
+	public void setContratacao(Contratacao contratacao) {
+		this.idcontratacao = contratacao;
 	}
 
 	/*
@@ -114,16 +140,12 @@ public class Avaliacao implements Serializable {
 				return false;
 		} else if (!comentario.equals(other.comentario))
 			return false;
-		if (id == null) {
-			if (other.id != null)
+		if (idcontratacao == null) {
+			if (other.idcontratacao != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!idcontratacao.equals(other.idcontratacao))
 			return false;
-//		if (idcontratacao == null) {
-//			if (other.idcontratacao != null)
-//				return false;
-//		} else if (!idcontratacao.equals(other.idcontratacao))
-//			return false;
+
 		if (servico == null) {
 			if (other.servico != null)
 				return false;
@@ -133,26 +155,60 @@ public class Avaliacao implements Serializable {
 	}
 
 	/**
-	 * @return the id
+	 * @return the idcontratacao
 	 */
-	public Integer getId() {
-		return id;
+	public Contratacao getIdcontratacao() {
+		return idcontratacao;
 	}
 
 	/**
-	 * @param id
-	 *            the id to set
+	 * @param idcontratacao
+	 *            the idcontratacao to set
 	 */
-	public void setId(Integer id) {
-		this.id = id;
+	public void setIdcontratacao(Contratacao idcontratacao) {
+		this.idcontratacao = idcontratacao;
 	}
 
 	/**
-	 * @return the serialversionuid
+	 * @return the idavaliacao
 	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public Integer getIdavaliacao() {
+		return idavaliacao;
 	}
 
+	/**
+	 * @param idavaliacao
+	 *            the idavaliacao to set
+	 */
+	public void setIdavaliacao(Integer idavaliacao) {
+		this.idavaliacao = idavaliacao;
+	}
+
+	//
+	// @Entity
+	// @Table(name = "TBL_PESSOA")
+	// public class Pessoa {
+	// @Id
+	// @GeneratedValue(strategy = GenerationType.IDENTITY)
+	// @Column(name = "PK_PESSOA")
+	// private Long id;
+	//
+	// @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL,
+	// fetch = FetchType.LAZY, optional = true)
+	// private Pet pet;
+	// }
+	//
+	// @Entity
+	// @Table(name = "TBL_PET")
+	// public class Pet {
+	// @Id
+	// private Long id;
+	//
+	// @MapsId
+	// @OneToOne(fetch = FetchType.LAZY)
+	// @JoinColumn(name = "PK_PESSOA")
+	// private Pessoa pessoa;
+	//
+	// }
 	// Equals and HashCode
 }

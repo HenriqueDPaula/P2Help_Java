@@ -2,13 +2,12 @@ package dao;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import model.Contratacao;
-import org.hibernate.Query;
 import util.HibernateUtil;
 
 public class ContratacaoDAO implements Serializable {
@@ -33,9 +32,10 @@ public class ContratacaoDAO implements Serializable {
 	}
 
 	public Contratacao findById(int idoferta, Date dataEhora) {
-		Contratacao contratacao = null;
+		session = HibernateUtil.getSessionFactory().openSession();
 
-		String hql = "from contratacao where idoferta =:idoferta, data_hora =: dataEhora";
+		Contratacao contratacao = new Contratacao();
+		String hql = "from Contratacao where idoferta = :idoferta and data_hora = :dataEhora";
 		Query query = (Query) session.createQuery(hql);
 		query.setParameter("idoferta", idoferta);
 		query.setParameter("dataEhora", dataEhora);

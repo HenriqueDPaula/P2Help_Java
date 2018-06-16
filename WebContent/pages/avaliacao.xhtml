@@ -12,17 +12,19 @@
 <h:body>
 	<h:form>
 		<hr />
-		<p:outputLabel for="ratingService"
-			value="Nota pelo serviÃ§o prestado:" />
-		<p:rating value="#{agendaBean.servico}" stars="10" />
+		<h:outputText value="#{agendaBean.agendaAvaliar.idagenda.dataEhora}" />
+		<p:panelGrid columns="2" border="1">
+			<p:outputLabel value="Nota pelo serviço:" />
+			<p:rating value="#{agendaBean.servico}" stars="10" />
 
-		<p:outputLabel for="ratingAtendimento" value="Nota pelo atendimento:" />
-		<p:rating value="#{agendaBean.atendimento}" stars="10" />
+			<p:outputLabel value="Nota pelo atendimento:" />
+			<p:rating value="#{agendaBean.atendimento}" stars="10" />
 
-		<p:outputLabel for="comentario" value="ComentÃ¡rio:" />
-		<p:inputTextarea rows="10" cols="50" counter="display"
-			value="#{agendaBean.comentario}" maxlength="5000"
-			counterTemplate="{0} caracteres restantes." />
+			<p:inputTextarea rows="10" cols="50" counter="display"
+				placeholder="Comentário" value="#{agendaBean.comentario}"
+				maxlength="5000" counterTemplate="{0} caracteres restantes." />
+			<h:outputText id="display" />
+		</p:panelGrid>
 		<hr />
 
 		<p:commandButton value="enviar" action="#{agendaBean.avaliacao()}" />
