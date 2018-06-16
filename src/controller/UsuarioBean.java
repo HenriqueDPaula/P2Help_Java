@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.Serializable;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.inject.Inject;
 
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -27,7 +25,7 @@ import service.UsuarioService;
 public class UsuarioBean implements Serializable {
 
 	/**
-	 * 
+	 * Atributos
 	 */
 	private static final long serialVersionUID = -8696022544177517987L;
 	private String nome;
@@ -48,9 +46,9 @@ public class UsuarioBean implements Serializable {
 	private MunicipioService municipioService;
 	private List<SelectItem> MunicipioSelect;
 
-//	@Inject
-//	private OfertaBean ofertaBean;
-//	
+	// @Inject
+	// private OfertaBean ofertaBean;
+	//
 	/**
 	 * Construtor setando atributos vazios e instanciando respectivas services
 	 */
@@ -71,18 +69,19 @@ public class UsuarioBean implements Serializable {
 
 	/**
 	 * Login
-	 * 
+	 *
 	 * @return
 	 */
 	public String login() {
 		Usuario usuario = usuarioService.login(email, senha);
 		if (usuario != null) {
 			setUsuario(usuario);
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioL", usuario);
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioL", usuario); // Usuario
+																												// sessÃ£o
 			return "pages/pageUsuario";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, null, "Usuário ou senha não conferem."));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, null, "Usuï¿½rio ou senha nï¿½o conferem."));
 			return "";
 		}
 
@@ -90,7 +89,7 @@ public class UsuarioBean implements Serializable {
 
 	/**
 	 * Setando valores nos atributos de usuario
-	 * 
+	 *
 	 * @return
 	 */
 	public Usuario usuario() {
@@ -111,8 +110,8 @@ public class UsuarioBean implements Serializable {
 	}
 
 	/**
-	 * Cadastrando Usuario já com valor nos atributos
-	 * 
+	 * Cadastrando Usuario jï¿½ com valor nos atributos
+	 *
 	 * @return
 	 */
 	public boolean cadastrar() {
@@ -130,16 +129,16 @@ public class UsuarioBean implements Serializable {
 	}
 
 	/**
-	 * Método para validar se senha == senhaConfirm
-	 * 
+	 * Mï¿½todo para validar se senha == senhaConfirm
+	 *
 	 * @return
 	 */
 	public String validarSenhas() {
-		if (usuarioService.validarUsuario(email) == false) { // Se não achar o email inserido, prossegue
+		if (usuarioService.validarUsuario(email) == false) { // Se nï¿½o achar o email inserido, prossegue
 			if (senha.equals(senhaConfirm)) { // Se as duas senhas conferirem, prossegue
-				if (cadastrar()) { // Método responsável pela persistencia
+				if (cadastrar()) { // Mï¿½todo responsï¿½vel pela persistencia
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-							"Usuario cadastrado", " faça login para continuar"));
+							"Usuario cadastrado", " faï¿½a login para continuar"));
 				}
 				return "/login";
 			} else {
@@ -157,7 +156,7 @@ public class UsuarioBean implements Serializable {
 
 	/**
 	 * Deletar usuario, se nao for possivel, redireciona para a pagina de oferta
-	 * 
+	 *
 	 * @return
 	 */
 	public String delete() {
@@ -178,13 +177,16 @@ public class UsuarioBean implements Serializable {
 		return "ofertasUsuario";
 	}
 
+	/**
+	 * MÃ©todo que chama a service.delete de usuario
+	 */
 	public void deleteConfirm() {
 		usuarioService.delete(usuario);
 	}
 
 	/**
-	 * Encontrar Usuario para redirecionar para a pagina de edição
-	 * 
+	 * Encontrar Usuario para redirecionar para a pagina de ediï¿½ï¿½o
+	 *
 	 * @return
 	 */
 	public String atualizar() {
@@ -194,7 +196,7 @@ public class UsuarioBean implements Serializable {
 
 	/**
 	 * Atualizando usuario
-	 * 
+	 *
 	 * @return
 	 */
 	public String atualizarConfirm() {
@@ -205,8 +207,8 @@ public class UsuarioBean implements Serializable {
 	}
 
 	/**
-	 * Método para SelectOne do primefaces de Municipios, com SelectItem
-	 * 
+	 * Mï¿½todo para SelectOne do primefaces de Municipios, com SelectItem
+	 *
 	 * @return
 	 */
 	public List<SelectItem> selectMunicipios() {
@@ -227,8 +229,8 @@ public class UsuarioBean implements Serializable {
 	}
 
 	/**
-	 * Método para retornar nome do municipio
-	 * 
+	 * Mï¿½todo para retornar nome do municipio
+	 *
 	 * @return
 	 */
 	public String detalheMunicipio() {
@@ -238,7 +240,7 @@ public class UsuarioBean implements Serializable {
 
 	/**
 	 * Redirecionamento de pagina
-	 * 
+	 *
 	 * @return
 	 */
 	public String redirecionaPerfil() {
@@ -256,7 +258,7 @@ public class UsuarioBean implements Serializable {
 
 	/**
 	 * Getters and Setters
-	 * 
+	 *
 	 * @return
 	 */
 	public UsuarioService getUsuarioService() {
@@ -442,98 +444,135 @@ public class UsuarioBean implements Serializable {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		UsuarioBean other = (UsuarioBean) obj;
 		if (MunicipioSelect == null) {
-			if (other.MunicipioSelect != null)
+			if (other.MunicipioSelect != null) {
 				return false;
-		} else if (!MunicipioSelect.equals(other.MunicipioSelect))
+			}
+		} else if (!MunicipioSelect.equals(other.MunicipioSelect)) {
 			return false;
+		}
 		if (bairro == null) {
-			if (other.bairro != null)
+			if (other.bairro != null) {
 				return false;
-		} else if (!bairro.equals(other.bairro))
+			}
+		} else if (!bairro.equals(other.bairro)) {
 			return false;
+		}
 		if (complemento == null) {
-			if (other.complemento != null)
+			if (other.complemento != null) {
 				return false;
-		} else if (!complemento.equals(other.complemento))
+			}
+		} else if (!complemento.equals(other.complemento)) {
 			return false;
+		}
 		if (cpf == null) {
-			if (other.cpf != null)
+			if (other.cpf != null) {
 				return false;
-		} else if (!cpf.equals(other.cpf))
+			}
+		} else if (!cpf.equals(other.cpf)) {
 			return false;
+		}
 		if (email == null) {
-			if (other.email != null)
+			if (other.email != null) {
 				return false;
-		} else if (!email.equals(other.email))
+			}
+		} else if (!email.equals(other.email)) {
 			return false;
+		}
 		if (endereco == null) {
-			if (other.endereco != null)
+			if (other.endereco != null) {
 				return false;
-		} else if (!endereco.equals(other.endereco))
+			}
+		} else if (!endereco.equals(other.endereco)) {
 			return false;
+		}
 		if (municipio == null) {
-			if (other.municipio != null)
+			if (other.municipio != null) {
 				return false;
-		} else if (!municipio.equals(other.municipio))
+			}
+		} else if (!municipio.equals(other.municipio)) {
 			return false;
+		}
 		if (municipioService == null) {
-			if (other.municipioService != null)
+			if (other.municipioService != null) {
 				return false;
-		} else if (!municipioService.equals(other.municipioService))
+			}
+		} else if (!municipioService.equals(other.municipioService)) {
 			return false;
+		}
 		if (nome == null) {
-			if (other.nome != null)
+			if (other.nome != null) {
 				return false;
-		} else if (!nome.equals(other.nome))
+			}
+		} else if (!nome.equals(other.nome)) {
 			return false;
+		}
 		if (numero == null) {
-			if (other.numero != null)
+			if (other.numero != null) {
 				return false;
-		} else if (!numero.equals(other.numero))
+			}
+		} else if (!numero.equals(other.numero)) {
 			return false;
+		}
 		if (rg == null) {
-			if (other.rg != null)
+			if (other.rg != null) {
 				return false;
-		} else if (!rg.equals(other.rg))
+			}
+		} else if (!rg.equals(other.rg)) {
 			return false;
+		}
 		if (rgEmissor == null) {
-			if (other.rgEmissor != null)
+			if (other.rgEmissor != null) {
 				return false;
-		} else if (!rgEmissor.equals(other.rgEmissor))
+			}
+		} else if (!rgEmissor.equals(other.rgEmissor)) {
 			return false;
+		}
 		if (senha == null) {
-			if (other.senha != null)
+			if (other.senha != null) {
 				return false;
-		} else if (!senha.equals(other.senha))
+			}
+		} else if (!senha.equals(other.senha)) {
 			return false;
+		}
 		if (senhaConfirm == null) {
-			if (other.senhaConfirm != null)
+			if (other.senhaConfirm != null) {
 				return false;
-		} else if (!senhaConfirm.equals(other.senhaConfirm))
+			}
+		} else if (!senhaConfirm.equals(other.senhaConfirm)) {
 			return false;
+		}
 		if (usuario == null) {
-			if (other.usuario != null)
+			if (other.usuario != null) {
 				return false;
-		} else if (!usuario.equals(other.usuario))
+			}
+		} else if (!usuario.equals(other.usuario)) {
 			return false;
+		}
 		if (usuarioDAO == null) {
-			if (other.usuarioDAO != null)
+			if (other.usuarioDAO != null) {
 				return false;
-		} else if (!usuarioDAO.equals(other.usuarioDAO))
+			}
+		} else if (!usuarioDAO.equals(other.usuarioDAO)) {
 			return false;
+		}
 		if (usuarioService == null) {
-			if (other.usuarioService != null)
+			if (other.usuarioService != null) {
 				return false;
-		} else if (!usuarioService.equals(other.usuarioService))
+			}
+		} else if (!usuarioService.equals(other.usuarioService)) {
 			return false;
+		}
 		return true;
 	}
 

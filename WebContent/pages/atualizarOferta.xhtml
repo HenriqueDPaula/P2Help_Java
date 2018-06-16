@@ -24,7 +24,7 @@
 			<h:outputLabel value="Titulo" styleClass="emphasis" />
 			<p:inputText value="#{ofertaBean.oferta.titulo}" />
 
-			<h:outputLabel value="Descrição" styleClass="emphasis" />
+			<h:outputLabel value="DescriÃ§Ã£o" styleClass="emphasis" />
 			<p:inputText value="#{ofertaBean.oferta.descricao}">
 			</p:inputText>
 
@@ -46,14 +46,6 @@
 
 			<h:outputLabel value="Valor/hora: " styleClass="emphasis" />
 			<p:inputText value="#{ofertaBean.oferta.valorHora}" required="true" />
-
-
-			<p:outputLabel value="Ativar a oferta: " />
-			<p:selectOneRadio value="#{ofertaBean.radio}">
-				<f:selectItem itemLabel="Sim" itemValue="true" />
-				<f:selectItem itemLabel="Não" itemValue="false" />
-			</p:selectOneRadio>
-
 
 		</h:panelGrid>
 

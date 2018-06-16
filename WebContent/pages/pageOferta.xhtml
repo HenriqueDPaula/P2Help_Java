@@ -9,17 +9,17 @@
 	<title>Oferta</title>
 </h:head>
 <h:body>
-	<p:outputLabel value="Página Oferta" styleClass="title" />
+	<p:outputLabel value="PÃ¡gina Oferta" styleClass="title" />
 
 	<hr />
 	<h:form>
 		<p:messages />
-		<p:panelGrid columns="2" border="1">
+		<p:panelGrid columns="2">
 
-			<h:outputLabel value="Título:  " />
+			<h:outputLabel value="TÃ­tulo:  " />
 			<h:outputText value="#{ofertaBean.oferta.titulo}" />
 
-			<h:outputLabel value="Descrição: " styleClass="emphasis" />
+			<h:outputLabel value="DescriÃ§Ã£o: " styleClass="emphasis" />
 			<h:outputText value="#{ofertaBean.oferta.descricao}" />
 
 
@@ -38,7 +38,9 @@
 			<h:outputText value="#{ofertaBean.oferta.valorHora}" />
 
 			<h:outputLabel value="Publicado em: " styleClass="emphasis" />
-			<h:outputText value="#{ofertaBean.oferta.dataOferta}" />
+			<h:outputText value="#{ofertaBean.oferta.dataOferta}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+			</h:outputText>
 
 		</p:panelGrid>
 	</h:form>

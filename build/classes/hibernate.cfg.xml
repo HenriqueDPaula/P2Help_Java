@@ -28,5 +28,7 @@
 		<mapping class="model.Categoria" />
 		<mapping class="model.Oferta" />
 		<mapping class="model.Agenda" />
+		<mapping class="model.Contratacao" />
+<!-- 		<mapping class="model.Avaliacao" /> -->
 	</session-factory>
 </hibernate-configuration>

@@ -4,16 +4,20 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumns;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@Entity
+@Table(name = "CONTRATACAO")
 public class Contratacao implements Serializable {
 
 	/**
@@ -27,7 +31,11 @@ public class Contratacao implements Serializable {
 	private Integer idcontratacao;
 
 	@OneToOne
-	@JoinColumn(name = "IDAGENDA", nullable = false)
+	@JoinColumns({
+		@JoinColumn(name = "IDOFERTA",  referencedColumnName = "IDOFERTA"),
+		@JoinColumn(name = "DATA_HORA", referencedColumnName = "DATA_HORA"),
+		})
+	
 	private Agenda agenda;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -105,7 +113,9 @@ public class Contratacao implements Serializable {
 		return serialVersionUID;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -119,7 +129,9 @@ public class Contratacao implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

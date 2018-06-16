@@ -23,12 +23,11 @@
 					pattern="dd/MM/yyyy HH:mm" />
 			</h:panelGrid>
 		</p:panel>
-		<p:commandButton value="voltar" action="cadastrarOferta" />
-
 		<p:commandButton value="salvar agenda"
 			action="#{agendaBean.cadastrarAgenda()}" />
 
-		<p:commandButton value="Concluir" action="ofertasUsuario" />
+		<p:commandButton value="próximo"
+			action="#{agendaBean.redirecionarAgenda()}" />
 
 	</h:form>
 

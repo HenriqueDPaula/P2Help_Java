@@ -3,12 +3,13 @@ package service;
 import java.io.Serializable;
 
 import dao.ContratacaoDAO;
+import java.util.Date;
 import model.Contratacao;
 
 public class ContratacaoService implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -7070279403499175082L;
 	private ContratacaoDAO contratacaoDAO;
@@ -18,10 +19,17 @@ public class ContratacaoService implements Serializable {
 	}
 
 	/**
-	 * Salvar contratação da oferta/serviço no banco
-	 **/
+	 * Salvar contrataï¿½ï¿½o da oferta/serviï¿½o no banco
+	 *
+	 * @param contratacao
+	 *
+	 */
 	public void save(Contratacao contratacao) {
 		this.contratacaoDAO.save(contratacao);
+	}
+
+	public Contratacao findById(int idoferta, Date dataEhora) {
+		return this.contratacaoDAO.findById(idoferta, dataEhora);
 	}
 
 	/**

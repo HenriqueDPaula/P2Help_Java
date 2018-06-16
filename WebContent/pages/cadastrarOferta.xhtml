@@ -17,9 +17,8 @@
 			<p:outputLabel value="Titulo: " />
 			<p:inputText value="#{ofertaBean.titulo}" required="true" />
 
-			<p:outputLabel value="Descrição: " />
-			<p:inputTextarea value="#{ofertaBean.descricao}" size="500"
-				required="true" />
+			<p:outputLabel value="DescriÃ§Ã£o: " />
+			<p:inputTextarea value="#{ofertaBean.descricao}" required="true" />
 
 			<p:outputLabel value="Selecione um sistema" />
 			<h:panelGroup>
@@ -41,11 +40,11 @@
 			</p:selectOneMenu>
 
 
-			<p:outputLabel value="Ativar a oferta: " />
+			<!--			<p:outputLabel value="Ativar a oferta: " />
 			<p:selectOneRadio value="#{ofertaBean.radio}" required="true">
 				<f:selectItem itemLabel="Sim" itemValue="true" />
-				<f:selectItem itemLabel="Não" itemValue="false" />
-			</p:selectOneRadio>
+				<f:selectItem itemLabel="NÃ£o" itemValue="false" />
+			</p:selectOneRadio>-->
 
 			<p:outputLabel value="Valor por hora(R$): " />
 			<p:inputText value="#{ofertaBean.valorHora}" />

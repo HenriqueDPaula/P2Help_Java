@@ -1,9 +1,9 @@
 package dao;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.transaction.Transaction;
 
 import org.hibernate.Criteria;
@@ -11,13 +11,12 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import model.Agenda;
-import model.AgendaPK;
 import util.HibernateUtil;
 
 public class AgendaDAO implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 871298166172188592L;
 	private Session session;
@@ -27,10 +26,10 @@ public class AgendaDAO implements Serializable {
 	// public AgendaDAO() {
 	// this.session = HibernateUtil.getSessionFactory().openSession();
 	// }
-
 	/**
 	 * Persistir objeto agenda no banco
-	 **/
+	 *
+	 */
 	public void save(Agenda agenda) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		org.hibernate.Transaction t = session.beginTransaction();
@@ -41,11 +40,12 @@ public class AgendaDAO implements Serializable {
 
 	/**
 	 * Atualizar objeto agenda
-	 **/
+	 *
+	 */
 	public void atualizar(Agenda agenda) {
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
-			Transaction t = (Transaction) session.beginTransaction();
+			org.hibernate.Transaction t = session.beginTransaction();
 			session.update(agenda);
 			t.commit();
 		} catch (Exception e) {
@@ -55,24 +55,34 @@ public class AgendaDAO implements Serializable {
 	}
 
 	/**
-	 * Encontrat Agenda pelo seu id(agendaPK)
-	 **/
-	@SuppressWarnings("null")
-	public Agenda findById(AgendaPK agendaPK) {
+	 * Encontrar Agenda pelo seu id(agendaPK)
+	 *
+	 */
 
-		EntityManager em = null;
-		Agenda agenda = null;
+	public Agenda findById(int idoferta, Date dataEhora) {
+		session = HibernateUtil.getSessionFactory().openSession();
 
-		agenda = em.find(Agenda.class, agendaPK);
-		em.close();
-
+		Agenda agenda = new Agenda();
+		String hql = "from Agenda where idoferta = :idoferta and data_hora = :dataEhora";
+		Query query = (Query) session.createQuery(hql);
+		query.setParameter("idoferta", idoferta);
+		query.setParameter("dataEhora", dataEhora);
+		agenda = (Agenda) query.uniqueResult();
+		// EntityManager em = null;
+		// Agenda agenda = null;
+		//
+		// agenda = em.find(Agenda.class, agendaPK);
+		// em.close();
+		//
+		// return agenda;
 		return agenda;
 
 	}
 
 	/**
 	 * Listar todas as agenda pelo id da oferta
-	 **/
+	 *
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Agenda> listById(int idoferta) {
 		List<Agenda> listAgenda = null;
@@ -87,9 +97,21 @@ public class AgendaDAO implements Serializable {
 		return listAgenda;
 	}
 
+	public List<Agenda> listAgendaByIdUsuario(int idusuario) {
+		List<Agenda> listAgendaByIdUsuario = null;
+
+		session = HibernateUtil.getSessionFactory().openSession();
+
+		String hql = "from agenda where idusuario = :idusuario";
+		Query query = (Query) session.createQuery(hql);
+		listAgendaByIdUsuario = query.list();
+		return listAgendaByIdUsuario;
+	}
+
 	/**
 	 * Deletar agenda
-	 **/
+	 *
+	 */
 	public void delete(Agenda agenda) {
 		Transaction t = (Transaction) session.beginTransaction();
 		session.delete(agenda);

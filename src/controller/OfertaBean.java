@@ -26,8 +26,9 @@ import service.UsuarioService;
 @Named("ofertaBean")
 @SessionScoped
 public class OfertaBean implements Serializable {
+
 	/**
-	 * 
+	 * Atributos
 	 */
 	private static final long serialVersionUID = 5998663528528731657L;
 	private Oferta oferta;
@@ -55,7 +56,7 @@ public class OfertaBean implements Serializable {
 
 	/**
 	 * Construtor, instanciado as devidas Services e pegando o usuario logado na
-	 * sessão
+	 * sessï¿½o
 	 */
 	public OfertaBean() {
 		this.oferta = new Oferta();
@@ -68,8 +69,8 @@ public class OfertaBean implements Serializable {
 	}
 
 	/**
-	 * Método para SelectOne do primefaces de Categoria, com SelectItem
-	 * 
+	 * Mï¿½todo para SelectOne do primefaces de Categoria, com SelectItem
+	 *
 	 * @return
 	 */
 	public List<SelectItem> selectCategoria() {
@@ -88,8 +89,8 @@ public class OfertaBean implements Serializable {
 	}
 
 	/**
-	 * Método para SelectOne do primefaces de Sistema, com SelectItem
-	 * 
+	 * Mï¿½todo para SelectOne do primefaces de Sistema, com SelectItem
+	 *
 	 * @return
 	 */
 	public List<SelectItem> selectSistema() {
@@ -111,7 +112,7 @@ public class OfertaBean implements Serializable {
 
 	/**
 	 * Cadastrar Oferta
-	 * 
+	 *
 	 * @return
 	 */
 	public String cadastrar() {
@@ -121,46 +122,42 @@ public class OfertaBean implements Serializable {
 		java.util.Date date = new java.util.Date(); // Instanciando um objeto do tipo Date da classe java.util
 		long t = date.getTime();
 		java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(t);
-		oferta.setDataOferta(sqlTimestamp);
+		oferta.setDataOferta(sqlTimestamp); // Data e hora do sistema
 		oferta.setDescricao(descricao);
 		oferta.setCategoria(categoria);
 		oferta.setSistema(sistema);
 		oferta.setUsuario(usuario);
-
-		if (radio == true) { // Setando o status da oferta com RadioButton no front
-			status = 's';
-			oferta.setStatus(status);
-		} else {
-			status = 'n';
-			oferta.setStatus(status);
-		}
-
+		oferta.setStatus('s'); // Ativo
 		oferta.setValorHora(valorHora);
-
-		ofertaService.save(oferta);
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ofertaC", oferta);
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Oferta cadastrada com sucesso!", " "));
-		return "agenda";
+		try {
+			ofertaService.save(oferta);
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ofertaC", oferta); // oferta
+																											// sessÃ£o
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Oferta cadastrada com sucesso!", " "));
+			return "agenda";
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro, nÃ£o foi possivel cadastrar a oferta", " "));
+			return "cadastrarOferta";
+		}
 
 	}
 
 	/**
 	 * Localizar oferta pelo id e redirecionar para a pagina para editar
-	 * 
+	 *
 	 * @return Ofertas
 	 */
 	public String atualizar() {
-		this.oferta = ofertaService.findById(this.oferta.getIdoferta());
-
-		String x = "";
-		System.out.println(x);
+		this.oferta = ofertaService.findById(this.oferta.getIdoferta()); // Encontrando oferta pelo id para atualizar
 		return "atualizarOferta";
 	}
 
 	/**
 	 * Atualizando oferta
-	 * 
+	 *
 	 * @return
 	 */
 	public String atualizarConfirm() {
@@ -168,22 +165,23 @@ public class OfertaBean implements Serializable {
 		java.util.Date date = new java.util.Date(); // Instanciando um objeto do tipo Date da classe java.util
 		long t = date.getTime();
 		java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(t);
-		oferta.setDataOferta(sqlTimestamp);
-		if (radio == true) { // Setando o status da oferta com RadioButton no front
-			status = 's';
-			oferta.setStatus(status);
-		} else {
-			status = 'n';
-			oferta.setStatus(status);
+		oferta.setDataOferta(sqlTimestamp); // Data e hora do sistema
+		try {
+			ofertaService.atualizar(oferta);
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Oferta Atualizada", " "));
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro, nÃ£o foi possivel atualizar a oferta", " "));
 		}
-		ofertaService.atualizar(oferta);
 
 		return "pageOferta";
 	}
 
 	/**
 	 * Listagem de todas as ofertas
-	 * 
+	 *
 	 * @return lista de ofertas
 	 */
 	public List<Oferta> listarOfertas() {
@@ -200,6 +198,11 @@ public class OfertaBean implements Serializable {
 		return listOfertas;
 	}
 
+	/**
+	 * Listar ofertas pelo id do usuario
+	 * 
+	 * @return
+	 */
 	public List<Oferta> listById() {
 		listOferta = ofertaService.listById(usuario.getIdusuario());
 		if (listOferta != null) {
@@ -216,20 +219,30 @@ public class OfertaBean implements Serializable {
 	 */
 	public String deleteOferta() {
 		this.oferta = ofertaService.findById(this.oferta.getIdoferta());
-		deleteConfirm();
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Oferta Excluida", " "));
+		try {
+			deleteConfirm(); // MÃ©todo chamando a service de oferta
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Oferta Excluida", " "));
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "NÃ£o foi possivel excluir oferta", " "));
+		}
+
 		return "pageUsuario";
 
 	}
 
+	/**
+	 * Deletar oferta
+	 */
 	public void deleteConfirm() {
 		ofertaService.delete(this.oferta);
 	}
 
 	/**
-	 * Método para retornar nome do sistema
-	 * 
+	 * Mï¿½todo para retornar nome do sistema
+	 *
 	 * @return Nome sistema
 	 */
 	public String detalheSistema() {
@@ -238,8 +251,8 @@ public class OfertaBean implements Serializable {
 	}
 
 	/**
-	 * Método para retornar nome da categoria
-	 * 
+	 * Mï¿½todo para retornar nome da categoria
+	 *
 	 * @return Descricao Categoria
 	 */
 	public String detalheCategoria() {
@@ -248,14 +261,14 @@ public class OfertaBean implements Serializable {
 	}
 
 	/*
-	 * Redirecionamento de página
+	 * Redirecionamento de pï¿½gina
 	 */
 	public String redirecionaOfertas() {
 		return "Ofertas";
 	}
 
 	/*
-	 * Redirecionamento de página
+	 * Redirecionamento de pï¿½gina
 	 */
 	public String redirecionaCadastroOferta() {
 		return "cadastrarOferta";
@@ -274,7 +287,6 @@ public class OfertaBean implements Serializable {
 	// context.setViewRoot(viewRoot);
 	// context.renderResponse();
 	// }
-
 	public void refresh() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		String viewId = context.getViewRoot().getViewId();
@@ -286,7 +298,7 @@ public class OfertaBean implements Serializable {
 
 	/**
 	 * Getters and Setters
-	 * 
+	 *
 	 * @return
 	 */
 	public Oferta getOferta() {
@@ -484,7 +496,6 @@ public class OfertaBean implements Serializable {
 	/**
 	 * @return the ofertaSelecionada
 	 */
-
 	/**
 	 * @return the flagModal
 	 */

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import dao.AgendaDAO;
+import java.util.Date;
 import model.Agenda;
 import model.AgendaPK;
 
@@ -27,37 +28,46 @@ public class AgendaService implements Serializable {
 
 	/**
 	 * Salvar agenda
-	 **/
+	 *
+	 */
 	public void save(Agenda agenda) {
 		this.agendaDAO.save(agenda);
 	}
 
 	/**
 	 * Encontrar agenda pelo id(agendaPK)
-	 **/
-	public Agenda findById(AgendaPK agendaPK) {
-		return this.agendaDAO.findById(agendaPK);
+	 *
+	 */
+	public Agenda findById(int idoferta, Date dataEhora) {
+		return this.agendaDAO.findById(idoferta, dataEhora);
 	}
 
 	/**
 	 * Atualizar agenda
-	 **/
+	 *
+	 */
 	public void atualizar(Agenda agenda) {
 		this.agendaDAO.atualizar(agenda);
 	}
 
 	/**
 	 * Deletar agenda
-	 **/
+	 *
+	 */
 	public void delete(Agenda agenda) {
 		this.agendaDAO.delete(agenda);
 	}
 
 	/**
 	 * Listar agendas pelo id da oferta
-	 **/
+	 *
+	 */
 	public List<Agenda> listById(int idoferta) {
 		return this.agendaDAO.listById(idoferta);
+	}
+
+	public List<Agenda> listAgendaByIdUsuario(int idusuario) {
+		return this.agendaDAO.listAgendaByIdUsuario(idusuario);
 	}
 
 	/**
@@ -113,5 +123,4 @@ public class AgendaService implements Serializable {
 	}
 
 	// ToDo Getters and Setters
-
 }

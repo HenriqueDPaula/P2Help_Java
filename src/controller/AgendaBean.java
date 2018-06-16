@@ -26,7 +26,7 @@ import service.ContratacaoService;
 public class AgendaBean implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -8579903826986634497L;
 
@@ -41,6 +41,7 @@ public class AgendaBean implements Serializable {
 	private ContratacaoService contratacaoService;
 	private AvaliacaoService avaliacaoService;
 	private Agenda agenda;
+	
 	private Avaliacao avaliacao;
 	private Integer servico;
 	private Integer atendimento;
@@ -49,6 +50,8 @@ public class AgendaBean implements Serializable {
 	private Oferta ofertaSelecionada;
 	private List<Agenda> listarAgenda;
 	private Agenda agendaSelecionada;
+	private Contratacao contratacaoSelecionada;
+	private Agenda agendaAvaliar;
 
 	/**
 	 * Construtor instanciando os principais atributos
@@ -59,86 +62,149 @@ public class AgendaBean implements Serializable {
 		agendaService = new AgendaService();
 		agenda = new Agenda();
 		oferta = (Oferta) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("ofertaC"); // Oferta
-																													// que
-																													// está
-																													// na
-																													// sessão
+																													// //
+																													// sessï¿½o
 		usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioL"); // Usuario
-																													// logado
+		// logado
 
 	}
 
 	/**
-	 * Cadastro de Agenda e sua Chave Primária(agendaPK)
-	 * 
-	 * @throws ParseException
-	 **/
-	public void cadastrarAgenda() {
+	 * Cadastro de Agenda e sua Chave Primï¿½ria(agendaPK)
+	 *
+	 */
+	public String cadastrarAgenda() {
 
-		agendaPK = new AgendaPK();
+		agendaPK = new AgendaPK(); // Nova chave primÃ¡ria
 		agendaPK.setDataEhora(dataEhora);
-		agendaPK.setOferta(oferta);
-		agenda.setIdagenda(agendaPK);
-		agendaService.save(agenda);
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Agenda", " Cadastrada com sucesso!"));
+		agendaPK.setOferta(oferta); // Objeto oferta que estÃ¡ na sessÃ£o
+		agenda.setIdagenda(agendaPK); // Chave primÃ¡ria da agenda
+		try {
+			agendaService.save(agenda);
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Agenda", " Cadastrada com sucesso!"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "NÃ£o foi possivel cadastrar a agenda", " "));
+		}
+
+		clean();
+		return "agenda";
+	}
+
+	/**
+	 * Tentativa de limpar o campo inputText
+	 */
+	public void clean() {
 		setDataEhora(null);
+	}
+
+	/**
+	 * Atualizaï¿½ï¿½o de agenda com o id do usuï¿½rio logado
+	 *
+	 */
+	public String agendaUpdate() {
+		
+		agenda = agendaService.findById(agendaSelecionada.getIdagenda().getOferta().getIdoferta(),
+				agendaSelecionada.getIdagenda().getDataEhora()); // Passando como parÃ¢metros o id da oferta e a data
+																	// para encontrar a agenda
+		agenda.setUsuario(usuario); // Setando o usuario logado
+		try {
+			agendaService.atualizar(agenda); // Chama o mÃ©todo para atualizar, inserindo o id do usuario
+			cadastrarContratacao(); // Cadastrar na Tabela ContrataÃ§Ã£o esta Agenda
+
+			return "contratacaoSucesso";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro interno", " "));
+			return "";
+		}
 
 	}
 
 	/**
-	 * Atualização de agenda com o id do usuário logado
-	 **/
-	public Agenda agendaUpdate() {
-		Agenda agenda = new Agenda();
-		agenda = agendaService.findById(agendaPK); // Encontrando a agenda pela chave primária(agendaPK)
-		agenda.setUsuario(usuario);
-		agendaService.atualizar(agenda);
-		return agenda;
-	}
-
-	/**
-	 * Cadastrar Contratação após a agenda ser atualizada com o id do usuario
-	 **/
+	 * Cadastrar Contrataï¿½ï¿½o apï¿½s a agenda ser atualizada com o id do usuario
+	 *
+	 */
 	public void cadastrarContratacao() {
-		contratacao.setAgenda(agendaSelecionada);
+		contratacao = new Contratacao();
+		contratacao.setAgenda(agenda); // Setando agenda na tabela contrataÃ§Ã£o
 		java.util.Date date = new java.util.Date(); // Instanciando um objeto do tipo Date da classe java.util
 		long t = date.getTime();
 		java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(t);
-		contratacao.setDataContratacao(sqlTimestamp);
-		contratacao.setStatus('p');
+		
+		contratacao.setDataContratacao(new Date() ); // Data e hora do sistema
+		contratacao.setStatus('p'); // Pendente, mudarÃ¡ o status atravÃ©s de uma trigger no BD
 		contratacaoService.save(contratacao);
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Oferta", " Contratada!"));
 
 	}
 
 	/**
 	 * Listar agenda de data e hora pelo id da oferta selecionada na tela "Ofertas"
-	 **/
+	 *
+	 */
 	public List<Agenda> findAgendaByOferta() {
 		List<Agenda> listarAgenda = null;
-		listarAgenda = agendaService.listById(ofertaSelecionada.getIdoferta());
+		listarAgenda = agendaService.listById(ofertaSelecionada.getIdoferta()); // Listando pelo id da oferta
+																				// selecionada
 		return listarAgenda;
 	}
 
 	/**
-	 * Cadastrar a avaliação do usuário
-	 **/
-	public String avaliacao() {
+	 * Listar todos as datas/horas contratadas pelo usuario logado
+	 *
+	 * @return
+	 */
+	public List<Agenda> listAgendaByIdUsuario() {
+		List<Agenda> listAgendaByIdUsuario = null;
+		listAgendaByIdUsuario = agendaService.listAgendaByIdUsuario(usuario.getIdusuario()); // Id do usuario logado
+		return listAgendaByIdUsuario;
+	}
 
-		avaliacao.setIdcontratacao(contratacao);
+	/**
+	 * Cadastrar a avaliaï¿½ï¿½o do usuï¿½rio
+	 *
+	 */
+	public String avaliacao() {
+		Agenda agenda = new Agenda();
+		agenda = agendaService.findById(agendaAvaliar.getIdagenda().getOferta().getIdoferta(),
+				agendaAvaliar.getIdagenda().getDataEhora()); // Encontrar id da agenda seleciona na tela AvaliaÃ§Ã£o
+
+		Contratacao contratacao = new Contratacao();
+		contratacao = contratacaoService.findById(agenda.getIdagenda().getOferta().getIdoferta(),
+				agenda.getIdagenda().getDataEhora());
+		// avaliacao.setIdcontratacao(contratacao); // Chave primÃ¡ria da avaliaÃ§Ã£o Ã© a
+		// chave primÃ¡ria da contratacao
 		avaliacao.setAtendimento(atendimento);
 		avaliacao.setServico(servico);
-		avaliacaoService.save(avaliacao);
+		try {
+			avaliacaoService.save(avaliacao);
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Avaliado com sucesso", ""));
+			return "avaliacaoSucesso"; // tela final do sistema na parte do usuÃ¡rio contratante
 
-		return ""; // ToDo
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "NÃ£o foi possivel avaliar", ""));
+			return "";
+		}
+
+	}
+
+	public String redirecionarAgenda() {
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Concluido", " !"));
+		return "ofertasUsuario";
 	}
 
 	/**
 	 * Getters and Setters
-	 **/
-
+	 *
+	 */
 	/**
 	 * @return the agendaPK
 	 */
@@ -386,6 +452,22 @@ public class AgendaBean implements Serializable {
 		this.agendaSelecionada = agendaSelecionada;
 	}
 
+	public Contratacao getContratacaoSelecionada() {
+		return contratacaoSelecionada;
+	}
+
+	public void setContratacaoSelecionada(Contratacao contratacaoSelecionada) {
+		this.contratacaoSelecionada = contratacaoSelecionada;
+	}
+
+	public Agenda getAgendaAvaliar() {
+		return agendaAvaliar;
+	}
+
+	public void setAgendaAvaliar(Agenda agendaAvaliar) {
+		this.agendaAvaliar = agendaAvaliar;
+	}
+
 	// public Agenda inserirUsuario() {
 	// Agenda agenda = new Agenda();
 	// agenda = agendaService.findById(agendaPK);
@@ -403,7 +485,7 @@ public class AgendaBean implements Serializable {
 	// // os demais atributos
 	//
 	// // contratacaoService.save(contratacao);
-	// // ToDo Faces Message de Contratação realizada com sucesso
+	// // ToDo Faces Message de Contrataï¿½ï¿½o realizada com sucesso
 	// return "contratacaoSucesso";
 	//
 	// }
@@ -413,6 +495,5 @@ public class AgendaBean implements Serializable {
 	// // horarios = agendaService.listById();
 	// return horarios;
 	// }
-
 	// ToDo Getters and Setters
 }

@@ -2,13 +2,14 @@
 package model;
 
 import java.io.Serializable;
-import javax.persistence.Table;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "AVALIACAO")
@@ -19,9 +20,12 @@ public class Avaliacao implements Serializable {
 	 */
 	private static final long serialVersionUID = 5260819040137629327L;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@Id
+	private Integer id;
+
+	@OneToOne
+	@JoinColumn(name = "id")
 	@MapsId
-	@JoinColumn(name = "idcontratacao")
 	private Contratacao idcontratacao;
 
 	@Column(name = "NOTA_ATENDIMENTO", nullable = true)
@@ -37,13 +41,13 @@ public class Avaliacao implements Serializable {
 
 	}
 
-	public Contratacao getIdcontratacao() {
-		return idcontratacao;
-	}
-
-	public void setIdcontratacao(Contratacao idcontratacao) {
-		this.idcontratacao = idcontratacao;
-	}
+//	public Contratacao getIdcontratacao() {
+//		return idcontratacao;
+//	}
+//
+//	public void setIdcontratacao(Contratacao idcontratacao) {
+//		this.idcontratacao = idcontratacao;
+//	}
 
 	public Integer getAtendimento() {
 		return atendimento;
@@ -69,7 +73,9 @@ public class Avaliacao implements Serializable {
 		this.comentario = comentario;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -78,12 +84,15 @@ public class Avaliacao implements Serializable {
 		int result = 1;
 		result = prime * result + ((atendimento == null) ? 0 : atendimento.hashCode());
 		result = prime * result + ((comentario == null) ? 0 : comentario.hashCode());
-		result = prime * result + ((idcontratacao == null) ? 0 : idcontratacao.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+//		result = prime * result + ((idcontratacao == null) ? 0 : idcontratacao.hashCode());
 		result = prime * result + ((servico == null) ? 0 : servico.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -105,17 +114,44 @@ public class Avaliacao implements Serializable {
 				return false;
 		} else if (!comentario.equals(other.comentario))
 			return false;
-		if (idcontratacao == null) {
-			if (other.idcontratacao != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!idcontratacao.equals(other.idcontratacao))
+		} else if (!id.equals(other.id))
 			return false;
+//		if (idcontratacao == null) {
+//			if (other.idcontratacao != null)
+//				return false;
+//		} else if (!idcontratacao.equals(other.idcontratacao))
+//			return false;
 		if (servico == null) {
 			if (other.servico != null)
 				return false;
 		} else if (!servico.equals(other.servico))
 			return false;
 		return true;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	// Equals and HashCode

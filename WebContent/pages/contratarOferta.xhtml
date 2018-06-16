@@ -23,7 +23,7 @@
 			</p:submenu>
 
 			<p:submenu label="Perfil">
-				<p:menuitem value="informações"
+				<p:menuitem value="informaÃ§Ãµes"
 					action="#{usuarioBean.redirecionaPerfil()}" />
 				<p:menuitem value="atualizar" action="#{usuarioBean.atualizar()}" />
 				<p:separator />
@@ -37,12 +37,12 @@
 	<h:form>
 		<h:outputText value="Contratar Oferta?" />
 		<hr />
-		<p:panelGrid columns="2" border="1">
+		<p:panelGrid columns="2">
 
-			<h:outputLabel value="Título:  " />
+			<h:outputLabel value="TÃ­tulo:  " />
 			<h:outputText value="#{agendaBean.ofertaSelecionada.titulo}" />
 
-			<h:outputLabel value="Descrição: " styleClass="emphasis" />
+			<h:outputLabel value="DescriÃ§Ã£o: " styleClass="emphasis" />
 			<h:outputText value="#{agendaBean.ofertaSelecionada.descricao}" />
 
 
@@ -57,8 +57,9 @@
 			<h:outputText value="#{agendaBean.ofertaSelecionada.valorHora}" />
 
 			<h:outputLabel value="Publicado em: " styleClass="emphasis" />
-			<h:outputText value="#{agendaBean.ofertaSelecionada.dataOferta}" />
-
+			<h:outputText value="#{agendaBean.ofertaSelecionada.dataOferta}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+			</h:outputText>
 		</p:panelGrid>
 		<br />
 		<hr />
@@ -66,8 +67,8 @@
 		<p:dataTable filterEvent="enter"
 			value="#{agendaBean.findAgendaByOferta()}" var="agenda"
 			widgetVar="tabelaAgenda" rows="5" paginator="true"
-			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10" paginatorPosition="bottom">
+			paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}"
+			paginatorPosition="bottom">
 
 			<p:column headerText="Data/hora">
 				<h:outputText value="#{agenda.idagenda.dataEhora}">
@@ -75,9 +76,9 @@
 				</h:outputText>
 			</p:column>
 
-			<p:column>
+			<p:column headerText="Slecionar agenda">
 				<p:commandButton value="selecionar"
-					action="#{agendaBean.cadastrarContratacao()}">
+					action="#{agendaBean.agendaUpdate()}">
 					<f:setPropertyActionListener value="#{agenda}"
 						target="#{agendaBean.agendaSelecionada}" />
 				</p:commandButton>
