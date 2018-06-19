@@ -60,8 +60,6 @@ public class SistemaDAO implements ISistemaDAO {
 
 		List<Sistema> sistemas = null;
 
-		// Processamento dos dados
-
 		criteria = session.createCriteria(Sistema.class);
 
 		criteria.addOrder(Order.asc("nome"));

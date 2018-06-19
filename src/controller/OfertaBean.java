@@ -66,6 +66,7 @@ public class OfertaBean implements Serializable {
 		this.categoriaService = new CategoriaService();
 		this.ofertaService = new OfertaService();
 		this.usuarioService = new UsuarioService();
+		selectSistema();
 		usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioL"); // usuario
 
 	}
@@ -96,25 +97,21 @@ public class OfertaBean implements Serializable {
 	 * @return
 	 */
 	public List<SelectItem> selectSistema() {
-		if (sistemasSelect == null) {
-			sistemasSelect = new ArrayList<SelectItem>();
-			List<Sistema> listasistemas = new ArrayList<Sistema>();
-			listasistemas = sistemaService.listar();
-			if (listasistemas != null && !listasistemas.isEmpty()) {
-				for (Sistema sistema : listasistemas) {
-					SelectItem item = new SelectItem(sistema, sistema.getNome());
-					sistemasSelect.add(item);
-				}
+		sistemasSelect = new ArrayList<>();
+		List<Sistema> listasistemas = new ArrayList<>();
+		listasistemas = sistemaService.listar();
+		if (listasistemas != null && !listasistemas.isEmpty()) {
+			for (Sistema sistema : listasistemas) {
+				SelectItem item = new SelectItem(sistema, sistema.getNome());
+				sistemasSelect.add(item);
 			}
-
 		}
 		return sistemasSelect;
-
 	}
 
 	/**
 	 * Cadastrar Oferta
-	 *
+	 *o
 	 * @return
 	 */
 	public String cadastrar() {
