@@ -15,7 +15,7 @@
 	<hr />
 
 	<h:form>
-
+		<p:messages />
 		<h:inputHidden value="#{usuarioBean.usuario.idusuario}" />
 
 		<h:panelGrid columns="2">
@@ -62,7 +62,7 @@
 
 		<hr />
 
-		<p:commandButton action="#{usuarioBean.atualizarConfirm()}"
+		<p:commandButton action="#{usuarioBean.confirm()}"
 			value="Atualizar" />
 		<p:commandButton value="voltar" immediate="true" action="pageUsuario" />
 

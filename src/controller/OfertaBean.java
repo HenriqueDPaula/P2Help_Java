@@ -53,6 +53,8 @@ public class OfertaBean implements Serializable {
 	private List<Oferta> listOferta;
 	private Boolean flagModal;
 	private Oferta ofertaSelecionada;
+	private String sistemaNome;
+	private String sistemaFabricante;
 
 	/**
 	 * Construtor, instanciado as devidas Services e pegando o usuario logado na
@@ -300,11 +302,32 @@ public class OfertaBean implements Serializable {
 		context.setViewRoot(root);
 	}
 
+	public void cadastrarSistema() {
+		sistema = new Sistema();
+		sistema.setFabricante(sistemaNome);
+		sistema.setNome(sistemaFabricante);
+		try {
+			sistemaService.save(sistema);
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Sistema, cadastrado", " "));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Houve um erro, sistema não cadastrado", " "));
+		}
+
+	}
+
 	/**
 	 * Getters and Setters
 	 *
 	 * @return
 	 */
+	public String redirecionarSistema() {
+		return "cadastrarSistema";
+	}
+
 	public Oferta getOferta() {
 		return oferta;
 	}
@@ -528,6 +551,51 @@ public class OfertaBean implements Serializable {
 	 */
 	public void setOfertaSelecionada(Oferta ofertaSelecionada) {
 		this.ofertaSelecionada = ofertaSelecionada;
+	}
+
+	/**
+	 * @return the listOferta
+	 */
+	public List<Oferta> getListOferta() {
+		return listOferta;
+	}
+
+	/**
+	 * @param listOferta
+	 *            the listOferta to set
+	 */
+	public void setListOferta(List<Oferta> listOferta) {
+		this.listOferta = listOferta;
+	}
+
+	/**
+	 * @return the sistemaNome
+	 */
+	public String getSistemaNome() {
+		return sistemaNome;
+	}
+
+	/**
+	 * @param sistemaNome
+	 *            the sistemaNome to set
+	 */
+	public void setSistemaNome(String sistemaNome) {
+		this.sistemaNome = sistemaNome;
+	}
+
+	/**
+	 * @return the sistemaFabricante
+	 */
+	public String getSistemaFabricante() {
+		return sistemaFabricante;
+	}
+
+	/**
+	 * @param sistemaFabricante
+	 *            the sistemaFabricante to set
+	 */
+	public void setSistemaFabricante(String sistemaFabricante) {
+		this.sistemaFabricante = sistemaFabricante;
 	}
 
 }

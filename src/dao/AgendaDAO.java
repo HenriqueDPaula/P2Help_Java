@@ -34,7 +34,13 @@ public class AgendaDAO implements Serializable {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		org.hibernate.Transaction t = session.beginTransaction();
 		session.persist(agenda);
-		t.commit();
+		try {
+
+			t.commit();
+
+		} catch (Exception e) {
+			t.rollback();
+		}
 
 	}
 

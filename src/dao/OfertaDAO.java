@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import model.Agenda;
 import model.Oferta;
 import util.HibernateUtil;
 
@@ -97,9 +98,23 @@ public class OfertaDAO implements IOfertaDAO {
 	 */
 	@Override
 	public void delete(Oferta oferta) {
-		Transaction t = session.beginTransaction();
-		session.delete(oferta);
-		t.commit();
+//
+//		Oferta ofertaDelete = null;
+//		Query q = session.createQuery("from Ofertas where idoferta = :idoferta ");
+//		q.setParameter("idoferta", oferta.getIdoferta());
+//		ofertaDelete = (Oferta) q.list().get(0);
+//
+//		Agenda agenda;
+//		for (Agenda agenda1 : agenda.getIdagenda().getOferta()) {
+//			session.delete(agenda);
+//		}
+//		session.delete(oferta);
+
+		 session = HibernateUtil.getSessionFactory().openSession();
+		 Transaction t = session.beginTransaction();
+		
+		 session.delete(oferta);
+		 t.commit();
 
 	}
 

@@ -22,7 +22,7 @@
 			</p:submenu>
 
 			<p:submenu label="Perfil">
-				<p:menuitem value="informaÃ§Ãµes"
+				<p:menuitem value="informações"
 					action="#{usuarioBean.redirecionaPerfil()}" />
 				<p:menuitem value="atualizar" action="#{usuarioBean.atualizar()}" />
 				<p:separator />
@@ -57,7 +57,7 @@
 
 			<p:column headerText="Valor/hora">
 				<h:outputText value="#{ofertas.valorHora}">
-					<f:convertNumber pattern="Â¤#,##0.00" currencySymbol="R$" />
+					<f:convertNumber pattern="¤#,##0.00" currencySymbol="R$" />
 				</h:outputText>
 			</p:column>
 

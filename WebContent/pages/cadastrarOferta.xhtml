@@ -15,25 +15,25 @@
 		<p:messages />
 		<h:panelGrid columns="2">
 			<p:outputLabel value="Titulo: " />
-			<p:inputText value="#{ofertaBean.titulo}" required="true" />
+			<p:inputText value="#{ofertaBean.titulo}" />
 
-			<p:outputLabel value="DescriÃ§Ã£o: " />
-			<p:inputTextarea value="#{ofertaBean.descricao}" required="true" />
+			<p:outputLabel value="Descrição: " />
+			<p:inputTextarea value="#{ofertaBean.descricao}" />
 
 			<p:outputLabel value="Selecione um sistema" />
 			<h:panelGroup>
 				<p:selectOneMenu filter="true" value="#{ofertaBean.sistema}"
-					converter="sistemaConverter" required="true">
+					converter="sistemaConverter">
 					<f:selectItem itemLabel="Selecione" />
 					<f:selectItems value="#{ofertaBean.selectSistema()}">
 					</f:selectItems>
 				</p:selectOneMenu>
-				<p:commandButton value="Add" onclick="PF('sistemaAdd').show();"
-					type="button" />
+				<p:commandButton value="add" immediate="true"
+					action="cadastrarSistema" />
 			</h:panelGroup>
 			<p:outputLabel value="Selecione uma categoria" />
 			<p:selectOneMenu filter="true" value="#{ofertaBean.categoria}"
-				converter="categoriaConverter" required="true">
+				converter="categoriaConverter">
 				<f:selectItem itemLabel="Selecione" />
 				<f:selectItems value="#{ofertaBean.selectCategoria()}">
 				</f:selectItems>
@@ -45,29 +45,17 @@
 				<f:selectItem itemLabel="Sim" itemValue="true" />
 				<f:selectItem itemLabel="NÃ£o" itemValue="false" />
 			</p:selectOneRadio>-->
-
-			<p:outputLabel value="Valor por hora(R$): " />
-			<p:inputText value="#{ofertaBean.valorHora}" />
-			<br />
-
 		</h:panelGrid>
+		<p:outputLabel value="Valor por hora(R$): " />
+		<p:inputText value="#{ofertaBean.valorHora}" />
+		<br />
+
+
 		<p:commandButton value="salvar" action="#{ofertaBean.cadastrar()}" />
 		<p:commandButton value="voltar" immediate="true" action="pageUsuario" />
 
 
-		<p:dialog id="modalDialog" header="Cadastrar Sistema"
-			widgetVar="sistemaAdd" modal="true" height="100">
-
-
-			<p:inputText value="#{sistemaBean.nome1}" />
-			<br />
-			<p:inputText value="#{sistemaBean.fabricante1}" />
-			<br />
-			<p:commandButton value="Adicionar"
-				action="#{sistemaBean.cadastrarSistema()}" immediate="true"
-				onclick="PF('sistemaAdd').close();" />
-
-		</p:dialog>
 	</h:form>
+
 </h:body>
 </html>

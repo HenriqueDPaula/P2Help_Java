@@ -44,18 +44,19 @@
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Teste</title>
+	<title>Login</title>
 </h:head>
 <h:body>
 	<h:form>
 		<p:messages id="messages" autoUpdate="true" showDetail="true" />
-		<p:outputLabel value="Email" for="email" />
-		<p:inputText id="email" value="#{usuarioBean.email}" />
-		<br></br>
-		<p:outputLabel value="Senha" for="senha" />
-		<p:password id="senha" value="#{usuarioBean.senha}" required="true"
-			requiredMessage="Senha é obrigatório" />
-
+		<h:panelGrid>
+			<p:outputLabel value="Email" for="email" />
+			<p:inputText id="email" value="#{usuarioBean.email}" />
+			<br></br>
+			<p:outputLabel value="Senha" for="senha" />
+			<p:password id="senha" value="#{usuarioBean.senha}" required="true"
+				requiredMessage="Senha é obrigatório" />
+		</h:panelGrid>
 		<p:commandButton action="#{usuarioBean.login()}" value="Entrar"
 			type="submit">
 		</p:commandButton>

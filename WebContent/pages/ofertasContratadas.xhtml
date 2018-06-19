@@ -11,6 +11,7 @@
 <h:body>
 
 	<h:form>
+		<p:messages />
 		<p:dataTable filterEvent="enter"
 			value="#{agendaBean.listAgendaByIdUsuario()}" var="agendaAvaliar"
 			widgetVar="tabelaAgendasContratadas" rows="5" paginator="true"

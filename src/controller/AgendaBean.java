@@ -11,6 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import dao.AgendaDAO;
 import model.Agenda;
 import model.AgendaPK;
 import model.Avaliacao;
@@ -69,7 +70,7 @@ public class AgendaBean implements Serializable {
 																													// sess�o
 		usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioL"); // Usuario
 		// logado
-
+		setDataEhora(null);
 	}
 
 	/**
@@ -181,6 +182,7 @@ public class AgendaBean implements Serializable {
 		avaliacao.setIdcontratacao(contratacao); // Chave primária da avaliação é a
 		avaliacao.setAtendimento(atendimento);
 		avaliacao.setServico(servico);
+		avaliacao.setComentario(comentario);
 
 		try {
 			avaliacaoService.save(avaliacao);

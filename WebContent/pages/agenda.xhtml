@@ -14,6 +14,7 @@
 	<hr />
 
 	<h:form>
+	
 		<p:panel id="panel" header="Form">
 			<p:messages />
 			<h:panelGrid columns="2">
@@ -23,11 +24,13 @@
 					pattern="dd/MM/yyyy HH:mm" />
 			</h:panelGrid>
 		</p:panel>
+		
 		<p:commandButton value="salvar agenda"
 			action="#{agendaBean.cadastrarAgenda()}" />
 
-		<p:commandButton value="próximo"
+		<p:commandButton value="proximo"
 			action="#{agendaBean.redirecionarAgenda()}" />
+			
 
 	</h:form>
 

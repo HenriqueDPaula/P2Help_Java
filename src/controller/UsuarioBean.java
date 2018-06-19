@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ViewHandler;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.inject.Named;
 
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -20,8 +20,8 @@ import model.Usuario;
 import service.MunicipioService;
 import service.UsuarioService;
 
+@Named("usuarioBean")
 @SessionScoped
-@ManagedBean(name = "usuarioBean")
 public class UsuarioBean implements Serializable {
 
 	/**
@@ -55,16 +55,6 @@ public class UsuarioBean implements Serializable {
 	public UsuarioBean() {
 		this.municipioService = new MunicipioService();
 		this.usuarioService = new UsuarioService();
-		setBairro("");
-		setComplemento("");
-		setCpf("");
-		setEmail("");
-		setEndereco("");
-		setNome("");
-		setNumero("");
-		setSenha("");
-		setSenhaConfirm("");
-		setRg("");
 	}
 
 	/**
@@ -190,7 +180,7 @@ public class UsuarioBean implements Serializable {
 	 * @return
 	 */
 	public String atualizar() {
-		this.usuario = usuarioService.findById(this.usuario.getIdusuario());
+		usuario = usuarioService.findById(usuario.getIdusuario());
 		return "atualizarUsuario";
 	}
 
@@ -199,9 +189,9 @@ public class UsuarioBean implements Serializable {
 	 *
 	 * @return
 	 */
-	public String atualizarConfirm() {
+	public String confirm() {
 
-		usuarioService.atualizar(this.usuario);
+		usuarioService.atualizar(usuario);
 
 		return "pageUsuario";
 	}

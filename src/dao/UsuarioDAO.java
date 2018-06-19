@@ -75,7 +75,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 	 * @param usuario
 	 */
 	public void atualizar(Usuario usuario) {
-		// TODO Auto-generated method stub
+		session = HibernateUtil.getSessionFactory().openSession();
 
 		Transaction t = session.beginTransaction();
 		session.update(usuario);

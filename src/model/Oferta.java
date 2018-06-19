@@ -46,7 +46,7 @@ public class Oferta implements Serializable {
 	@Column(name = "DESCRICAO", length = 400, nullable = true)
 	private String descricao;
 
-	@ManyToOne()
+	@ManyToOne
 	@JoinColumn(name = "IDUSUARIO")
 	private Usuario usuario;
 
