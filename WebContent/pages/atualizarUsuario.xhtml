@@ -21,6 +21,7 @@
 		<h:panelGrid columns="2">
 
 
+
 			<h:outputLabel value="Nome" styleClass="emphasis" />
 			<p:inputText value="#{usuarioBean.usuario.nome}" />
 
@@ -62,7 +63,7 @@
 
 		<hr />
 
-		<p:commandButton action="#{usuarioBean.confirm()}"
+		<h:commandButton action="#{usuarioBean.confirmUpdate()}"
 			value="Atualizar" />
 		<p:commandButton value="voltar" immediate="true" action="pageUsuario" />
 

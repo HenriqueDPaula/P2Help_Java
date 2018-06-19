@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.transaction.Transaction;
-
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -79,6 +77,22 @@ public class AgendaDAO implements Serializable {
 
 	}
 
+	@SuppressWarnings("unchecked")
+	public void deleteByOferta(int idoferta) {
+		session = HibernateUtil.getSessionFactory().openSession();
+
+		String hql = "from Agenda where idoferta = :idoferta";
+		Query query = (Query) session.createQuery(hql);
+		query.setParameter("idoferta", idoferta);
+		List<Agenda> agendas = query.list();
+		for (Agenda agenda : agendas) {
+
+			delete(agenda);
+
+		}
+
+	}
+
 	/**
 	 * Listar todas as agenda pelo id da oferta
 	 *
@@ -115,7 +129,7 @@ public class AgendaDAO implements Serializable {
 	 *
 	 */
 	public void delete(Agenda agenda) {
-		Transaction t = (Transaction) session.beginTransaction();
+		org.hibernate.Transaction t = session.beginTransaction();
 		session.delete(agenda);
 		try {
 			t.commit();

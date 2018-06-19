@@ -228,7 +228,7 @@ public class OfertaBean implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Não foi possivel excluir oferta", " "));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contrato atrelado a esta oferta!", " "));
 		}
 
 		return "pageUsuario";

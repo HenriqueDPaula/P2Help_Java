@@ -15,9 +15,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.metamodel.binding.CascadeType;
-
 @Entity
 @Table(name = "OFERTAS")
 public class Oferta implements Serializable {

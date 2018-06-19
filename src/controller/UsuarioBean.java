@@ -189,7 +189,7 @@ public class UsuarioBean implements Serializable {
 	 *
 	 * @return
 	 */
-	public String confirm() {
+	public String confirmUpdate() {
 
 		usuarioService.atualizar(usuario);
 
