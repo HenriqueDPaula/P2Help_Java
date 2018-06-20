@@ -55,6 +55,7 @@ public class UsuarioBean implements Serializable {
 	public UsuarioBean() {
 		this.municipioService = new MunicipioService();
 		this.usuarioService = new UsuarioService();
+
 	}
 
 	/**
@@ -71,7 +72,7 @@ public class UsuarioBean implements Serializable {
 			return "pages/pageUsuario";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, null, "Usu�rio ou senha n�o conferem."));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, null, "Usuário ou senha não conferem."));
 			return "";
 		}
 
@@ -118,6 +119,14 @@ public class UsuarioBean implements Serializable {
 
 	}
 
+	public String sair() {
+
+		usuario = null;
+		usuario = new Usuario();
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		return "/login";
+	}
+
 	/**
 	 * M�todo para validar se senha == senhaConfirm
 	 *
@@ -128,7 +137,7 @@ public class UsuarioBean implements Serializable {
 			if (senha.equals(senhaConfirm)) { // Se as duas senhas conferirem, prossegue
 				if (cadastrar()) { // M�todo respons�vel pela persistencia
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-							"Usuario cadastrado", " fa�a login para continuar"));
+							"Usuario cadastrado", " faça login para continuar"));
 				}
 				return "/login";
 			} else {
@@ -244,6 +253,20 @@ public class UsuarioBean implements Serializable {
 		UIViewRoot root = handler.createView(context, viewId);
 		root.setViewId(viewId);
 		context.setViewRoot(root);
+	}
+
+	public String redirecionarCadastro() {
+		setBairro("");
+		setComplemento("");
+		setCpf(null);
+		setEmail("");
+		setEndereco("");
+		setMunicipio(null);
+		setNome("");
+		setNumero("");
+		setRg(null);
+		setRgEmissor("");
+		return "pages/cadastrarUsuario.jsf";
 	}
 
 	/**

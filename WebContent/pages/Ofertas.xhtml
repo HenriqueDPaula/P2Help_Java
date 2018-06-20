@@ -44,14 +44,6 @@
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15" paginatorPosition="bottom">
 
-			<f:facet name="header">
-				<div align="right">
-					<h:outputText value="Buscar:" />
-					<p:inputText id="globalFilter"
-						onkeyup="PF('tabelaOfertas').filter()" style="width:150px"
-						placeholder="Pesquisar" />
-				</div>
-			</f:facet>
 
 			<p:column headerText="Ofertante">
 				<h:outputText value="#{ofertas.usuario.nome}" />

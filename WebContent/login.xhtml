@@ -60,11 +60,15 @@
 		<p:commandButton action="#{usuarioBean.login()}" value="Entrar"
 			type="submit">
 		</p:commandButton>
-
 	</h:form>
 	<h:form>
-		<h:commandLink action="pages/cadastrarUsuario" value="Cadastrar" />
+		<p:commandButton action="#{usuarioBean.redirecionarCadastro()}"
+			value="Cadastrar" immediate="true" />
 	</h:form>
+
+
+
+
 
 
 </h:body>

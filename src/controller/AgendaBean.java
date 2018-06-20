@@ -93,8 +93,8 @@ public class AgendaBean implements Serializable {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Não foi possivel cadastrar a agenda", " "));
 		}
 
-		clean();
-		return "agenda";
+		
+		return "agenda.jsf?faces-redirect=true";
 	}
 
 	/**
