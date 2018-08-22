@@ -89,7 +89,10 @@ public class AgendaBean implements Serializable {
 	/* Método de chave primaria da Classe Agenda */
 	public AgendaPK novaChavePrimariaAgenda() {
 		AgendaPK agendaPrimaria = new AgendaPK();
-		agendaPrimaria.setDataEhora(dataEhora);
+		if (dataEhora != null)
+			agendaPrimaria.setDataEhora(dataEhora);
+		else
+			Util.mensagemErro("Favor inserir pelo menos uma Agenda");
 		agendaPrimaria.setOferta(oferta); // Objeto oferta que está na sessão
 
 		return agendaPrimaria;

@@ -17,7 +17,6 @@
 				<h:panelGroup>
 					<p:selectOneMenu filter="true" value="#{ofertaBean.sistema}"
 						converter="sistemaConverter">
-						<f:selectItem itemLabel="Selecione" />
 						<f:selectItems value="#{ofertaBean.selectSistema()}">
 						</f:selectItems>
 					</p:selectOneMenu>
@@ -28,7 +27,6 @@
 				<p:outputLabel value="Selecione uma categoria" />
 				<p:selectOneMenu filter="true" value="#{ofertaBean.categoria}"
 					converter="categoriaConverter">
-					<f:selectItem itemLabel="Selecione" />
 					<f:selectItems value="#{ofertaBean.selectCategoria()}">
 					</f:selectItems>
 				</p:selectOneMenu>
