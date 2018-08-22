@@ -3,6 +3,7 @@ package dao;
 import java.io.Serializable;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import model.Avaliacao;
@@ -26,6 +27,17 @@ public class AvaliacaoDAO implements Serializable {
 		session.persist(avaliacao);
 		t.commit();
 
+	}
+
+	public Avaliacao findContratacaoAvaliada(Integer idcontratacao) {
+		Avaliacao avaliacao = new Avaliacao();
+
+		String hql = "from Avaliacao where idcontratacao =:idcontratacao";
+		Query query = (Query) session.createQuery(hql);
+		query.setParameter("idcontratacao", idcontratacao);
+		avaliacao = (Avaliacao) query.uniqueResult();
+
+		return avaliacao;
 	}
 
 	/**

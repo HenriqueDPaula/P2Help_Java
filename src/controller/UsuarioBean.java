@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.application.ViewHandler;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
@@ -19,6 +16,7 @@ import model.Municipios;
 import model.Usuario;
 import service.MunicipioService;
 import service.UsuarioService;
+import util.Util;
 
 @Named("usuarioBean")
 @SessionScoped
@@ -46,16 +44,12 @@ public class UsuarioBean implements Serializable {
 	private MunicipioService municipioService;
 	private List<SelectItem> MunicipioSelect;
 
-	// @Inject
-	// private OfertaBean ofertaBean;
-	//
 	/**
 	 * Construtor setando atributos vazios e instanciando respectivas services
 	 */
 	public UsuarioBean() {
 		this.municipioService = new MunicipioService();
 		this.usuarioService = new UsuarioService();
-
 	}
 
 	/**
@@ -67,12 +61,10 @@ public class UsuarioBean implements Serializable {
 		Usuario usuario = usuarioService.login(email, senha);
 		if (usuario != null) {
 			setUsuario(usuario);
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioL", usuario); // Usuario
-																												// sessão
+			Util.setSessionParameter("usuarioL", usuario); // Usuario // sessão
 			return "pages/pageUsuario";
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, null, "Usuário ou senha não conferem."));
+			Util.mensagemErro("Usuário ou senha não conferem.");
 			return "";
 		}
 
@@ -107,20 +99,18 @@ public class UsuarioBean implements Serializable {
 	 */
 	public boolean cadastrar() {
 		Usuario usuarioP = usuario();
-
 		if (usuarioP != null) {
 			if (usuarioService.save(usuarioP)) {
-
+				return true;
 			}
-			return true;
 		} else {
 			return false;
 		}
+		return false;
 
 	}
 
 	public String sair() {
-
 		usuario = null;
 		usuario = new Usuario();
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
@@ -133,21 +123,18 @@ public class UsuarioBean implements Serializable {
 	 * @return
 	 */
 	public String validarSenhas() {
-		if (usuarioService.validarUsuario(email) == false) { // Se n�o achar o email inserido, prossegue
-			if (senha.equals(senhaConfirm)) { // Se as duas senhas conferirem, prossegue
-				if (cadastrar()) { // M�todo respons�vel pela persistencia
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-							"Usuario cadastrado", " faça login para continuar"));
+		if (!usuarioService.validarUsuario(email)) {
+			if (senha.equals(senhaConfirm)) {
+				if (cadastrar()) {
+					Util.mensagemInfo("Cadastrado, faça login para continuar");
 				}
 				return "/login";
 			} else {
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "As senhas devem ser iguais."));
+				Util.mensagemErro("Senhas não conferem");
 				return "";
 			}
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "email ja cadastrado."));
+			Util.mensagemErro("Email já cadastrado");
 			return "";
 		}
 
@@ -162,16 +149,13 @@ public class UsuarioBean implements Serializable {
 		this.usuario = usuarioService.findById(this.usuario.getIdusuario());
 		try {
 			deleteConfirm();
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Conta", " Excluida"));
+			Util.mensagemInfo("Conta excluída!");
 			return "/login";
 		} catch (ConstraintViolationException c) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Favor excluir suas ofertas antes!", " "));
+			Util.mensagemErro("Favor excluir suas ofertas");
 
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Favor excluir suas ofertas antes!", " "));
+			Util.mensagemErro("Favor excluir suas ofertas");
 		}
 		return "ofertasUsuario";
 	}
@@ -180,7 +164,11 @@ public class UsuarioBean implements Serializable {
 	 * Método que chama a service.delete de usuario
 	 */
 	public void deleteConfirm() {
-		usuarioService.delete(usuario);
+		try {
+			usuarioService.delete(usuario);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -199,10 +187,14 @@ public class UsuarioBean implements Serializable {
 	 * @return
 	 */
 	public String confirmUpdate() {
-
-		usuarioService.atualizar(usuario);
-
-		return "pageUsuario";
+		try {
+			usuarioService.atualizar(usuario);
+			Util.mensagemInfo("Perfil alterado com sucesso!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			Util.mensagemErro("Não foi possivel atualizar");
+		}
+		return "pageUsuario.jsf";
 	}
 
 	/**
@@ -211,18 +203,15 @@ public class UsuarioBean implements Serializable {
 	 * @return
 	 */
 	public List<SelectItem> selectMunicipios() {
-		if (MunicipioSelect == null) {
-			MunicipioSelect = new ArrayList<SelectItem>();
-			List<Municipios> listaMunicipios = new ArrayList<Municipios>();
-			listaMunicipios = municipioService.listar();
-			if (listaMunicipios != null && !listaMunicipios.isEmpty()) {
-				SelectItem item;
-				for (Municipios municipios : listaMunicipios) {
-					item = new SelectItem(municipios, municipios.getNome());
-					MunicipioSelect.add(item);
-				}
+		MunicipioSelect = new ArrayList<SelectItem>();
+		List<Municipios> listaMunicipios = new ArrayList<Municipios>();
+		listaMunicipios = municipioService.listar();
+		if (listaMunicipios != null && !listaMunicipios.isEmpty()) {
+			SelectItem item;
+			for (Municipios municipios : listaMunicipios) {
+				item = new SelectItem(municipios, municipios.getNome());
+				MunicipioSelect.add(item);
 			}
-
 		}
 		return MunicipioSelect;
 	}
@@ -246,16 +235,7 @@ public class UsuarioBean implements Serializable {
 		return "pageUsuario";
 	}
 
-	public void refresh() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		String viewId = context.getViewRoot().getViewId();
-		ViewHandler handler = context.getApplication().getViewHandler();
-		UIViewRoot root = handler.createView(context, viewId);
-		root.setViewId(viewId);
-		context.setViewRoot(root);
-	}
-
-	public String redirecionarCadastro() {
+	public void limparForm() {
 		setBairro("");
 		setComplemento("");
 		setCpf(null);
@@ -266,14 +246,14 @@ public class UsuarioBean implements Serializable {
 		setNumero("");
 		setRg(null);
 		setRgEmissor("");
+	}
+
+	public String redirecionarCadastro() {
+		limparForm();
 		return "pages/cadastrarUsuario.jsf";
 	}
 
-	/**
-	 * Getters and Setters
-	 *
-	 * @return
-	 */
+	// GETTERS AND SETTERS
 	public UsuarioService getUsuarioService() {
 		return usuarioService;
 	}

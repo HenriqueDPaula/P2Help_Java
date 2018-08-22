@@ -1,93 +1,61 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Contratar</title>
-</h:head>
-<h:body>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<p:growl />
 
-	<h:form>
-		<p:messages />
-		<p:menubar>
-			<p:submenu label="Ofertas">
-				<p:menuitem value="publicar" action="cadastrarOferta" />
-				<p:menuitem value="procurar"
-					action="#{ofertaBean.redirecionaOfertas()}" />
-				<p:separator />
-				<p:menuitem value="minhas ofertas"
-					action="#{ofertaBean.redirecionaOfertasUsuario()}" />
-			</p:submenu>
+			<h:outputText value="Contratar Oferta?" />
+			<hr />
+			<p:panelGrid columns="2">
 
-			<p:submenu label="Perfil">
-				<p:menuitem value="informações"
-					action="#{usuarioBean.redirecionaPerfil()}" />
-				<p:menuitem value="atualizar" action="#{usuarioBean.atualizar()}" />
-				<p:separator />
-				<p:menuitem value="apagar conta" action="#{usuarioBean.delete()}" />
-			</p:submenu>
+				<h:outputLabel value="TÃ­tulo:  " />
+				<h:outputText value="#{agendaBean.ofertaSelecionada.titulo}" />
 
-			<p:menuitem value="Sair" url="/login.jsf" />
-
-		</p:menubar>
-	</h:form>
-	<h:form>
-		<h:outputText value="Contratar Oferta?" />
-		<hr />
-		<p:panelGrid columns="2">
-
-			<h:outputLabel value="Título:  " />
-			<h:outputText value="#{agendaBean.ofertaSelecionada.titulo}" />
-
-			<h:outputLabel value="Descrição: " styleClass="emphasis" />
-			<h:outputText value="#{agendaBean.ofertaSelecionada.descricao}" />
+				<h:outputLabel value="DescriÃ§Ã£o: " styleClass="emphasis" />
+				<h:outputText value="#{agendaBean.ofertaSelecionada.descricao}" />
 
 
-			<h:outputLabel value="Sistema: " styleClass="emphasis" />
-			<h:outputText value="#{agendaBean.ofertaSelecionada.sistema.nome}" />
+				<h:outputLabel value="Sistema: " styleClass="emphasis" />
+				<h:outputText value="#{agendaBean.ofertaSelecionada.sistema.nome}" />
 
-			<h:outputLabel value="Categoria: " styleClass="emphasis" />
-			<h:outputText
-				value="#{agendaBean.ofertaSelecionada.categoria.descricao}" />
+				<h:outputLabel value="Categoria: " styleClass="emphasis" />
+				<h:outputText
+					value="#{agendaBean.ofertaSelecionada.categoria.descricao}" />
 
-			<h:outputLabel value="Valor: " styleClass="emphasis" />
-			<h:outputText value="#{agendaBean.ofertaSelecionada.valorHora}" />
+				<h:outputLabel value="Valor: " styleClass="emphasis" />
+				<h:outputText value="#{agendaBean.ofertaSelecionada.valorHora}" />
 
-			<h:outputLabel value="Publicado em: " styleClass="emphasis" />
-			<h:outputText value="#{agendaBean.ofertaSelecionada.dataOferta}">
-			</h:outputText>
-		</p:panelGrid>
-		<br />
-		<hr />
-
-		<p:dataTable filterEvent="enter"
-			value="#{agendaBean.findAgendaByOferta()}" var="agenda"
-			widgetVar="tabelaAgenda" rows="5" paginator="true"
-			paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}"
-			paginatorPosition="bottom">
-
-			<p:column headerText="Data/hora">
-				<h:outputText value="#{agenda.idagenda.dataEhora}">
+				<h:outputLabel value="Publicado em: " styleClass="emphasis" />
+				<h:outputText value="#{agendaBean.ofertaSelecionada.dataOferta}">
 				</h:outputText>
-			</p:column>
+			</p:panelGrid>
+			<br />
+			<hr />
 
-			<p:column headerText="Slecionar agenda">
-				<p:commandButton value="selecionar"
-					action="#{agendaBean.agendaUpdate()}">
-					<f:setPropertyActionListener value="#{agenda}"
-						target="#{agendaBean.agendaSelecionada}" />
-				</p:commandButton>
-			</p:column>
+			<p:dataTable filterEvent="enter"
+				value="#{agendaBean.findAgendaByOferta()}" var="agenda"
+				widgetVar="tabelaAgenda" rows="5" paginator="true"
+				paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}"
+				paginatorPosition="bottom">
 
+				<p:column headerText="Data/hora">
+					<h:outputText value="#{agenda.idagenda.dataEhora}">
+					</h:outputText>
+				</p:column>
 
-		</p:dataTable>
+				<p:column headerText="Slecionar agenda">
+					<p:commandButton value="selecionar"
+						action="#{agendaBean.agendaUpdate()}">
+						<f:setPropertyActionListener value="#{agenda}"
+							target="#{agendaBean.agendaSelecionada}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
 
-	</h:form>
-	<hr />
-
-
-</h:body>
-</html>
+		</h:form>
+	</ui:define>
+</ui:decorate>

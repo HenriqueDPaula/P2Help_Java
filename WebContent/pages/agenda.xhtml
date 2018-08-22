@@ -1,45 +1,35 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Alterar Oferta</title>
-</h:head>
-<h:body>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/template.xhtml">
+	<ui:define name="content">
 
-	<h:outputLabel value="agenda:" styleClass="title" />
-	<hr />
+		<h:form id="form">
+			<p:growl id="mensagem" />
+			<h:outputLabel value="agenda:" styleClass="title" />
+			<hr />
+			<p:panel id="panel">
+				<h:panelGrid columns="2">
+					<p:outputLabel for="datetime"
+						value="Data e hora disponivel para sua oferta:" />
+					<p:calendar id="datetime" value="#{agendaBean.dataEhora}"
+						pattern="dd/MM/yyyy HH:mm" />
+				</h:panelGrid>
+			</p:panel>
 
-	<h:form>
-		<p:messages autoUpdate="true" />
-		<p:panel id="panel">
-			<h:panelGrid columns="2">
-				<p:outputLabel for="datetime"
-					value="Data e hora disponivel para sua oferta:" />
-				<p:calendar id="datetime" value="#{agendaBean.dataEhora}"
-					pattern="dd/MM/yyyy HH:mm" />
-			</h:panelGrid>
-		</p:panel>
-
-		<p:toolbar>
-			<f:facet name="left">
-				<h:commandButton value="limpar">
-					<p:ajax update="panel" resetValues="true" />
-					<p:commandButton value="salvar agenda"
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton value="salvar"
 						action="#{agendaBean.cadastrarAgenda()}" />
-				</h:commandButton>
-			</f:facet>
-			<f:facet name="right">
-				<p:commandButton value="próximo"
-					action="#{agendaBean.redirecionarAgenda()}" />
-			</f:facet>
-		</p:toolbar>
-
-	</h:form>
-
-
-</h:body>
-</html>
+					<p:ajax update="form:panel" />
+				</f:facet>
+				<f:facet name="right">
+					<p:commandButton value="prÃ³ximo"
+						action="#{agendaBean.redirecionarAgenda()}" />
+				</f:facet>
+			</p:toolbar>
+		</h:form>
+	</ui:define>
+</ui:decorate>

@@ -1,61 +1,48 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Alterar Oferta</title>
-</h:head>
-<h:body>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<h:outputLabel value="Dados da Oferta:" styleClass="title" />
 
-	<h:outputLabel value="Dados da Oferta:" styleClass="title" />
+			<p:growl />
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Titulo: " styleClass="emphasis" />
+				<p:inputText value="#{ofertaBean.oferta.titulo}" />
 
-	<hr />
+				<h:outputLabel value="DescriÃ§Ã£o: " styleClass="emphasis" />
+				<p:inputText value="#{ofertaBean.oferta.descricao}">
+				</p:inputText>
 
-	<h:form>
+				<p:outputLabel value="Selecione um sistema" />
+				<p:selectOneMenu filter="true" value="#{ofertaBean.oferta.sistema}"
+					converter="sistemaConverter">
+					<f:selectItem itemLabel="Selecione" />
+					<f:selectItems value="#{ofertaBean.selectSistema()}">
+					</f:selectItems>
+				</p:selectOneMenu>
 
-		<p:messages />
-		<h:panelGrid columns="2">
+				<p:outputLabel value="Selecione uma categoria" />
+				<p:selectOneMenu filter="true"
+					value="#{ofertaBean.oferta.categoria}"
+					converter="categoriaConverter">
+					<f:selectItem itemLabel="Selecione" />
+					<f:selectItems value="#{ofertaBean.selectCategoria()}">
+					</f:selectItems>
+				</p:selectOneMenu>
 
+				<h:outputLabel value="Valor/hora: " styleClass="emphasis" />
+				<p:inputText value="#{ofertaBean.oferta.valorHora}" required="true" />
 
+			</h:panelGrid>
 
-			<h:outputLabel value="Titulo: " styleClass="emphasis" />
-			<p:inputText value="#{ofertaBean.oferta.titulo}" />
-
-			<h:outputLabel value="Descrição: " styleClass="emphasis" />
-			<p:inputText value="#{ofertaBean.oferta.descricao}">
-			</p:inputText>
-
-			<p:outputLabel value="Selecione um sistema" />
-			<p:selectOneMenu filter="true" value="#{ofertaBean.oferta.sistema}"
-				converter="sistemaConverter">
-				<f:selectItem itemLabel="Selecione" />
-				<f:selectItems value="#{ofertaBean.selectSistema()}">
-				</f:selectItems>
-			</p:selectOneMenu>
-
-			<p:outputLabel value="Selecione uma categoria" />
-			<p:selectOneMenu filter="true" value="#{ofertaBean.oferta.categoria}"
-				converter="categoriaConverter">
-				<f:selectItem itemLabel="Selecione" />
-				<f:selectItems value="#{ofertaBean.selectCategoria()}">
-				</f:selectItems>
-			</p:selectOneMenu>
-
-			<h:outputLabel value="Valor/hora: " styleClass="emphasis" />
-			<p:inputText value="#{ofertaBean.oferta.valorHora}" required="true" />
-
-		</h:panelGrid>
-
-		<hr />
-
-		<p:commandButton value="atualizar"
-			action="#{ofertaBean.atualizarConfirm()}" />
-		<p:commandButton value="voltar" immediate="true" action="pageUsuario" />
-	</h:form>
-
-
-</h:body>
-</html>
+			<hr />
+			<p:commandButton value="atualizar"
+				action="#{ofertaBean.atualizarConfirm()}" />
+			<p:commandButton value="voltar" immediate="true" action="pageUsuario" />
+		</h:form>
+	</ui:define>
+</ui:decorate>

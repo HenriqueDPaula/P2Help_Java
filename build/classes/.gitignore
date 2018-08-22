@@ -1,9 +1,7 @@
-/SQL/
 /controller/
 /converter/
 /dao/
-/hibernate.cfg.xml
 /model/
 /service/
-/util/
 /teste.class
+/util/

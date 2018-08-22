@@ -1,75 +1,37 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>perfil</title>
-</h:head>
-<h:body>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<p:growl id="mensagem" />
 
-	<h:form>
-		<p:messages />
-		<p:menubar>
-			<p:submenu label="Ofertas">
-				<p:menuitem value="publicar"
-					action="cadastrarOferta.jsf?faces-redirect=true" />
-				<p:menuitem value="procurar"
-					action="#{ofertaBean.redirecionaOfertas()}" />
-				<p:separator />
-				<p:menuitem value="Contratadas"
-					action="#{ofertaBean.redirecionarContratadas()}" />
-				<p:menuitem value="minhas ofertas"
-					action="#{ofertaBean.redirecionaOfertasUsuario()}" />
-			</p:submenu>
+			<p:outputLabel value="PÃ¡gina usuÃ¡rio" styleClass="title" />
+			<hr />
 
-			<p:submenu label="Perfil">
-				<p:menuitem value="informações"
-					action="#{usuarioBean.redirecionaPerfil()}" />
-				<p:menuitem value="atualizar" action="#{usuarioBean.atualizar()}" />
-				<p:separator />
-				<p:menuitem value="apagar conta" action="#{usuarioBean.delete()}" />
-			</p:submenu>
+			<p:panelGrid columns="2" border="1">
 
-			<p:menuitem value="Sair" action="#{usuarioBean.sair()}" />
+				<h:outputLabel value="Nome:  " />
+				<h:outputText value="#{usuarioBean.usuario.nome}" />
 
-		</p:menubar>
-	</h:form>
+				<h:outputLabel value="Email: " styleClass="emphasis" />
+				<h:outputText value="#{usuarioBean.usuario.email}" />
 
-	<p:outputLabel value="Página usuário" styleClass="title" />
+				<h:outputLabel value="Municipio: " styleClass="emphasis" />
+				<h:outputText value="#{usuarioBean.detalheMunicipio()}" />
 
-	<hr />
-	<h:form>
+				<h:outputLabel value="Senha: " styleClass="emphasis" />
+				<h:outputText value="#{usuarioBean.usuario.senha}" />
 
+				<h:outputLabel value="EndereÃ§o: " styleClass="emphasis" />
+				<h:outputText value="#{usuarioBean.usuario.endereco}" />
 
+				<h:outputLabel value=" nÃºmero " styleClass="emphasis" />
+				<h:outputText value="#{usuarioBean.usuario.numero}" />
 
-		<p:panelGrid columns="2" border="1">
-
-			<h:outputLabel value="Nome:  " />
-			<h:outputText value="#{usuarioBean.usuario.nome}" />
-
-			<h:outputLabel value="Email: " styleClass="emphasis" />
-			<h:outputText value="#{usuarioBean.usuario.email}" />
-
-
-			<h:outputLabel value="Municipio: " styleClass="emphasis" />
-			<h:outputText value="#{usuarioBean.detalheMunicipio()}" />
-
-			<h:outputLabel value="Senha: " styleClass="emphasis" />
-			<h:outputText value="#{usuarioBean.usuario.senha}" />
-
-
-			<h:outputLabel value="Endereço: " styleClass="emphasis" />
-			<h:outputText value="#{usuarioBean.usuario.endereco}" />
-
-			<h:outputLabel value=" número " styleClass="emphasis" />
-			<h:outputText value="#{usuarioBean.usuario.numero}" />
-
-		</p:panelGrid>
-	</h:form>
-	<hr />
-</h:body>
-
-</html>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:decorate>

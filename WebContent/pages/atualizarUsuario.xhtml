@@ -1,74 +1,59 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Atualizar Cadastro</title>
-</h:head>
-<h:body>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/template.xhtml">
+	<ui:define name="content">
 
-	<h:outputLabel value="Dados do usuário:" styleClass="title" />
+		<h:form id="form">
+			<p:growl id="mensagem" />
+			<h:outputLabel value="Dados do usuÃ¡rio:" styleClass="title" />
+			<h:inputHidden value="#{usuarioBean.usuario.idusuario}" />
 
-	<hr />
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Nome" styleClass="emphasis" />
+				<p:inputText value="#{usuarioBean.usuario.nome}" />
 
-	<h:form>
-		<p:messages />
-		<h:inputHidden value="#{usuarioBean.usuario.idusuario}" />
+				<h:outputLabel value="senha" styleClass="emphasis" />
+				<p:inputText value="#{usuarioBean.usuario.senha}">
+				</p:inputText>
 
-		<h:panelGrid columns="2">
+				<h:outputLabel value="E-mail" for="email" styleClass="emphasis" />
+				<p:inputText id="email" label="E-mail"
+					value="#{usuarioBean.usuario.email}">
+				</p:inputText>
 
+				<h:outputLabel value="EndereÃ§o" for="ender" styleClass="emphasis" />
+				<p:inputText id="ender" value="#{usuarioBean.usuario.endereco}"
+					required="true" />
 
+				<h:outputLabel value="NÃºmero" styleClass="emphasis" />
+				<p:inputText value="#{usuarioBean.usuario.numero}" />
 
-			<h:outputLabel value="Nome" styleClass="emphasis" />
-			<p:inputText value="#{usuarioBean.usuario.nome}" />
+				<h:outputText value="Bairro" styleClass="emphasis" />
+				<p:inputText value="#{usuarioBean.usuario.bairro}" />
 
-			<h:outputLabel value="senha" styleClass="emphasis" />
-			<p:inputText value="#{usuarioBean.usuario.senha}">
-			</p:inputText>
-
-			<h:outputLabel value="E-mail" for="email" styleClass="emphasis" />
-			<p:inputText id="email" label="E-mail"
-				value="#{usuarioBean.usuario.email}">
-				<f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+" />
-			</p:inputText>
-
-			<h:outputLabel value="Endereço" for="ender" styleClass="emphasis" />
-			<p:inputText id="ender" value="#{usuarioBean.usuario.endereco}"
-				required="true" />
-
-			<h:outputLabel value="Número" styleClass="emphasis" />
-			<p:inputText value="#{usuarioBean.usuario.numero}" />
-
-			<h:outputText value="Bairro" styleClass="emphasis" />
-			<p:inputText value="#{usuarioBean.usuario.bairro}" />
-
-			<h:outputText value="Complemento" styleClass="emphasis" />
-			<p:inputText value="#{usuarioBean.usuario.complemento}" />
+				<h:outputText value="Complemento" styleClass="emphasis" />
+				<p:inputText value="#{usuarioBean.usuario.complemento}" />
 
 
-			<h:outputLabel value="Municipio: " />
-			<p:selectOneMenu filter="true"
-				value="#{usuarioBean.usuario.municipio}" required="true"
-				requiredMessage="Municipio é obrigatório"
-				converter="municipioConverter">
-				<f:selectItems value="#{usuarioBean.selectMunicipios()}">
-				</f:selectItems>
+				<h:outputLabel value="Municipio: " />
+				<p:selectOneMenu filter="true"
+					value="#{usuarioBean.usuario.municipio}" required="true"
+					requiredMessage="Municipio Ã© obrigatÃ³rio"
+					converter="municipioConverter">
+					<f:selectItems value="#{usuarioBean.selectMunicipios()}">
+					</f:selectItems>
+				</p:selectOneMenu>
+			</h:panelGrid>
 
-			</p:selectOneMenu>
+			<hr />
+			<p:commandButton value="voltar" immediate="true" action="pageUsuario" />
 
-		</h:panelGrid>
+			<p:commandButton action="#{usuarioBean.confirmUpdate()}"
+				update="form:mensagem" value="Atualizar" />
 
-		<hr />
-
-		<h:commandButton action="#{usuarioBean.confirmUpdate()}"
-			value="Atualizar" />
-		<p:commandButton value="voltar" immediate="true" action="pageUsuario" />
-
-	</h:form>
-
-
-</h:body>
-</html>
+		</h:form>
+	</ui:define>
+</ui:decorate>

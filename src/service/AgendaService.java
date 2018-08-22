@@ -7,6 +7,7 @@ import dao.AgendaDAO;
 import java.util.Date;
 import model.Agenda;
 import model.AgendaPK;
+import model.Usuario;
 
 public class AgendaService implements Serializable {
 
@@ -66,8 +67,8 @@ public class AgendaService implements Serializable {
 		return this.agendaDAO.listById(idoferta);
 	}
 
-	public List<Agenda> listAgendaByIdUsuario(int idusuario) {
-		return this.agendaDAO.listAgendaByIdUsuario(idusuario);
+	public List<Agenda> listAgendaByIdUsuario(Usuario usuario) {
+		return this.agendaDAO.listAgendaByIdUsuario(usuario);
 	}
 
 	/**

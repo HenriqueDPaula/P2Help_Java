@@ -1,83 +1,54 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Ofertas</title>
-</h:head>
-<h:body>
-	<h:form>
-		<p:messages />
-		<p:menubar>
-			<p:submenu label="Ofertas">
-				<p:menuitem value="publicar" action="cadastrarOferta" />
-				<p:menuitem value="procurar"
-					action="#{ofertaBean.redirecionaOfertas()}" />
-				<p:separator />
-				<p:menuitem value="minhas ofertas"
-					action="#{ofertaBean.redirecionaOfertasUsuario()}" />
-			</p:submenu>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<p:growl />
+			<p:dataTable filterEvent="enter" value="#{ofertaBean.listById()}"
+				var="ofertas" widgetVar="tabelaOferta" rows="15" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" paginatorPosition="bottom">
 
-			<p:submenu label="Perfil">
-				<p:menuitem value="informações"
-					action="#{usuarioBean.redirecionaPerfil()}" />
-				<p:menuitem value="atualizar" action="#{usuarioBean.atualizar()}" />
-				<p:separator />
-				<p:menuitem value="apagar conta" action="#{usuarioBean.delete()}" />
-			</p:submenu>
+				<h:inputHidden value="#{ofertas.idoferta}" />
 
-			<p:menuitem value="Sair" action="#{usuarioBean.sair()}" />
+				<p:column headerText="Titulo">
+					<h:outputText value="#{ofertas.titulo}" />
+				</p:column>
 
-		</p:menubar>
-	</h:form>
-	<h:form>
+				<p:column headerText="Sistema">
+					<h:outputText value="#{ofertas.sistema.nome}" />
+				</p:column>
 
+				<p:column headerText="Categoria">
+					<h:outputText value="#{ofertas.categoria.descricao}" />
+				</p:column>
 
-		<p:dataTable filterEvent="enter" value="#{ofertaBean.listById()}"
-			var="ofertas" widgetVar="tabelaOferta" rows="15" paginator="true"
-			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15" paginatorPosition="bottom">
+				<p:column headerText="Valor/hora">
+					<h:outputText value="#{ofertas.valorHora}">
+						<f:convertNumber pattern="Â¤#,##0.00" currencySymbol="R$" />
+					</h:outputText>
+				</p:column>
 
-			<h:inputHidden value="#{ofertas.idoferta}" />
-
-			<p:column headerText="Titulo">
-				<h:outputText value="#{ofertas.titulo}" />
-			</p:column>
-
-			<p:column headerText="Sistema">
-				<h:outputText value="#{ofertas.sistema.nome}" />
-			</p:column>
-
-			<p:column headerText="Categoria">
-				<h:outputText value="#{ofertas.categoria.descricao}" />
-			</p:column>
-
-			<p:column headerText="Valor/hora">
-				<h:outputText value="#{ofertas.valorHora}">
-					<f:convertNumber pattern="¤#,##0.00" currencySymbol="R$" />
-				</h:outputText>
-			</p:column>
-
-			<p:column>
-				<p:commandButton value="Editar" action="#{ofertaBean.atualizar()}">
-					<f:setPropertyActionListener value="#{ofertas}"
-						target="#{ofertaBean.oferta}" />
-				</p:commandButton>
-			</p:column>
-			<p:column>
-				<p:commandButton value="Excluir"
-					action="#{ofertaBean.deleteOferta()}">
-					<f:setPropertyActionListener value="#{ofertas}"
-						target="#{ofertaBean.oferta}" />
-				</p:commandButton>
-			</p:column>
-		</p:dataTable>
-	</h:form>
-	<h:form>
-		<p:commandButton action="pageUsuario" value="voltar" />
-	</h:form>
-</h:body>
-</html>
+				<p:column>
+					<p:commandButton value="Editar" action="#{ofertaBean.atualizar()}">
+						<f:setPropertyActionListener value="#{ofertas}"
+							target="#{ofertaBean.oferta}" />
+					</p:commandButton>
+				</p:column>
+				<p:column>
+					<p:commandButton value="Excluir"
+						action="#{ofertaBean.deleteOferta()}">
+						<f:setPropertyActionListener value="#{ofertas}"
+							target="#{ofertaBean.oferta}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		<h:form>
+			<p:commandButton action="pageUsuario" value="voltar" />
+		</h:form>
+	</ui:define>
+</ui:decorate>

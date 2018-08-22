@@ -1,41 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<!-- <?xml version="1.0" encoding="ISO-8859-1" ?> -->
-<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
-<!-- <html xmlns="http://www.w3.org/1999/xhtml" -->
-<!-- 	xmlns:h="http://java.sun.com/jsf/html" -->
-<!-- 	xmlns:f="http://java.sun.com/jsf/core" -->
-<!-- 	xmlns:p="http://primefaces.org/ui"> -->
-
-<!-- <h:head> -->
-<!-- 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /> -->
-<!-- 	<title>Teste</title> -->
-<!-- </h:head> -->
-<!-- <h:body> -->
-
-
-<!-- 	<form id="formLogin" method="post" -->
-<!--  	action="#(request.contextPath)/j_spring_security_check" > -->
-
-
-<!-- 		<label for="">Usurio (email)</label> <br /> -->
-<!-- 		<input type="text" name="j_username" /> <br /> -->
-<!-- 		<br /> -->
-
-<!-- 		<label for="">Usurio (email)</label> <br /> -->
-<!-- 		<input type="password" name="j_password" /> -->
-
-
-<!-- 		<input type="submit" value="Entrar" /> -->
-<!-- 	</form> -->
-<!-- 	<h:form> -->
-<!-- 		<h:commandLink action="pages/cadastrarUsuario" value="Cadastrar" /> -->
-<!-- 	</h:form> -->
-
-
-<!-- </h:body> -->
-<!-- </html> -->
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -46,30 +9,100 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>Login</title>
 </h:head>
-<h:body>
-	<h:form>
-		<p:messages id="messages" autoUpdate="true" showDetail="true" />
-		<h:panelGrid>
-			<p:outputLabel value="Email" for="email" />
-			<p:inputText id="email" value="#{usuarioBean.email}" />
-			<br></br>
-			<p:outputLabel value="Senha" for="senha" />
-			<p:password id="senha" value="#{usuarioBean.senha}" required="true"
-				requiredMessage="Senha é obrigatório" />
-		</h:panelGrid>
-		<p:commandButton action="#{usuarioBean.login()}" value="Entrar"
-			type="submit">
-		</p:commandButton>
+
+<body bgcolor="#dddddd">
+	<h:form id="form">
+		<style>
+.noBorders tr, .noBorders td {
+	background: none !important;
+	border: none !important;
+}
+
+.inputWithoutBorder {
+	border-bottom: 1px solid green;
+	border-top: 0px !important;
+	border-right: 0px;
+	border-left: 0px;
+	width: 100%;
+	margin-left: 15px;
+}
+
+.outPut {
+	font-size: 13px;
+	width: 10% !important;
+	padding: 0px;
+	background-color: none;
+}
+
+.Div1 {
+	background-color: white;
+	width: 300px; /* this is needed */
+	height: 225px; /* this is needed */
+	padding: 10px; /* this is for styling only */
+	position: absolute; /* this is needed */
+	margin: auto; /* this is needed */
+	left: 0; /* this is needed */
+	right: 0; /* this is needed */
+	top: 0; /* this is needed */
+	bottom: 0; /* this is needed */
+	box-shadow: 5px 7px #888888;
+}
+
+#mensagem {
+	background: yellow !important;
+}
+
+.Div2 {
+	margin-top: 35px;
+	width: 100%;
+}
+
+.cadastrar {
+	font-size: 11px;
+	color: green;
+	float: right;
+	margin-left: 69px;
+}
+
+.login {
+	background: #3493e6cc !important;
+	padding: 5px 15px 5px 15px;
+	font-size: 14px !important;
+	color: white !important;
+	border: none !important;
+	font-size: 14px !important;
+	float: left;
+}
+</style>
+		<p:growl id="mensagem" />
+		<div class="Div1">
+			<div class="Div2">
+				<p:panelGrid columns="1" styleClass="noBorders"
+					columnClasses="ui-grid-col2">
+					<p:inputText placeholder="Email" styleClass="inputWithoutBorder"
+						value="#{usuarioBean.email}"
+						style="border-bottom: 1px solid green; border-top: 0px; border-left: 0px; border-right:0px;" />
+					<p:password styleClass="inputWithoutBorder" placeholder="Senha"
+						value="#{usuarioBean.senha}"
+						style="margin-top:10px; border-bottom: 1px solid green; border-top: 0px; border-left: 0px; border-right:0px;" />
+				</p:panelGrid>
+
+				<p:panelGrid columns="2" styleClass="noBorders"
+					style="margin-top:20px; margin-left: 16px;">
+					<p:commandButton value="Login" styleClass="login" update="form"
+						action="#{usuarioBean.login()}" />
+					<h:commandLink value="Cadastre-se" styleClass="cadastrar"
+						action="#{usuarioBean.redirecionarCadastro()}" />
+				</p:panelGrid>
+			</div>
+		</div>
 	</h:form>
-	<h:form>
-		<p:commandButton action="#{usuarioBean.redirecionarCadastro()}"
-			value="Cadastrar" immediate="true" />
-	</h:form>
-
-
-
-
-
-
-</h:body>
+</body>
 </html>
+
+
+
+
+
+
+

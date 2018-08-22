@@ -1,62 +1,50 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/template.xhtml">
+	<ui:define name="content">
 
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Cadastrar Oferta</title>
-</h:head>
-<h:body>
-	<h:form>
+		<h:form id="form">
+			<p:growl id="mensagem" />
+			<h3>Cadastrar Oferta</h3>
+			<h:panelGrid columns="2" columnClasses="ui-grid-col-6, ui-grid-col-6">
+				<p:outputLabel value="Titulo: " />
+				<p:inputText value="#{ofertaBean.titulo}" />
 
-		<p:messages />
-		<h:panelGrid columns="2">
-			<p:outputLabel value="Titulo: " />
-			<p:inputText value="#{ofertaBean.titulo}" />
+				<p:outputLabel value="Selecione um sistema" />
+				<h:panelGroup>
+					<p:selectOneMenu filter="true" value="#{ofertaBean.sistema}"
+						converter="sistemaConverter">
+						<f:selectItem itemLabel="Selecione" />
+						<f:selectItems value="#{ofertaBean.selectSistema()}">
+						</f:selectItems>
+					</p:selectOneMenu>
+					<p:commandButton value="add" immediate="true"
+						action="cadastrarSistema" />
+				</h:panelGroup>
 
-			<p:outputLabel value="Descrição: " />
-			<p:inputTextarea value="#{ofertaBean.descricao}" />
-
-
-			<p:outputLabel value="Selecione um sistema" />
-			<h:panelGroup>
-				<p:selectOneMenu filter="true" value="#{ofertaBean.sistema}"
-					converter="sistemaConverter">
+				<p:outputLabel value="Selecione uma categoria" />
+				<p:selectOneMenu filter="true" value="#{ofertaBean.categoria}"
+					converter="categoriaConverter">
 					<f:selectItem itemLabel="Selecione" />
-					<f:selectItems value="#{ofertaBean.selectSistema()}">
+					<f:selectItems value="#{ofertaBean.selectCategoria()}">
 					</f:selectItems>
 				</p:selectOneMenu>
-				<p:commandButton value="add" immediate="true"
-					action="cadastrarSistema" />
-			</h:panelGroup>
-			<p:outputLabel value="Selecione uma categoria" />
-			<p:selectOneMenu filter="true" value="#{ofertaBean.categoria}"
-				converter="categoriaConverter">
-				<f:selectItem itemLabel="Selecione" />
-				<f:selectItems value="#{ofertaBean.selectCategoria()}">
-				</f:selectItems>
-			</p:selectOneMenu>
 
+				<p:outputLabel value="Valor por hora(R$): " />
+				<p:inputText value="#{ofertaBean.valorHora}" styleClass="left" />
 
-			<!--			<p:outputLabel value="Ativar a oferta: " />
-			<p:selectOneRadio value="#{ofertaBean.radio}" required="true">
-				<f:selectItem itemLabel="Sim" itemValue="true" />
-				<f:selectItem itemLabel="NÃ£o" itemValue="false" />
-			</p:selectOneRadio>-->
-		</h:panelGrid>
-		<p:outputLabel value="Valor por hora(R$): " />
-		<p:inputText value="#{ofertaBean.valorHora}" />
-		<br />
+				<p:outputLabel value="DescriÃ§Ã£o: " />
+				<p:inputTextarea value="#{ofertaBean.descricao}" styleClass="right"
+					style="margin-left:96px; " />
 
-
-		<p:commandButton value="salvar" action="#{ofertaBean.cadastrar()}" />
-		<p:commandButton value="voltar" immediate="true" action="pageUsuario" />
-
-
-	</h:form>
-
-</h:body>
-</html>
+				<p:commandButton value="voltar" immediate="true"
+					action="pageUsuario" />
+				<p:commandButton value="salvar" styleClass="right"
+					update="form:mensagem" action="#{ofertaBean.cadastrar()}" />
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:decorate>

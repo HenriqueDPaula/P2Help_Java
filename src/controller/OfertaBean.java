@@ -2,13 +2,10 @@ package controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.application.ViewHandler;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 
@@ -22,9 +19,10 @@ import service.CategoriaService;
 import service.OfertaService;
 import service.SistemaService;
 import service.UsuarioService;
+import util.Util;
 
-@Named("ofertaBean")
 @SessionScoped
+@Named("ofertaBean")
 public class OfertaBean implements Serializable {
 
 	/**
@@ -67,7 +65,7 @@ public class OfertaBean implements Serializable {
 		this.ofertaService = new OfertaService();
 		this.usuarioService = new UsuarioService();
 		selectSistema();
-		usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioL"); // usuario
+		usuario = (Usuario) Util.getSessionParameter("usuarioL"); // usuario
 
 	}
 
@@ -77,15 +75,13 @@ public class OfertaBean implements Serializable {
 	 * @return
 	 */
 	public List<SelectItem> selectCategoria() {
-		if (categoriasSelect == null) {
-			categoriasSelect = new ArrayList<SelectItem>();
-			List<Categoria> listacategoria = new ArrayList<Categoria>();
-			listacategoria = categoriaService.listar();
-			if (listacategoria != null && !listacategoria.isEmpty()) {
-				for (Categoria categoria : listacategoria) {
-					SelectItem item1 = new SelectItem(categoria, categoria.getDescricao());
-					categoriasSelect.add(item1);
-				}
+		categoriasSelect = new ArrayList<SelectItem>();
+		List<Categoria> listacategoria = new ArrayList<Categoria>();
+		listacategoria = categoriaService.listar();
+		if (listacategoria != null && !listacategoria.isEmpty()) {
+			for (Categoria categoria : listacategoria) {
+				SelectItem item1 = new SelectItem(categoria, categoria.getDescricao());
+				categoriasSelect.add(item1);
 			}
 		}
 		return categoriasSelect;
@@ -109,36 +105,34 @@ public class OfertaBean implements Serializable {
 		return sistemasSelect;
 	}
 
-	/**
-	 * Cadastrar Oferta
-	 *o
-	 * @return
-	 */
-	public String cadastrar() {
-
-		oferta = new Oferta();
+	public Oferta novaOferta() {
+		Oferta oferta = new Oferta();
 		oferta.setTitulo(titulo);
-		java.util.Date date = new java.util.Date(); // Instanciando um objeto do tipo Date da classe java.util
-		long t = date.getTime();
-		java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(t);
-		oferta.setDataOferta(sqlTimestamp); // Data e hora do sistema
+		oferta.setDataOferta(new Date()); // Data e hora do sistema
 		oferta.setDescricao(descricao);
 		oferta.setCategoria(categoria);
 		oferta.setSistema(sistema);
 		oferta.setUsuario(usuario);
 		oferta.setStatus('s'); // Ativo
 		oferta.setValorHora(valorHora);
+		return oferta;
+	}
+
+	/**
+	 * Cadastrar Oferta o
+	 * 
+	 * @return
+	 */
+	public String cadastrar() {
+		oferta = novaOferta();
 		try {
 			ofertaService.save(oferta);
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ofertaC", oferta); // oferta
-																											// sessão
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Oferta cadastrada com sucesso!", " "));
+			Util.setSessionParameter("ofertaC", oferta); // oferta // sessão
+			Util.mensagemInfo("Oferta cadastrada com sucesso!");
 			return "agenda";
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro, não foi possivel cadastrar a oferta", " "));
+			Util.mensagemErro("Não foi possivel cadastrar a oferta");
 			return "cadastrarOferta";
 		}
 
@@ -149,9 +143,9 @@ public class OfertaBean implements Serializable {
 	 *
 	 * @return Ofertas
 	 */
-	public String atualizar() {
+	public Oferta encontrarOfertaPeloID() {
 		this.oferta = ofertaService.findById(this.oferta.getIdoferta()); // Encontrando oferta pelo id para atualizar
-		return "atualizarOferta";
+		return oferta;
 	}
 
 	/**
@@ -159,20 +153,14 @@ public class OfertaBean implements Serializable {
 	 *
 	 * @return
 	 */
-	public String atualizarConfirm() {
-
-		java.util.Date date = new java.util.Date(); // Instanciando um objeto do tipo Date da classe java.util
-		long t = date.getTime();
-		java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(t);
-		oferta.setDataOferta(sqlTimestamp); // Data e hora do sistema
+	public String atualizar() {
+		oferta.setDataOferta(new Date()); // Data e hora do sistema
 		try {
 			ofertaService.atualizar(oferta);
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Oferta Atualizada", " "));
+			Util.mensagemInfo("Oferta atualizada com sucesso!");
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro, não foi possivel atualizar a oferta", " "));
+			Util.mensagemErro("Erro, não foi possivel atualizar a oferta");
 		}
 
 		return "pageOferta";
@@ -184,16 +172,7 @@ public class OfertaBean implements Serializable {
 	 * @return lista de ofertas
 	 */
 	public List<Oferta> listarOfertas() {
-
 		listOfertas = ofertaService.listarOfertas();
-		// for (int i = 0; i < listOfertas.size(); i++) {
-		// if (oferta.getStatus() == 'n') {
-		// return listOfertas;
-		// }else {
-		//
-		// }
-		// }
-
 		return listOfertas;
 	}
 
@@ -204,11 +183,10 @@ public class OfertaBean implements Serializable {
 	 */
 	public List<Oferta> listById() {
 		listOferta = ofertaService.listById(usuario.getIdusuario());
-		if (listOferta != null) {
+		if (listOferta != null || !listOferta.isEmpty()) {
 			return listOferta;
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "nenhuma", " Oferta cadastrada"));
+			Util.mensagemInfo("Não há ofertas cadastradas");
 			return null;
 		}
 	}
@@ -217,17 +195,14 @@ public class OfertaBean implements Serializable {
 	 * Apagar Oferta
 	 */
 	public String deleteOferta() {
-		this.oferta = ofertaService.findById(this.oferta.getIdoferta());
+		this.oferta = encontrarOfertaPeloID();
 		try {
 			deleteConfirm(); // Método chamando a service de oferta
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Oferta Excluida", " "));
+			Util.mensagemInfo("Oferta excluída!");
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contrato atrelado a esta oferta!", " "));
+			Util.mensagemInfo("Contrato atrelado a esta oferta!");
 		}
-
 		return "pageUsuario";
 
 	}
@@ -236,93 +211,60 @@ public class OfertaBean implements Serializable {
 	 * Deletar oferta
 	 */
 	public void deleteConfirm() {
-		ofertaService.delete(this.oferta);
+		try {
+			ofertaService.delete(this.oferta);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	/**
-	 * M�todo para retornar nome do sistema
-	 *
-	 * @return Nome sistema
-	 */
-	public String detalheSistema() {
-
-		return oferta.getSistema().getNome();
-	}
-
-	/**
-	 * M�todo para retornar nome da categoria
-	 *
-	 * @return Descricao Categoria
-	 */
-	public String detalheCategoria() {
-
-		return oferta.getCategoria().getDescricao();
-	}
-
-	/*
-	 * Redirecionamento de p�gina
-	 */
-	public String redirecionaOfertas() {
-		return "Ofertas";
-	}
-
-	public String redirecionarContratadas() {
-		return "ofertasContratadas";
-	}
-
-	/*
-	 * Redirecionamento de p�gina
-	 */
-	public String redirecionaCadastroOferta() {
-		return "cadastrarOferta";
-	}
-
-	public String redirecionaOfertasUsuario() {
-		return "ofertasUsuario";
-	}
-
-	// public void refresh() {
-	// FacesContext context = FacesContext.getCurrentInstance();
-	// Application application = context.getApplication();
-	// ViewHandler viewHandler = application.getViewHandler();
-	// UIViewRoot viewRoot = viewHandler.createView(context,
-	// context.getViewRoot().getViewId());
-	// context.setViewRoot(viewRoot);
-	// context.renderResponse();
-	// }
-	public void refresh() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		String viewId = context.getViewRoot().getViewId();
-		ViewHandler handler = context.getApplication().getViewHandler();
-		UIViewRoot root = handler.createView(context, viewId);
-		root.setViewId(viewId);
-		context.setViewRoot(root);
+	public Sistema novoSistema() {
+		Sistema sistema = new Sistema();
+		sistema.setFabricante(sistemaNome);
+		sistema.setNome(sistemaFabricante);
+		return sistema;
 	}
 
 	public void cadastrarSistema() {
-		sistema = new Sistema();
-		sistema.setFabricante(sistemaNome);
-		sistema.setNome(sistemaFabricante);
 		try {
+			sistema = novoSistema();
 			sistemaService.save(sistema);
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Sistema, cadastrado", " "));
+			Util.mensagemInfo("Sistema cadastrado com sucesso");
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Houve um erro, sistema não cadastrado", " "));
+			Util.mensagemErro("Não foi possivel cadastrar o sistema");
 		}
 
 	}
 
-	/**
-	 * Getters and Setters
-	 *
-	 * @return
-	 */
+	public String detalheSistema() {
+		return oferta.getSistema().getNome();
+	}
+
+	public String detalheCategoria() {
+		return oferta.getCategoria().getDescricao();
+	}
+
+	public String redirecionaOfertas() {
+		return "Ofertas.jsf";
+	}
+
+	public String redirecionarContratadas() {
+		return "ofertasContratadas.jsf";
+	}
+
+	public String redirecionaCadastroOferta() {
+		return "cadastrarOferta.jsf";
+	}
+
+	public String redirecionaOfertasUsuario() {
+		return "ofertasUsuario.jsf";
+	}
+
+	// GETTERS AND SETTERS
 	public String redirecionarSistema() {
-		return "cadastrarSistema";
+		return "cadastrarSistema.jsf";
 	}
 
 	public Oferta getOferta() {
@@ -506,20 +448,7 @@ public class OfertaBean implements Serializable {
 	public void setListOfertas(List<Oferta> listOfertas) {
 		this.listOfertas = listOfertas;
 	}
-	// public void onRowSelect(SelectEvent event) {
-	// FacesMessage msg = new FacesMessage("Car Selected", event.;
-	// FacesContext.getCurrentInstance().addMessage(null, msg);
-	// }
-	//
-	// public void onRowUnselect(UnselectEvent event) {
-	// FacesMessage msg = new FacesMessage("Car Unselected", ((Car)
-	// event.getObject()).getId());
-	// FacesContext.getCurrentInstance().addMessage(null, msg);
-	// }
 
-	/**
-	 * @return the ofertaSelecionada
-	 */
 	/**
 	 * @return the flagModal
 	 */

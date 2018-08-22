@@ -9,6 +9,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import model.Agenda;
+import model.Avaliacao;
+import model.Contratacao;
+import model.Usuario;
 import util.HibernateUtil;
 
 public class AgendaDAO implements Serializable {
@@ -19,11 +22,14 @@ public class AgendaDAO implements Serializable {
 	private static final long serialVersionUID = 871298166172188592L;
 	private Session session;
 	private Criteria criteria;
+	private ContratacaoDAO contratacaoDAO;
+	private AvaliacaoDAO avaliacaoDAO;
 
-	//
-	// public AgendaDAO() {
-	// this.session = HibernateUtil.getSessionFactory().openSession();
-	// }
+	public AgendaDAO() {
+		contratacaoDAO = new ContratacaoDAO();
+		avaliacaoDAO = new AvaliacaoDAO();
+	}
+
 	/**
 	 * Persistir objeto agenda no banco
 	 *
@@ -31,9 +37,8 @@ public class AgendaDAO implements Serializable {
 	public void save(Agenda agenda) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		org.hibernate.Transaction t = session.beginTransaction();
-		session.persist(agenda);
 		try {
-
+			session.persist(agenda);
 			t.commit();
 
 		} catch (Exception e) {
@@ -111,16 +116,31 @@ public class AgendaDAO implements Serializable {
 		return listAgenda;
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Agenda> listAgendaByIdUsuario(int idusuario) {
+	@SuppressWarnings({ "unchecked", "unlikely-arg-type" })
+	public List<Agenda> listAgendaByIdUsuario(Usuario usuario) {
 		List<Agenda> listAgendaByIdUsuario = null;
 
 		session = HibernateUtil.getSessionFactory().openSession();
 
 		String hql = "from Agenda where IDUSUARIO = :idusuario";
 		Query query = (Query) session.createQuery(hql);
-		query.setParameter("idusuario", idusuario);
+		query.setParameter("idusuario", usuario.getIdusuario());
+
 		listAgendaByIdUsuario = query.list();
+
+		if (listAgendaByIdUsuario != null) {
+
+			for (Agenda agenda : listAgendaByIdUsuario) {
+				Contratacao contratacao = contratacaoDAO.findById(agenda.getIdagenda().getOferta().getIdoferta(),
+						agenda.getIdagenda().getDataEhora());
+				Avaliacao avaliacao = avaliacaoDAO.findContratacaoAvaliada(contratacao.getIdcontratacao());
+
+				if (avaliacao != null) /* SE ESTÁ AGENDA ESTÁ VINCULADA A UM CONTRATO JÁ AVALIADO */
+					listAgendaByIdUsuario.remove(avaliacao.getContratacao().getAgenda()
+							.getIdagenda()); /* FILTRAR APENAS AS CONTRATAÇÕES NÃO AVALIADAS */
+			}
+
+		}
 		return listAgendaByIdUsuario;
 	}
 
